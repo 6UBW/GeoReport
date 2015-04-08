@@ -1,5 +1,7 @@
 package ubw6.com.georeport;
 
+import android.util.Log;
+
 import junit.framework.TestCase;
 
 /**
