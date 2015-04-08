@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/question_textView"
+        android:text="I won\'t appear later"
+        android:layout_marginBottom="60dp"
+        android:layout_above="@+id/true_button"
+        android:layout_toRightOf="@+id/true_button"
+        android:layout_toEndOf="@+id/true_button" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/true_button"
+        android:id="@+id/true_button"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/next_button"
+        android:layout_toStartOf="@+id/next_button" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/false_button"
+        android:id="@+id/false_button"
+        android:layout_marginRight="110dp"
+        android:layout_marginEnd="110dp"
+        android:layout_above="@+id/next_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/next_button"
+        android:id="@+id/next_button"
+        android:layout_marginTop="76dp"
+        android:layout_below="@+id/true_button"
+        android:layout_toLeftOf="@+id/false_button"
+        android:layout_toStartOf="@+id/false_button" />
+
+</RelativeLayout>
