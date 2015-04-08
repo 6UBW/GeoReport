@@ -10,9 +10,9 @@ import junit.framework.TestCase;
  */
 public class WebFeedTest extends TestCase {
 
-    // Tests the results of testReadURL
-    public void testReadURL() throws Exception {
-        String res = WebFeed.readURL("http://450.atwebpages.com/test.php").getString("result");
+    // Tests the results of webStatus
+    public void webStatus() throws Exception {
+        String res = WebFeed.webStatus();
         assertEquals(res, "success");
     }
 }

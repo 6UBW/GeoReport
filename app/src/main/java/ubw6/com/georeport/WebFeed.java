@@ -27,13 +27,31 @@ public class WebFeed {
     // TODO method that only returns result string?
     // TODO URL parsing (for spaces, question marks, ect...)
     // TODO store URL as a field and simply pass webservice name?
+    // TODO unique method for each service? ie: String createUser()?
 
     /** Tag used for Log calls within this class. */
     private static String LOG_TAG = "WebFeed";
 
     // Empty Constructor
-    public WebFeed() {
-        // TODO just keep default constructor?
+    private WebFeed() {
+        // Does nothing
+    }
+
+    public static String webStatus() {
+        String res;
+        final JSONObject jO = readURL("http://450.atwebpages.com/test.php");
+
+        if (jO == null) {
+            res = "fail";
+        } else {
+            try {
+                res = jO.getString("result");
+            } catch (JSONException e) {
+                res = "fail";
+            }
+        }
+
+        return res;
     }
 
     /**
@@ -42,7 +60,7 @@ public class WebFeed {
      * @param url URL of web service
      * @return JSONObject of response
      */
-    public static JSONObject readURL(final String url) {
+    private static JSONObject readURL(final String url) {
 
         /** Catches the input stream from the http response. */
         InputStream inStream = null;

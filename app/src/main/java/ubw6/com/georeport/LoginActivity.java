@@ -17,8 +17,6 @@ public class LoginActivity extends ActionBarActivity {
         // to allow reading from URL
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
-        new WebFeed();
     }
 
 
