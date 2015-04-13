@@ -3,10 +3,10 @@ package ubw6.com.georeport;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
+//import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+//import android.widget.TextView;
 
 
 public class LoginActivity extends ActionBarActivity {
@@ -20,8 +20,8 @@ public class LoginActivity extends ActionBarActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        TextView t = (TextView) findViewById(R.id.mainText);
-        t.setText(WebFeed.webStatus());
+//        TextView t = (TextView) findViewById(R.id.mainText);
+//        t.setText(WebFeed.webStatus());
     }
 
 
