@@ -18,6 +18,6 @@
     <string name="label_register">Register</string>
     <string name="label_email">Email</string>
     <string name="label_pass">Password</string>
-    <string name="label_forgot">Forgot Password</string>
+    <string name="label_forgot">Forgot Your Password</string>
     <string name="label_logged">You are logged, </string>
 </resources>

@@ -25,17 +25,18 @@ public class KevinRegisterActivity extends Activity {
 
         //t = (TextView) findViewById(R.id.mainText);
         btnSubmit = (Button) findViewById(R.id.btn_register_submit);
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 txtEmail = (EditText) findViewById(R.id.txt_register_email);
                 txtPass = (EditText) findViewById(R.id.txt_register_pass);
                 txtPassConf = (EditText) findViewById(R.id.txt_register_passConf);
-                txtSecretQ = (EditText) findViewById(R.id.txt_register_secQ);
-                txtSecretA = (EditText) findViewById(R.id.txt_register_secA);
+                txtSecretQ = (EditText) findViewById(R.id.txt_register_secretQ);
+                txtSecretA = (EditText) findViewById(R.id.txt_register_secretA);
                 boxTerms = (CheckBox) findViewById(R.id.box_register_terms);
-                StringBuilder builder = new StringBuilder();
 
+                StringBuilder builder = new StringBuilder();
                 int errorCount = 0;
                 if (txtEmail.getText().toString().matches("")) {
                     errorCount++;
@@ -71,6 +72,7 @@ public class KevinRegisterActivity extends Activity {
                     Intent intent;
                     intent = new Intent(v.getContext(), KevinAccountActivity.class);
                     startActivity(intent);
+                    finish();
                 } else {
                     builder.append("Errors: " + errorCount);
                     Toast.makeText(v.getContext(), builder.toString(), Toast.LENGTH_LONG).show();
