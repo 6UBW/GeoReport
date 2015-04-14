@@ -52,7 +52,8 @@
                 android:rowOrderPreserved="false"
                 android:useDefaultMargins="true"
                 android:layout_alignParentEnd="false"
-                android:layout_alignParentRight="true">
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -171,7 +172,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="  Terms of Agreement"
-                android:id="@+id/textView"
+                android:id="@+id/lbl_register_terms"
                 android:gravity="center"
                 android:layout_alignBottom="@+id/box_register_terms"
                 android:layout_toRightOf="@+id/box_register_terms"
@@ -184,13 +185,14 @@
                 android:layout_height="wrap_content"
                 android:text="Submit"
                 android:id="@+id/btn_register_submit"
-                android:layout_below="@+id/textView"
+                android:layout_below="@+id/lbl_register_terms"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp" />
 
             <CheckBox
                 android:layout_width="wrap_content"
@@ -198,10 +200,11 @@
                 android:text="I have read the"
                 android:id="@+id/box_register_terms"
                 android:checked="false"
-                android:layout_marginTop="31dp"
+                android:layout_marginTop="20dp"
                 android:layout_below="@+id/register_gridlayout"
                 android:layout_alignLeft="@+id/btn_register_submit"
-                android:layout_alignStart="@+id/btn_register_submit" />
+                android:layout_alignStart="@+id/btn_register_submit"
+                android:layout_marginLeft="10dp" />
 
 
         </RelativeLayout>
