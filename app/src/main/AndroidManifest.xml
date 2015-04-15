@@ -32,6 +32,10 @@
             android:name=".KevinRegisterActivity"
             android:label="@string/register_app_name" >
         </activity>
+        <activity
+            android:name=".KevinRegisterTermActivity"
+            android:label="@string/registerterm_app_name" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

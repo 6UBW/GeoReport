@@ -9,7 +9,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
 /**
  * Created by kjudoy on 4/10/2015.
  */
@@ -17,7 +16,7 @@ public class KevinRegisterActivity extends Activity {
 
     private EditText txtEmail, txtPass, txtPassConf, txtSecretQ, txtSecretA;
     private Button btnSubmit;
-    private CheckBox boxTerms;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +33,6 @@ public class KevinRegisterActivity extends Activity {
                 txtPassConf = (EditText) findViewById(R.id.txt_register_passConf);
                 txtSecretQ = (EditText) findViewById(R.id.txt_register_secretQ);
                 txtSecretA = (EditText) findViewById(R.id.txt_register_secretA);
-                boxTerms = (CheckBox) findViewById(R.id.box_register_terms);
 
                 StringBuilder builder = new StringBuilder();
                 int errorCount = 0;
@@ -62,17 +60,14 @@ public class KevinRegisterActivity extends Activity {
                     errorCount++;
                     builder.append("Passwords needs to be at least 8 in length\n");
                 }
-                if (!boxTerms.isChecked()) {
-                    errorCount++;
-                    builder.append("The terms is not accepted\n");
-                }
-
+                errorCount = 0;
                 if (errorCount == 0) {
-                    Toast.makeText(v.getContext(), "Success!", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(v.getContext(), "Success!", Toast.LENGTH_LONG).show();
                     Intent intent;
-                    intent = new Intent(v.getContext(), KevinAccountActivity.class);
-                    startActivity(intent);
-                    finish();
+                    intent = new Intent(v.getContext(), KevinRegisterTermActivity.class);
+                    intent.putExtra("activity","login");
+                    startActivity(intent); //code 1001 register part 1
+                    //finish();
                 } else {
                     builder.append("Errors: " + errorCount);
                     Toast.makeText(v.getContext(), builder.toString(), Toast.LENGTH_LONG).show();
@@ -81,6 +76,14 @@ public class KevinRegisterActivity extends Activity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent;
+        intent = new Intent(this, KevinLoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
 }

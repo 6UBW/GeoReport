@@ -11,14 +11,28 @@
     <string name="main_app_name">Main</string>
     <string name="login_app_name">UILogin</string>
     <string name="myacc_app_name">UIMyAccount</string>
-    <string name="register_app_name">UIMyAccount</string>
+    <string name="register_app_name">UIRegister</string>
+    <string name="registerterm_app_name">UIRegisterTerm</string>
 
     <string name="label_login">Login</string>
+    <string name="label_next">Next</string>
     <string name="label_myacc">My Account</string>
     <string name="label_register">Register</string>
     <string name="label_email">Email</string>
     <string name="label_pass">Password</string>
     <string name="label_forgot">Forgot Your Password</string>
     <string name="label_logged">You are logged, </string>
-    <string name="ihaveread">I have read the</string>
+    <string name="ihaveread">I have read the Terms and Conditions</string>
+
+    <string name="terms">
+        This is my UBW Terms and Conditions on Registering:\n\n
+        I am the bone of my sword\n
+        Steel is my body and fire is my blood\n
+        I have created over a thousand blades\n
+        Unknown to Death, Nor known to Life\n
+        Have withstood pain to create many weapons\n
+        Yet, those hands will never hold anything\n
+        So as I pray, unlimited blade works.\n
+    </string>
+    <string name="label_submit">Submit</string>
 </resources>

@@ -20,10 +20,6 @@ public class KevinAccountActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.kevin_myaccount);
 
-        // to allow reading from URL
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
         TextView t = (TextView) findViewById(R.id.lbl_myacc_email);
         t.setText("Email Dude");
 
@@ -37,6 +33,14 @@ public class KevinAccountActivity extends Activity{
                 finish();
             }
         });
-
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent;
+        intent = new Intent(this, KevinLoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
 }

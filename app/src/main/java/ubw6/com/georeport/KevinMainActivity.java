@@ -29,6 +29,7 @@ public class KevinMainActivity extends Activity{
             intent = new Intent(this, KevinAccountActivity.class);
         }
         startActivity(intent);
+        finish();
     }
 
 }
