@@ -12,12 +12,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/myacc_scrollView"
         android:isScrollContainer="false"
-        android:id="@+id/scrollView"
         android:fillViewport="true"
         android:layout_above="@+id/btn_myacc_logout"
         android:layout_below="@+id/lbl_myacc_title"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="10dp">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -42,7 +42,7 @@
                 android:layout_below="@+id/lbl_myacc_email"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:textSize="18dp" />
 
@@ -144,7 +144,7 @@
                 android:id="@+id/btn_myacc_trajetory"
                 android:layout_below="@+id/layout_myacc_endDate"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp" />
+                android:layout_marginTop="10dp" />
 
         </RelativeLayout>
     </ScrollView>
@@ -159,7 +159,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginRight="0dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="0dp"
         android:layout_marginLeft="0dp" />
 
     <TextView
@@ -174,6 +174,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="10dp" />
 
 </RelativeLayout>
