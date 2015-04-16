@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 //import android.widget.TextView;
+import android.view.View;
+import android.widget.Button;
+import android.content.Intent;
 
 
 public class LoginActivity extends ActionBarActivity {
@@ -22,8 +25,19 @@ public class LoginActivity extends ActionBarActivity {
 
 //        TextView t = (TextView) findViewById(R.id.mainText);
 //        t.setText(WebFeed.webStatus());
-    }
 
+
+//        Button button = (Button) findViewById(R.id.loginBtn);
+//
+//        button.setOnClickListener(new View.OnClickListener()
+//        {
+//            public void onClick(View v)
+//            {
+//                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -45,5 +59,10 @@ public class LoginActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void registerButton (View v) {
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(intent);
     }
 }
