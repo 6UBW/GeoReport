@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -53,12 +54,18 @@ public class KevinLoginActivity extends Activity {
                     errorCount++;
                     builder.append("Password is Empty\n");
                 }
-                if (txtPass.getText().toString().length() < 8) {
+                if (txtPass.getText().toString().length() < 6) {
                     errorCount++;
-                    builder.append("Passwords needs to be at least 8 in length\n");
+                    builder.append("Passwords needs to be at least 6 in length\n");
                 }
 
                 if (errorCount == 0) {
+                    // This would save a shared pref of the new account registered
+                    SharedPreferences sharedPref = getSharedPreferences("georeport.account_logged", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("email", txtEmail.getText().toString());
+                    editor.commit();
+
                     Toast.makeText(v.getContext(), "Success!", Toast.LENGTH_LONG).show();
                     Intent intent;
                     intent = new Intent(v.getContext(), KevinAccountActivity.class);

@@ -56,16 +56,21 @@ public class KevinRegisterActivity extends Activity {
                     errorCount++;
                     builder.append("Passwords didn't match\n");
                 }
-                if (txtPass.getText().toString().length() < 8) {
+                if (txtPass.getText().toString().length() < 6) {
                     errorCount++;
-                    builder.append("Passwords needs to be at least 8 in length\n");
+                    builder.append("Passwords needs to be at least 6 in length\n");
                 }
-                errorCount = 0;
+                //errorCount = 0;
                 if (errorCount == 0) {
                     //Toast.makeText(v.getContext(), "Success!", Toast.LENGTH_LONG).show();
                     Intent intent;
                     intent = new Intent(v.getContext(), KevinRegisterTermActivity.class);
-                    intent.putExtra("activity","login");
+                    Bundle extras = new Bundle();
+                    extras.putString("email", txtEmail.getText().toString());
+                    extras.putString("pass", txtPass.getText().toString());
+                    extras.putString("secQ", txtSecretQ.getText().toString());
+                    extras.putString("secA", txtSecretA.getText().toString());
+                    intent.putExtras(extras);
                     startActivity(intent); //code 1001 register part 1
                     //finish();
                 } else {
@@ -82,6 +87,7 @@ public class KevinRegisterActivity extends Activity {
     public void onBackPressed() {
         Intent intent;
         intent = new Intent(this, KevinLoginActivity.class);
+        // This clears all the previous activities just so the user cannot go back to prev activities
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

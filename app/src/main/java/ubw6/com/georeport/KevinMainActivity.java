@@ -18,12 +18,13 @@ public class KevinMainActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // read the shared pref
         mPreferences = getSharedPreferences(
                 "georeport.account_logged", MODE_PRIVATE);
-        loggedEmail = mPreferences.getString("email", null);
+        loggedEmail = mPreferences.getString("email", "");
 
         Intent intent;
-        if (loggedEmail == null) {
+        if (loggedEmail == "") { // check the shared pref if an email is logged in
             intent = new Intent(this, KevinLoginActivity.class);
         } else {
             intent = new Intent(this, KevinAccountActivity.class);
