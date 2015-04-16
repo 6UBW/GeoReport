@@ -33,6 +33,7 @@
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#372c24"
+                android:textStyle="bold"
                 android:text="Email"/>
             <EditText android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -42,6 +43,7 @@
             <!--  Password Label -->
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:textColor="#372c24"
                 android:text="Password"/>
             <EditText android:layout_width="fill_parent"
@@ -69,7 +71,7 @@
                 android:layout_marginTop="40dip"
                 android:layout_marginBottom="40dip"
                 android:text="Forgot Your Password?"
-                android:onClick=""
+                android:onClick="forgotPassword"
                 android:gravity="center"
                 android:textSize="18dip"
                 android:textColor="#0b84aa"/>

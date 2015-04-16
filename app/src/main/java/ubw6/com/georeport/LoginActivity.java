@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 //import android.widget.TextView;
 import android.view.View;
-import android.widget.Button;
 import android.content.Intent;
 
 
@@ -63,6 +62,11 @@ public class LoginActivity extends ActionBarActivity {
 
     public void registerButton (View v) {
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
+    public void forgotPassword (View v) {
+        Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
         startActivity(intent);
     }
 }
