@@ -8,7 +8,7 @@
     <string name="false_button">False</string>
     <string name="next_button">Next</string>
 
-    <string name="main_app_name">Main</string>
+    <string name="main_app_name">GeoTracker</string>
     <string name="login_app_name">UILogin</string>
     <string name="myacc_app_name">UIMyAccount</string>
     <string name="register_app_name">UIRegister</string>
