@@ -39,6 +39,7 @@ public class RegisterActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //method called when Agreement link is clicked
     public void readAgreement (View v) {
         Intent intent = new Intent(RegisterActivity.this, AgreementActivity.class);
         startActivity(intent);
