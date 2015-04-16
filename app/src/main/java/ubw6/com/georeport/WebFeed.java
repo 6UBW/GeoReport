@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 /**
  * WebFeed is a static class for accessing resources from the web services.
@@ -37,7 +38,11 @@ public class WebFeed {
         // Does nothing
     }
 
-    public static String webStatus() {
+    /**
+     * Check the current status of the web services
+     * @return
+     */
+    public static FeedResult webStatus() {
         String res;
         final JSONObject jO = readURL("http://450.atwebpages.com/test.php");
 
@@ -48,6 +53,64 @@ public class WebFeed {
                 res = jO.getString("result");
             } catch (JSONException e) {
                 res = "fail";
+            }
+        }
+
+        return new FeedResult(res);
+    }
+
+    /**
+     * Gets the current terms of agreement from the web service.
+     * @return Current terms of agreement
+     */
+    public static FeedResult getTerms() {
+        FeedResult res;
+        final JSONObject jO = readURL("http://450.atwebpages.com/agreement.php");
+
+        if (jO == null) {
+            res = new FeedResult(false, "Error getting terms.");
+        } else {
+            try {
+                res = new FeedResult(true, jO.getString("agreement"));
+            } catch (JSONException e) {
+                res = new FeedResult(false, "Error getting terms.");
+            }
+        }
+
+        return res;
+    }
+
+    /**
+     * Attempts to authenticate a user
+     * @param email email address of user
+     * @param password password of user
+     * @return user id in message of FeedResult if successful
+     */
+    public static FeedResult login(String email, String password) {
+        FeedResult res;
+        String eEmail, ePassword;
+        try {
+            eEmail = URLEncoder.encode(email, "utf-8");
+            ePassword = URLEncoder.encode(email, "utf-8");
+        } catch(Exception e) {
+            eEmail = "";
+            ePassword = "";
+        }
+        final JSONObject jO = readURL("http://450.atwebpages.com/login.php?email=" + eEmail + "&password=" + ePassword);
+
+        if (jO == null) {
+            res = new FeedResult(false, "Error logging in.");
+        } else {
+            try {
+                if (jO.has("userid")) {
+                    res = new FeedResult(true, jO.getString("userid"));
+                } else if (jO.has("error")) {
+                    res = new FeedResult(false, jO.getString("error"));
+                } else {
+                    res = new FeedResult(false);
+                }
+            } catch (JSONException e) {
+                res = new FeedResult(false, "Error getting terms.");
             }
         }
 

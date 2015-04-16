@@ -21,7 +21,7 @@ public class LoginActivity extends ActionBarActivity {
         StrictMode.setThreadPolicy(policy);
 
         TextView t = (TextView) findViewById(R.id.mainText);
-        t.setText(WebFeed.webStatus());
+        t.setText(WebFeed.getTerms().getMessage());
     }
 
 
