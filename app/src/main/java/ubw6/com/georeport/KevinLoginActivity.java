@@ -1,25 +1,25 @@
 package ubw6.com.georeport;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
  * Created by kjudoy on 4/10/2015.
+ * @author kjudoy
  */
 public class KevinLoginActivity extends Activity {
 
     private Button btnLogin, btnRegister;
     private EditText txtEmail, txtPass;
+    private TextView lblForgot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +28,21 @@ public class KevinLoginActivity extends Activity {
 
         btnLogin = (Button) findViewById(R.id.btn_login_login);
         btnRegister = (Button) findViewById(R.id.btn_login_register);
+        lblForgot = (TextView) findViewById(R.id.lbl_login_forgotPass);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), KevinRegisterActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        lblForgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ForgotPasswordActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -64,17 +74,21 @@ public class KevinLoginActivity extends Activity {
                     SharedPreferences sharedPref = getSharedPreferences("georeport.account_logged", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("email", txtEmail.getText().toString());
+                    editor.putString("pass", txtPass.getText().toString());
+                    //editor.putString("secQ", );
+                    //editor.putString("secA", );
                     editor.commit();
 
                     Toast.makeText(v.getContext(), "Success!", Toast.LENGTH_LONG).show();
                     Intent intent;
-                    intent = new Intent(v.getContext(), KevinAccountActivity.class);
+                    intent = new Intent(v.getContext(), KevinMyAccountActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
-                    builder.append("Errors: " + errorCount);
+                    String strError = "Errors: " + errorCount;
+                    builder.append(strError);
                     Toast.makeText(v.getContext(), builder.toString(), Toast.LENGTH_LONG).show();
-                    return;
+                    //return;
                 }
             }
         });

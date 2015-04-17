@@ -5,12 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 /**
  * Created by kjudoy on 4/10/2015.
+ * @author kjudoy
  */
 public class KevinRegisterActivity extends Activity {
 
@@ -68,15 +68,16 @@ public class KevinRegisterActivity extends Activity {
                     Bundle extras = new Bundle();
                     extras.putString("email", txtEmail.getText().toString());
                     extras.putString("pass", txtPass.getText().toString());
-                    extras.putString("secQ", txtSecretQ.getText().toString());
-                    extras.putString("secA", txtSecretA.getText().toString());
+                    //extras.putString("secQ", txtSecretQ.getText().toString());
+                    //extras.putString("secA", txtSecretA.getText().toString());
                     intent.putExtras(extras);
                     startActivity(intent); //code 1001 register part 1
                     //finish();
                 } else {
-                    builder.append("Errors: " + errorCount);
+                    String strError = "Errors: " + errorCount;
+                    builder.append(strError);
                     Toast.makeText(v.getContext(), builder.toString(), Toast.LENGTH_LONG).show();
-                    return;
+                    //return;
                 }
 
             }

@@ -25,7 +25,7 @@
             android:label="@string/login_app_name" >
         </activity>
         <activity
-            android:name=".KevinAccountActivity"
+            android:name=".KevinMyAccountActivity"
             android:label="@string/myacc_app_name" >
         </activity>
         <activity
@@ -35,6 +35,14 @@
         <activity
             android:name=".KevinRegisterTermActivity"
             android:label="@string/registerterm_app_name" >
+        </activity>
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:label="@string/forgotpass_app_name" >
+        </activity>
+        <activity
+            android:name=".KevinMyTrajectory"
+            android:label="@string/mytraj_app_name" >
         </activity>
     </application>
 

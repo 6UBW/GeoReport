@@ -5,17 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 /**
  * Created by kjudoy on 4/10/2015.
+ * @author kjudoy
  */
-public class KevinAccountActivity extends Activity{
+public class KevinMyAccountActivity extends Activity{
 
-    private Button btnLogout;
+    private Button btnLogout, btnFindTrajectory;
     private SharedPreferences mPreferences;
 
     @Override
@@ -31,11 +31,20 @@ public class KevinAccountActivity extends Activity{
         t.setText(mPreferences.getString("email", "Blank"));
 
         btnLogout = (Button) findViewById(R.id.btn_myacc_logout);
-
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 logout();
+            }
+        });
+
+        btnFindTrajectory = (Button) findViewById(R.id.btn_myacc_trajetory);
+        btnFindTrajectory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(v.getContext(), KevinMyTrajectory.class);
+                startActivity(intent);
             }
         });
     }
@@ -49,6 +58,7 @@ public class KevinAccountActivity extends Activity{
         SharedPreferences sharedPref = getSharedPreferences("georeport.account_logged", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("email", "");
+        editor.putString("pass", "");
         editor.commit();
 
         Intent intent;

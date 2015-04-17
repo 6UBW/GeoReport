@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 /**
  * Created by kjudoy on 4/10/2015.
+ * @author kjudoy
  */
 public class KevinMainActivity extends Activity{
 
@@ -24,10 +25,10 @@ public class KevinMainActivity extends Activity{
         loggedEmail = mPreferences.getString("email", "");
 
         Intent intent;
-        if (loggedEmail == "") { // check the shared pref if an email is logged in
+        if (loggedEmail.equals("")) { // check the shared pref if an email is logged in
             intent = new Intent(this, KevinLoginActivity.class);
         } else {
-            intent = new Intent(this, KevinAccountActivity.class);
+            intent = new Intent(this, KevinMyAccountActivity.class);
         }
         startActivity(intent);
         finish();
