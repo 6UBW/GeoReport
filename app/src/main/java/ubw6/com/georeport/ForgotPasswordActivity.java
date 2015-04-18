@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) SPRING15.
+ * TCSS450A - Mobile App Programming
+ * team6 - Unlimited Budget Works
+ * Romero, Kevingil kjudoy
+ * Miraflor, Crystal mirafcry
+ * Grace, Kirsten kngrace
+ * Stump, James stumpj
+ */
+
 package ubw6.com.georeport;
 
 import android.app.Activity;
@@ -10,6 +20,8 @@ import android.widget.Toast;
 /**
  * Created by crystal
  * @author crystal
+ *
+ * Class for "Forgot Password" activity
  */
 public class ForgotPasswordActivity extends Activity {
 
@@ -20,6 +32,8 @@ public class ForgotPasswordActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
+        //after email is entered and submit button is pressed, email is sent
+        //to user for password reset
         btnSubmit = (Button) findViewById(R.id.btn_forgot_submit);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,6 +50,9 @@ public class ForgotPasswordActivity extends Activity {
         });
     }
 
+    /**
+     * When back button is pressed, returns to login screen
+     */
     @Override
     public void onBackPressed() {
         Intent intent;

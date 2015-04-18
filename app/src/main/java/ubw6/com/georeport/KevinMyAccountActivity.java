@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) SPRING15.
+ * TCSS450A - Mobile App Programming
+ * team6 - Unlimited Budget Works
+ * Romero, Kevingil kjudoy
+ * Miraflor, Crystal mirafcry
+ * Grace, Kirsten kngrace
+ * Stump, James stumpj
+ */
+
 package ubw6.com.georeport;
 
 import android.app.Activity;
@@ -12,12 +22,15 @@ import android.widget.TextView;
 /**
  * Created by kjudoy on 4/10/2015.
  * @author kjudoy
+ *
+ * Creates "My Account" activity
  */
 public class KevinMyAccountActivity extends Activity{
 
     private Button btnLogout, btnFindTrajectory;
     private SharedPreferences mPreferences;
 
+    //creates my account
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +43,7 @@ public class KevinMyAccountActivity extends Activity{
                 "georeport.account_logged", MODE_PRIVATE);
         t.setText(mPreferences.getString("email", "Blank"));
 
+        //when logout button is clicked, user is logged out
         btnLogout = (Button) findViewById(R.id.btn_myacc_logout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,6 +52,7 @@ public class KevinMyAccountActivity extends Activity{
             }
         });
 
+        //when trajectory button is clicked, user is taken to trajectory screen
         btnFindTrajectory = (Button) findViewById(R.id.btn_myacc_trajetory);
         btnFindTrajectory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +69,7 @@ public class KevinMyAccountActivity extends Activity{
     //    logout();
     //}
 
+    //logout method
     private void logout() {
         SharedPreferences sharedPref = getSharedPreferences("georeport.account_logged", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();

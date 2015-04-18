@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) SPRING15.
+ * TCSS450A - Mobile App Programming
+ * team6 - Unlimited Budget Works
+ * Romero, Kevingil kjudoy
+ * Miraflor, Crystal mirafcry
+ * Grace, Kirsten kngrace
+ * Stump, James stumpj
+ */
+
 package ubw6.com.georeport;
 
 import android.app.Activity;
@@ -15,12 +25,15 @@ import android.widget.Toast;
 /**
  * Created by kjudoy on 4/14/2015.
  * @author kjudoy
+ *
+ * Class for Terms and Conditions Activity
  */
 public class KevinRegisterTermActivity extends Activity {
     private Button btnSubmit;
     private CheckBox boxTerms;
     private TextView txtTerms;
 
+    //creates terms and conditions activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +48,8 @@ public class KevinRegisterTermActivity extends Activity {
 
         btnSubmit = (Button) findViewById(R.id.btn_terms_submit);
 
+        //if checkbox is checked and user clicks submit, registration is complete
+        //user is taken to account screen
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

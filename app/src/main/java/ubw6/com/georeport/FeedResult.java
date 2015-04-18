@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) SPRING15.
+ * TCSS450A - Mobile App Programming
+ * team6 - Unlimited Budget Works
+ * Romero, Kevingil kjudoy
+ * Miraflor, Crystal mirafcry
+ * Grace, Kirsten kngrace
+ * Stump, James stumpj
+ */
+
 package ubw6.com.georeport;
 
 /**

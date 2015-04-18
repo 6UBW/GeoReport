@@ -25,6 +25,8 @@ import android.widget.Toast;
  * Created by kjudoy on 4/10/2015.
  * @author kjudoy
  *
+ * Creates Login Activity
+ *
  */
 public class KevinLoginActivity extends Activity {
 
@@ -32,6 +34,7 @@ public class KevinLoginActivity extends Activity {
     private EditText txtEmail, txtPass;
     private TextView lblForgot;
 
+    //creates login activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,7 @@ public class KevinLoginActivity extends Activity {
         btnRegister = (Button) findViewById(R.id.btn_login_register);
         lblForgot = (TextView) findViewById(R.id.lbl_login_forgotPass);
 
+        //when register button is pressed takes user to register screen
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +54,7 @@ public class KevinLoginActivity extends Activity {
             }
         });
 
+        //when forgot password link is pressed takes user to forgot password screen
         lblForgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +64,8 @@ public class KevinLoginActivity extends Activity {
             }
         });
 
+        //if email and password field is filled out appropriately and user clicks login button
+        //user is taken to their account screen
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

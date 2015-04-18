@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) SPRING15.
+ * TCSS450A - Mobile App Programming
+ * team6 - Unlimited Budget Works
+ * Romero, Kevingil kjudoy
+ * Miraflor, Crystal mirafcry
+ * Grace, Kirsten kngrace
+ * Stump, James stumpj
+ */
+
 package ubw6.com.georeport;
 
 import android.app.Activity;
@@ -11,12 +21,15 @@ import android.widget.Toast;
 /**
  * Created by kjudoy on 4/10/2015.
  * @author kjudoy
+ *
+ * Class for Register Activity
  */
 public class KevinRegisterActivity extends Activity {
 
     private EditText txtEmail, txtPass, txtPassConf, txtSecretQ, txtSecretA;
     private Button btnSubmit;
 
+    //creates register activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +38,11 @@ public class KevinRegisterActivity extends Activity {
         //t = (TextView) findViewById(R.id.mainText);
         btnSubmit = (Button) findViewById(R.id.btn_register_submit);
 
+        /**
+         * if all fields are appropriately filled out and next button is clicked,
+         * user is taken to terms and agreement screen to accept
+         * warning if fields are not filled out correctly
+         */
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +102,7 @@ public class KevinRegisterActivity extends Activity {
         });
     }
 
+    //when back is pressed, user is returned to login screen
     @Override
     public void onBackPressed() {
         Intent intent;
