@@ -21,7 +21,7 @@ import android.os.Bundle;
  *
  * Main activity
  */
-public class KevinMainActivity extends Activity{
+public class MainActivity extends Activity{
 
 
     private SharedPreferences mPreferences;
@@ -41,9 +41,9 @@ public class KevinMainActivity extends Activity{
 
         Intent intent;
         if (loggedEmail.equals("")) { // check the shared pref if an email is logged in
-            intent = new Intent(this, KevinLoginActivity.class);
+            intent = new Intent(this, AppLoginActivity.class);
         } else {
-            intent = new Intent(this, KevinMyAccountActivity.class);
+            intent = new Intent(this, MyAccountActivity.class);
         }
         startActivity(intent);
         finish();

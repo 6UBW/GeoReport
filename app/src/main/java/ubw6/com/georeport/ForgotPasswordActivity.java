@@ -42,7 +42,7 @@ public class ForgotPasswordActivity extends Activity {
                 Toast.makeText(v.getContext(), "Password sent on email!", Toast.LENGTH_LONG).show();
 
                 Intent intent;
-                intent = new Intent(v.getContext(), KevinLoginActivity.class);
+                intent = new Intent(v.getContext(), AppLoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -56,7 +56,7 @@ public class ForgotPasswordActivity extends Activity {
     @Override
     public void onBackPressed() {
         Intent intent;
-        intent = new Intent(this, KevinLoginActivity.class);
+        intent = new Intent(this, AppLoginActivity.class);
         startActivity(intent);
         finish();
     }

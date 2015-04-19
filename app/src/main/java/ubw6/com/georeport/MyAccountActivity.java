@@ -25,7 +25,7 @@ import android.widget.TextView;
  *
  * Creates "My Account" activity
  */
-public class KevinMyAccountActivity extends Activity{
+public class MyAccountActivity extends Activity{
 
     private Button btnLogout, btnFindTrajectory;
     private SharedPreferences mPreferences;
@@ -58,7 +58,7 @@ public class KevinMyAccountActivity extends Activity{
             @Override
             public void onClick(View v) {
                 Intent intent;
-                intent = new Intent(v.getContext(), KevinMyTrajectory.class);
+                intent = new Intent(v.getContext(), MyTrajectory.class);
                 startActivity(intent);
             }
         });
@@ -78,7 +78,7 @@ public class KevinMyAccountActivity extends Activity{
         editor.commit();
 
         Intent intent;
-        intent = new Intent(this, KevinLoginActivity.class);
+        intent = new Intent(this, AppLoginActivity.class);
         // This clears all the previous activities just so the user cannot go back to prev activities
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

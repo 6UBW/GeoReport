@@ -28,7 +28,7 @@ import android.widget.Toast;
  * Creates Login Activity
  *
  */
-public class KevinLoginActivity extends Activity {
+public class AppLoginActivity extends Activity {
 
     private Button btnLogin, btnRegister;
     private EditText txtEmail, txtPass;
@@ -48,7 +48,7 @@ public class KevinLoginActivity extends Activity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), KevinRegisterActivity.class);
+                Intent intent = new Intent(v.getContext(), RegisterActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -99,7 +99,7 @@ public class KevinLoginActivity extends Activity {
 
                     Toast.makeText(v.getContext(), "Success!", Toast.LENGTH_LONG).show();
                     Intent intent;
-                    intent = new Intent(v.getContext(), KevinMyAccountActivity.class);
+                    intent = new Intent(v.getContext(), MyAccountActivity.class);
                     startActivity(intent);
                     finish();
                 } else {

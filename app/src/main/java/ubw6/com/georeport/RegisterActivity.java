@@ -24,7 +24,7 @@ import android.widget.Toast;
  *
  * Class for Register Activity
  */
-public class KevinRegisterActivity extends Activity {
+public class RegisterActivity extends Activity {
 
     private EditText txtEmail, txtPass, txtPassConf, txtSecretQ, txtSecretA;
     private Button btnSubmit;
@@ -82,7 +82,7 @@ public class KevinRegisterActivity extends Activity {
                 if (errorCount == 0) {
                     //Toast.makeText(v.getContext(), "Success!", Toast.LENGTH_LONG).show();
                     Intent intent;
-                    intent = new Intent(v.getContext(), KevinRegisterTermActivity.class);
+                    intent = new Intent(v.getContext(), RegisterTermActivity.class);
                     Bundle extras = new Bundle();
                     extras.putString("email", txtEmail.getText().toString());
                     extras.putString("pass", txtPass.getText().toString());
@@ -106,7 +106,7 @@ public class KevinRegisterActivity extends Activity {
     @Override
     public void onBackPressed() {
         Intent intent;
-        intent = new Intent(this, KevinLoginActivity.class);
+        intent = new Intent(this, AppLoginActivity.class);
         // This clears all the previous activities just so the user cannot go back to prev activities
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

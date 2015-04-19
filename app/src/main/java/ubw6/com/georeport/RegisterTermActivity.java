@@ -28,7 +28,7 @@ import android.widget.Toast;
  *
  * Class for Terms and Conditions Activity
  */
-public class KevinRegisterTermActivity extends Activity {
+public class RegisterTermActivity extends Activity {
     private Button btnSubmit;
     private CheckBox boxTerms;
     private TextView txtTerms;
@@ -78,7 +78,7 @@ public class KevinRegisterTermActivity extends Activity {
                     editor.commit();
 
                     Intent intent;
-                    intent = new Intent(v.getContext(), KevinMyAccountActivity.class);
+                    intent = new Intent(v.getContext(), MyAccountActivity.class);
                     // This clears all the previous activities just so the user cannot go back to prev activities
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);

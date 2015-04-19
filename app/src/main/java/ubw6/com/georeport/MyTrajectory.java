@@ -19,7 +19,7 @@ import android.os.Bundle;
  *
  * Class for Trajectory Activity
  */
-public class KevinMyTrajectory extends Activity {
+public class MyTrajectory extends Activity {
 
     //creates trajectory activity
     @Override
