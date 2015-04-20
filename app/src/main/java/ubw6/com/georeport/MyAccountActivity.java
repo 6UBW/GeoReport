@@ -34,7 +34,7 @@ public class MyAccountActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.kevin_myaccount);
+        setContentView(R.layout.myaccount);
 
         TextView t = (TextView) findViewById(R.id.lbl_myacc_email);
 

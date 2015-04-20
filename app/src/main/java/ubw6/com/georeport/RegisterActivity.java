@@ -33,7 +33,7 @@ public class RegisterActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.kevin_register);
+        setContentView(R.layout.register);
 
         //t = (TextView) findViewById(R.id.mainText);
         btnSubmit = (Button) findViewById(R.id.btn_register_submit);
