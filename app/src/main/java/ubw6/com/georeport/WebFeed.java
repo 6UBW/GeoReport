@@ -127,6 +127,51 @@ public class WebFeed {
         return res;
     }
 
+
+    /**
+     * Attempts to register a user
+     * @param email email address of user
+     * @param password password of user
+     * @param question email address of user
+     * @param answer password of user
+     * @return FeedResult with true if successful, false with an error message if not.
+     */
+    public static FeedResult register(String email, String password, String question, String answer) {
+        FeedResult res;
+        String eEmail, ePassword, eQuestion, eAnswer;
+        try {
+            eEmail = URLEncoder.encode(email, "utf-8");
+            ePassword = URLEncoder.encode(email, "utf-8");
+            eQuestion = URLEncoder.encode(email, "utf-8");
+            eAnswer = URLEncoder.encode(email, "utf-8");
+        } catch(Exception e) {
+            eEmail = "";
+            ePassword = "";
+            eQuestion = "";
+            eAnswer = "";
+        }
+        final JSONObject jO = readURL("http://450.atwebpages.com/adduser.php?email=" + eEmail + "&password=" + ePassword
+                + "&question=" + eQuestion + "&answer=" + eAnswer);
+
+        if (jO == null) {
+            res = new FeedResult(false, "Error creating account.");
+        } else {
+            try {
+                if (jO.getString("result").equalsIgnoreCase("success")) {
+                    res = new FeedResult(true);
+                } else if (jO.has("error")) {
+                    res = new FeedResult(false, jO.getString("error"));
+                } else {
+                    res = new FeedResult(false);
+                }
+            } catch (JSONException e) {
+                res = new FeedResult(false, "Error creating account.");
+            }
+        }
+
+        return res;
+    }
+
     /**
      * Given a URL, gets the JSON response and returns it.
      *
