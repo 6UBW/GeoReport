@@ -22,7 +22,7 @@ import java.net.URLEncoder;
  *
  *
  * @author James Stump
- * @version 4/7/15
+ * @version 4/20/15
  */
 public class WebFeed {
     // TODO method that only returns result string?
@@ -42,7 +42,7 @@ public class WebFeed {
      * Check the current status of the web services
      * @return
      */
-    public static FeedResult webStatus() {
+    public static boolean webStatus() {
         String res;
         final JSONObject jO = readURL("http://450.atwebpages.com/test.php");
 
@@ -56,7 +56,7 @@ public class WebFeed {
             }
         }
 
-        return new FeedResult(res);
+        return new FeedResult(res).isSuccess();
     }
 
     /**
@@ -91,7 +91,7 @@ public class WebFeed {
         String eEmail, ePassword;
         try {
             eEmail = URLEncoder.encode(email, "utf-8");
-            ePassword = URLEncoder.encode(email, "utf-8");
+            ePassword = URLEncoder.encode(password, "utf-8");
         } catch(Exception e) {
             eEmail = "";
             ePassword = "";
