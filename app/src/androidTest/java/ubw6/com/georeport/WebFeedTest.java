@@ -13,8 +13,8 @@ import junit.framework.TestCase;
 public class WebFeedTest extends TestCase {
 
     // Tests the results of webStatus
-    public void webStatus() throws Exception {
-        String res = WebFeed.webStatus();
-        assertEquals(res, "success");
+    public void testRegisterUser() throws Exception {
+        FeedResult f = WebFeed.register("test@test.test", "abc123", "What is your name?", "Bob");
+        assertEquals("That email address has already been registered.", f.getMessage());
     }
 }
