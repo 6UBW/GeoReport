@@ -58,7 +58,7 @@ public class MyAccountActivity extends Activity{
             @Override
             public void onClick(View v) {
                 Intent intent;
-                intent = new Intent(v.getContext(), MyTrajectory.class);
+                intent = new Intent(v.getContext(), MapsActivity.class);
                 startActivity(intent);
             }
         });

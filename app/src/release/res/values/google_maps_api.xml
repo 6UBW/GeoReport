@@ -1,0 +1,28 @@
+<!--
+  ~ Copyright (c) SPRING15.
+  ~ TCSS450A - Mobile App Programming
+  ~ team6 - Unlimited Budget Works
+  ~ Romero, Kevingil kjudoy
+  ~ Miraflor, Crystal mirafcry
+  ~ Grace, Kirsten kngrace
+  ~ Stump, James stumpj
+  -->
+
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=DC:46:36:67:80:1D:C9:F9:8E:0C:F1:75:76:80:FB:6E:A9:B6:4C:AB%3Bubw6.com.georeport
+
+    You can also add your credentials to an existing key, using this line:
+    DC:46:36:67:80:1D:C9:F9:8E:0C:F1:75:76:80:FB:6E:A9:B6:4C:AB;ubw6.com.georeport
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">
+        YOUR_KEY_HERE
+    </string>
+</resources>
