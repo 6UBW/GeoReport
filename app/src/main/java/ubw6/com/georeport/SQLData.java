@@ -51,7 +51,7 @@ public class SQLData {
 
         // TODO query the database and construct/return a Sample back
 
-        return void;
+        return null;
     }
 
     /**
