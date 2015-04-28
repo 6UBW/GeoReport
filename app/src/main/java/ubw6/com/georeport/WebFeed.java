@@ -91,6 +91,48 @@ public class WebFeed {
     }
 
     /**
+     * Gets the current terms of agreement from the web service.
+     * @return Current terms of agreement
+     */
+    public static FeedResult logPoint(double lat, double lon, double speed, double heading, double time, String uid) {
+        FeedResult res;
+        String eUID;
+        try {
+            eUID = URLEncoder.encode(uid, "utf-8");
+        } catch(Exception e) {
+            eUID = "";
+        }
+
+        final StringBuilder url = new StringBuilder("http://450.atwebpages.com/logAdd.php");
+        url.append("?lat=" + lat);
+        url.append("&lon=" + lon);
+        url.append("&speed=" + speed);
+        url.append("&heading=" + heading);
+        url.append("&timestamp=" + time);
+        url.append("&source=" + eUID);
+
+        final JSONObject jO = readURL(url.toString());
+
+        if (jO == null) {
+            res = new FeedResult(false, "Error connecting to web service.");
+        } else {
+            try {
+                if (jO.getString("result").equalsIgnoreCase("success")) {
+                    res = new FeedResult(true);
+                } else if (jO.has("error")) {
+                    res = new FeedResult(false, jO.getString("error"));
+                } else {
+                    res = new FeedResult(false);
+                }
+            } catch (JSONException e) {
+                res = new FeedResult(false, "Error connecting to web service.");
+            }
+        }
+
+        return res;
+    }
+
+    /**
      * Attempts to authenticate a user
      * @param email email address of user
      * @param password password of user
@@ -141,9 +183,9 @@ public class WebFeed {
         String eEmail, ePassword, eQuestion, eAnswer;
         try {
             eEmail = URLEncoder.encode(email, "utf-8");
-            ePassword = URLEncoder.encode(email, "utf-8");
-            eQuestion = URLEncoder.encode(email, "utf-8");
-            eAnswer = URLEncoder.encode(email, "utf-8");
+            ePassword = URLEncoder.encode(password, "utf-8");
+            eQuestion = URLEncoder.encode(question, "utf-8");
+            eAnswer = URLEncoder.encode(answer, "utf-8");
         } catch(Exception e) {
             eEmail = "";
             ePassword = "";
@@ -158,7 +200,7 @@ public class WebFeed {
         } else {
             try {
                 if (jO.getString("result").equalsIgnoreCase("success")) {
-                    res = new FeedResult(true);
+                    res = new FeedResult(true, jO.getString("message"));
                 } else if (jO.has("error")) {
                     res = new FeedResult(false, jO.getString("error"));
                 } else {
