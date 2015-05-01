@@ -29,12 +29,13 @@
         </activity>
         <activity
             android:name=".AppLoginActivity"
-            android:label="@string/login_app_name" >
+            android:label="@string/login_app_name"
+            android:windowSoftInputMode="adjustResize|stateUnchanged">
         </activity>
         <activity
             android:name=".MyAccountActivity"
             android:label="@string/myacc_app_name"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize|stateUnchanged">
         </activity>
         <activity
             android:name=".RegisterActivity"

@@ -13,9 +13,12 @@ package ubw6.com.georeport;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import android.widget.Toast;
+
 import com.google.android.gms.maps.GoogleMap;
 //import com.google.android.gms.location.R;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -33,6 +36,8 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    private static CameraPosition cp;
+    private boolean isBackPressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,14 @@ public class MapsActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (!isBackPressed)
+            cp = mMap.getCameraPosition();
+        //Toast.makeText(this.getApplicationContext(), "Pause "    , Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -70,10 +83,7 @@ public class MapsActivity extends FragmentActivity {
                     .getMap();
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
-               // mMap.setMyLocationEnabled(true); // shows the My location button
-               //mMap.addMarker(new MarkerOptions().position(new LatLng(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude())).title(("I'm HERE!")));
-                setUpMap();
-               // mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+               setUpMap();
             }
         }
     }
@@ -86,18 +96,12 @@ public class MapsActivity extends FragmentActivity {
      */
     private void setUpMap() {
         List<LatLng> listPos = new ArrayList<>();
-        listPos.add(new LatLng(47.22, -122.47));
-        listPos.add(new LatLng(47.30, -122.20));
-        listPos.add(new LatLng(47.35, -121.95));
-        listPos.add(new LatLng(47.39, -122.05));
-        listPos.add(new LatLng(47.32, -122.25));
-        listPos.add(new LatLng(47.33, -122.26));
-        listPos.add(new LatLng(47.34, -122.28));
-        listPos.add(new LatLng(47.35, -122.31));
-        listPos.add(new LatLng(47.34, -122.32));
-        listPos.add(new LatLng(47.33, -122.30));
-        listPos.add(new LatLng(47.32, -122.31));
-        listPos.add(new LatLng(47.33, -122.33));
+        listPos.add(new LatLng(47.221, -122.47));
+        listPos.add(new LatLng(47.2215, -122.471));
+        listPos.add(new LatLng(47.222, -122.4715));
+        listPos.add(new LatLng(47.222, -122.4718));
+        listPos.add(new LatLng(47.2225, -122.4722));
+        listPos.add(new LatLng(47.2223, -122.4723));
 
 
         PolylineOptions polylineOptions = new PolylineOptions();
@@ -110,29 +114,30 @@ public class MapsActivity extends FragmentActivity {
         mMap.addPolyline(polylineOptions);
         LatLngBounds bounds = builder.build();
 
+        if (cp == null) {
+            int padding = 0; // offset from edges of the map in pixels
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 200, 200, padding);
+            // check if its far out zoom on the first point
+            mMap.moveCamera(cu);
+            Float zoom = (mMap.getCameraPosition().zoom+2);
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(zoom), 1000, null);
+            Toast.makeText(this.getApplicationContext(), "" + zoom , Toast.LENGTH_LONG).show();
 
-
-
-        //CameraPosition cameraPosition = new CameraPosition.Builder().target(
-        //        pos).zoom(12).build();
-
-
-        // draw polyline and draw marker
-        // draw again per submit
-
-
-
-        // Adjust the camera depending on the position
-
-
-
-        int padding = 0; // offset from edges of the map in pixels
-        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 25, 25, padding);
-        // check if its far out zoom on the first point
-        mMap.moveCamera(cu);
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
-        //mMap.getCameraPosition().zoom();
-
+            //
+            //mMap.getCameraPosition().zoom();
+        } else {
+            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cp));
+            //Toast.makeText(this.getApplicationContext(), "" + mMap.getCameraPosition().zoom , Toast.LENGTH_LONG).show();
+        }
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        cp = null;
+        isBackPressed = true;
+        //super.onBackPressed();
+    }
+
 
 }
