@@ -13,8 +13,6 @@ package ubw6.com.georeport;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
-import android.widget.Toast;
-
 import com.google.android.gms.maps.GoogleMap;
 //import com.google.android.gms.location.R;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -107,7 +105,7 @@ public class MapsActivity extends FragmentActivity {
         PolylineOptions polylineOptions = new PolylineOptions();
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for (LatLng pos: listPos) {
-            //mMap.addMarker(new MarkerOptions().position(pos).title("Marker"));
+            mMap.addMarker(new MarkerOptions().position(pos).title("Marker"));
             polylineOptions.add(pos);
             builder.include(pos);
         }
@@ -120,8 +118,8 @@ public class MapsActivity extends FragmentActivity {
             // check if its far out zoom on the first point
             mMap.moveCamera(cu);
             Float zoom = (mMap.getCameraPosition().zoom+2);
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(zoom), 1000, null);
-            Toast.makeText(this.getApplicationContext(), "" + zoom , Toast.LENGTH_LONG).show();
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(zoom), 2000, null);
+            //Toast.makeText(this.getApplicationContext(), "" + zoom , Toast.LENGTH_LONG).show();
 
             //
             //mMap.getCameraPosition().zoom();

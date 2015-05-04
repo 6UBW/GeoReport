@@ -18,7 +18,6 @@
         android:layout_below="@+id/lbl_register_title"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_above="@+id/btn_register_submit"
         android:layout_marginTop="30dp"
         android:nestedScrollingEnabled="false"
         android:layout_marginRight="20dp"
@@ -178,25 +177,24 @@
 
             </GridLayout>
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="@string/label_next"
+                android:id="@+id/btn_register_submit"
+                android:textColor="#ffffffff"
+                android:background="@drawable/button_2"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_alignParentBottom="false"
+                android:layout_alignStart="@+id/register_scrollView"
+                android:layout_alignEnd="@+id/register_scrollView"
+                android:layout_below="@+id/register_gridlayout"
+                android:layout_marginTop="30dp" />
+
 
         </RelativeLayout>
     </ScrollView>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/label_next"
-        android:id="@+id/btn_register_submit"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="20dp"
-        android:textColor="#ffffffff"
-        android:background="@drawable/button_2"
-        android:layout_marginRight="20dp"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:layout_marginLeft="20dp" />
 
     <TextView
         android:layout_width="match_parent"

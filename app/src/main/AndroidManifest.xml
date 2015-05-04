@@ -30,17 +30,17 @@
         <activity
             android:name=".AppLoginActivity"
             android:label="@string/login_app_name"
-            android:windowSoftInputMode="adjustResize|stateUnchanged">
+            android:windowSoftInputMode="adjustPan|stateHidden">
         </activity>
         <activity
             android:name=".MyAccountActivity"
             android:label="@string/myacc_app_name"
-            android:windowSoftInputMode="adjustResize|stateUnchanged">
+            android:windowSoftInputMode="adjustPan|stateHidden">
         </activity>
         <activity
             android:name=".RegisterActivity"
             android:label="@string/register_app_name"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
         <activity
             android:name=".RegisterTermActivity"
