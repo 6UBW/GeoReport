@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,6 +40,10 @@ public class AppLoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        // to allow reading from URL
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         btnLogin = (Button) findViewById(R.id.btn_login_login);
         btnRegister = (Button) findViewById(R.id.btn_login_register);
@@ -88,20 +93,32 @@ public class AppLoginActivity extends Activity {
                 }
 
                 if (errorCount == 0) {
-                    // This would save a shared pref of the new account registered
-                    SharedPreferences sharedPref = getSharedPreferences("georeport.account_logged", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("email", txtEmail.getText().toString());
-                    editor.putString("pass", txtPass.getText().toString());
-                    //editor.putString("secQ", );
-                    //editor.putString("secA", );
-                    editor.commit();
+                    FeedResult res = WebFeed.login(txtEmail.getText().toString(), txtPass.getText().toString());
 
-                    Toast.makeText(v.getContext(), "Success!", Toast.LENGTH_LONG).show();
-                    Intent intent;
-                    intent = new Intent(v.getContext(), MyAccountActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if (res.isSuccess()) {
+                        // This would save a shared pref of the new account registered
+                        SharedPreferences sharedPref = getSharedPreferences("georeport.account_logged", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putString("email", txtEmail.getText().toString());
+                        editor.putString("uid", res.getMessage());
+                        //editor.putString("secQ", );
+                        //editor.putString("secA", );
+                        editor.commit();
+
+                        Toast.makeText(v.getContext(), "Success!", Toast.LENGTH_LONG).show();
+                        Intent intent;
+                        intent = new Intent(v.getContext(), MyAccountActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        errorCount++;
+                        builder.append(res.getMessage());
+
+                        String strError = "Errors: " + errorCount;
+                        builder.append(strError);
+                        Toast.makeText(v.getContext(), builder.toString(), Toast.LENGTH_LONG).show();
+                        //return;
+                    }
                 } else {
                     String strError = "Errors: " + errorCount;
                     builder.append(strError);
@@ -110,11 +127,6 @@ public class AppLoginActivity extends Activity {
                 }
             }
         });
-
-
-        // to allow reading from URL
-        //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-       // StrictMode.setThreadPolicy(policy);
 
         //TextView t = (TextView) findViewById(R.id.mainText);
         //t.setText(WebFeed.webStatus());
