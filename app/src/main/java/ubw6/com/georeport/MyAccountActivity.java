@@ -74,7 +74,7 @@ public class MyAccountActivity extends Activity{
         SharedPreferences sharedPref = getSharedPreferences("georeport.account_logged", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("email", "");
-        editor.putString("pass", "");
+        editor.putString("uid", "");
         editor.commit();
 
         Intent intent;

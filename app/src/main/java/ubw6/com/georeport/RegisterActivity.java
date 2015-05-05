@@ -11,8 +11,11 @@
 package ubw6.com.georeport;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +37,10 @@ public class RegisterActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
+
+        // to allow reading from URL
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         //t = (TextView) findViewById(R.id.mainText);
         btnSubmit = (Button) findViewById(R.id.btn_register_submit);
@@ -80,17 +87,23 @@ public class RegisterActivity extends Activity {
                 }
                 //errorCount = 0;
                 if (errorCount == 0) {
-                    //Toast.makeText(v.getContext(), "Success!", Toast.LENGTH_LONG).show();
-                    Intent intent;
-                    intent = new Intent(v.getContext(), RegisterTermActivity.class);
-                    Bundle extras = new Bundle();
-                    extras.putString("email", txtEmail.getText().toString());
-                    extras.putString("pass", txtPass.getText().toString());
-                    //extras.putString("secQ", txtSecretQ.getText().toString());
-                    //extras.putString("secA", txtSecretA.getText().toString());
-                    intent.putExtras(extras);
-                    startActivity(intent); //code 1001 register part 1
-                    //finish();
+
+                    FeedResult res = WebFeed.register(txtEmail.getText().toString(), txtPass.getText().toString(),
+                            txtSecretQ.getText().toString(), txtSecretA.getText().toString());
+
+                    if (res.isSuccess()) {
+                        Toast.makeText(v.getContext(), res.getMessage(), Toast.LENGTH_LONG).show();
+                        onBackPressed();
+                        //finish();
+                    } else {
+                        errorCount++;
+                        builder.append(res.getMessage());
+
+                        String strError = "Errors: " + errorCount;
+                        builder.append(strError);
+                        Toast.makeText(v.getContext(), builder.toString(), Toast.LENGTH_LONG).show();
+                        //return;
+                    }
                 } else {
                     String strError = "Errors: " + errorCount;
                     builder.append(strError);
