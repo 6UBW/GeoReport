@@ -51,7 +51,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/label_email"
                     android:id="@+id/lbl_register_email"
-                    android:inputType="textEmailAddress"
                     android:layout_row="0"
                     android:layout_column="1"
                     android:layout_gravity="center_vertical"
@@ -198,7 +197,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/label_register"
         android:id="@+id/lbl_register_title"
@@ -207,7 +206,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="0dp"
         android:gravity="center"
         android:textColor="#ffffffff"
         android:background="@drawable/shape_1" />

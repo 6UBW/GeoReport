@@ -208,7 +208,7 @@
         android:layout_marginLeft="40dp"
         android:textColor="#ffffffff"
         android:textStyle="bold"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:background="@drawable/button_2" />
 
 </RelativeLayout>

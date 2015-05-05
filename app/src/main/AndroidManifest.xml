@@ -50,12 +50,6 @@
             android:name=".ForgotPasswordActivity"
             android:label="@string/forgotpass_app_name" >
         </activity>
-        <activity
-            android:name=".MyTrajectory"
-            android:label="@string/mytraj_app_name"
-            android:windowSoftInputMode="adjustResize" >
-        </activity>
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
