@@ -10,6 +10,9 @@
 
 package ubw6.com.georeport;
 
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
@@ -24,6 +27,8 @@ import com.google.android.gms.maps.CameraUpdate;
 //import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.PolylineOptions;
+
+import android.location.LocationManager;
 //import com.google.maps.android.PolyUtil;
 
 import java.util.ArrayList;
@@ -36,6 +41,8 @@ public class MapsActivity extends FragmentActivity {
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private static CameraPosition cp;
     private boolean isBackPressed = false;
+    private static final int POLL_INTERVAL = 6000; //60 seconds
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,23 +100,50 @@ public class MapsActivity extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        List<LatLng> listPos = new ArrayList<>();
-        listPos.add(new LatLng(47.221, -122.47));
-        listPos.add(new LatLng(47.2215, -122.471));
-        listPos.add(new LatLng(47.222, -122.4715));
-        listPos.add(new LatLng(47.222, -122.4718));
-        listPos.add(new LatLng(47.2225, -122.4722));
-        listPos.add(new LatLng(47.2223, -122.4723));
+        mMap.setMyLocationEnabled(true);
+        final List<LatLng> listPos = new ArrayList<>();
+        final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        LocationListener locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+                double speed = location.getSpeed();
+                long timeStamp = location.getTime();
+                LatLng latLng = new LatLng(latitude, longitude);
+                listPos.add(latLng);
+                //heading
+                //id
+                //create sample object from this data and send to sqlite database
+            }
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {}
+            @Override
+            public void onProviderEnabled(String provider) {}
+            @Override
+            public void onProviderDisabled(String provider) {}
+        };
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+
+
+        //===============================================================
+//        List<LatLng> listPos = new ArrayList<>();
+//        listPos.add(new LatLng(47.221, -122.47));
+//        listPos.add(new LatLng(47.2215, -122.471));
+//        listPos.add(new LatLng(47.222, -122.4715));
+//        listPos.add(new LatLng(47.222, -122.4718));
+//        listPos.add(new LatLng(47.2225, -122.4722));
+//        listPos.add(new LatLng(47.2223, -122.4723));
 
 
         PolylineOptions polylineOptions = new PolylineOptions();
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for (LatLng pos: listPos) {
             mMap.addMarker(new MarkerOptions().position(pos).title("Marker"));
-            polylineOptions.add(pos);
+//            polylineOptions.add(pos);
             builder.include(pos);
         }
-        mMap.addPolyline(polylineOptions);
+//        mMap.addPolyline(polylineOptions);
         LatLngBounds bounds = builder.build();
 
         if (cp == null) {

@@ -1,0 +1,17 @@
+<!--
+  ~ Copyright (c) SPRING15.
+  ~ TCSS450A - Mobile App Programming
+  ~ team6 - Unlimited Budget Works
+  ~ Romero, Kevingil kjudoy
+  ~ Miraflor, Crystal mirafcry
+  ~ Grace, Kirsten kngrace
+  ~ Stump, James stumpj
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="ubw6.com.georeport.RetrieveLocation">
+    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" app:showAsAction="never" />
+</menu>
