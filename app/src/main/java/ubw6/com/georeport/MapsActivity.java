@@ -42,7 +42,7 @@ public class MapsActivity extends FragmentActivity {
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private static CameraPosition cp;
     private boolean isBackPressed = false;
-    private static final int POLL_INTERVAL = 6000; //60 seconds
+    private static final int POLL_INTERVAL = 60000; //60 seconds
 
 
     @Override
@@ -128,7 +128,7 @@ public class MapsActivity extends FragmentActivity {
             public void onProviderDisabled(String provider) {}
         };
     //    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, POLL_INTERVAL, 0, locationListener);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, POLL_INTERVAL, 0, locationListener);
         Location myLocation = locationManager.getLastKnownLocation(provider);
         LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
         listPos.add(latLng);
