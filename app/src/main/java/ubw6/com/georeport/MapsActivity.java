@@ -109,13 +109,13 @@ public class MapsActivity extends FragmentActivity {
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
                 double speed = location.getSpeed();
                 long timeStamp = location.getTime();
                 LatLng latLng = new LatLng(latitude, longitude);
                 listPos.add(latLng);
+                mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
                 //heading
                 //id
                 //create sample object from this data and send to sqlite database
@@ -127,6 +127,7 @@ public class MapsActivity extends FragmentActivity {
             @Override
             public void onProviderDisabled(String provider) {}
         };
+    //    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, POLL_INTERVAL, 0, locationListener);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         Location myLocation = locationManager.getLastKnownLocation(provider);
         LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
