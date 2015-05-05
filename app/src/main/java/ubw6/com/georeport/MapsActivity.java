@@ -108,7 +108,7 @@ public class MapsActivity extends FragmentActivity {
         String provider = locationManager.getBestProvider(criteria, true);
         LocationListener locationListener = new LocationListener() {
             @Override
-            public void onLocationChanged(Location location) {
+            public void onLocationChanged(Location location) {//testing
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
                 double speed = location.getSpeed();
