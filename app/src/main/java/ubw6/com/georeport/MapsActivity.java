@@ -11,6 +11,7 @@
 package ubw6.com.georeport;
 
 import android.content.Context;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -102,10 +103,13 @@ public class MapsActivity extends FragmentActivity {
     private void setUpMap() {
         mMap.setMyLocationEnabled(true);
         final List<LatLng> listPos = new ArrayList<>();
+        Criteria criteria = new Criteria();
         final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        String provider = locationManager.getBestProvider(criteria, true);
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
+
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
                 double speed = location.getSpeed();
@@ -124,7 +128,9 @@ public class MapsActivity extends FragmentActivity {
             public void onProviderDisabled(String provider) {}
         };
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-
+        Location myLocation = locationManager.getLastKnownLocation(provider);
+        LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+        listPos.add(latLng);
 
         //===============================================================
 //        List<LatLng> listPos = new ArrayList<>();
@@ -138,6 +144,8 @@ public class MapsActivity extends FragmentActivity {
 
         PolylineOptions polylineOptions = new PolylineOptions();
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        builder.include(listPos.get(0));
+
         for (LatLng pos: listPos) {
             mMap.addMarker(new MarkerOptions().position(pos).title("Marker"));
 //            polylineOptions.add(pos);
