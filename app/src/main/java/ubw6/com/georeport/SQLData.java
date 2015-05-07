@@ -36,30 +36,39 @@ public class SQLData extends SQLiteOpenHelper {
     public static final String SAMPLES_COLUMN_SPEED = "speed";
     public static final String SAMPLES_COLUMN_TIME = "time";
 
-    //private HashMap hp;
+    /* The column numbers are based on the order they are passed
+        when table was created. */
+    public static final int PID_COLUMN = 0;
+    public static final int UID_COLUMN = 1;
+    public static final int LON_COLUMN = 2;
+    public static final int LAT_COLUMN = 3;
+    public static final int HEADING_COLUMN = 4;
+    public static final int SPEED_COLUMN = 5;
+    public static final int TIME_COLUMN = 6;
 
-    // public DBHelper(Context context) {
+    /**
+     * Creates an SQLData object that is able to interact with local database. When this object
+     * is no longer needed, call close() method to close the connection please.
+     *
+     * @param context If created from an activity, use keyword "this" as the Context.
+     */
     public SQLData(Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, 2);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // TODO Auto-generated method stub
-        db.execSQL(
-                "create table samples " +
-                        "(pid integer primary key autoincrement, uid text, lon float, lat float, " +
-                        "heading float, speed float, time float)"
+        db.execSQL("create table samples " +
+                        "(pid integer primary key autoincrement, uid string, lon double, " +
+                        "lat double, heading double, speed double, time long)"
         );
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO Auto-generated method stub
         db.execSQL("DROP TABLE IF EXISTS samples");
         onCreate(db);
     }
-
 
     /**
      * Adds a sample data point to the local database. Returns true upon success or
@@ -90,18 +99,20 @@ public class SQLData extends SQLiteOpenHelper {
      */
     public Sample getNext() {
 
-        // TODO query the database and construct/return a Sample back
-
-        // select * from samples order by pid limit 1
-
-
             SQLiteDatabase db = this.getReadableDatabase();
-            Cursor result =  db.rawQuery("select * from samples order by pid limit 1", null );
-            System.err.print("getNext column names are:" + result.getColumnName(0) +
-            result.getColumnName(1) + result.getColumnName(2) + " etc etc");
-            //Sample res = new Sample(result.getDouble());
-            result.close();
-            return null; //TODO create Sample object to be fed back?
+            Cursor c =  db.rawQuery("select * from samples order by pid limit 1", null );
+
+            /* new Sample(double theLon, double theLat, double theHeading,
+            double theSpeed, int theTime, String theUID, int thePID); */
+            Sample s = new Sample(c.getDouble(LON_COLUMN),  /*Longitude*/
+                    c.getDouble(LAT_COLUMN),     /*Latitude*/
+                    c.getDouble(HEADING_COLUMN),     /*Heading*/
+                    c.getDouble(SPEED_COLUMN),     /*Speed*/
+                    c.getLong(TIME_COLUMN),       /*Time*/
+                    c.getString(UID_COLUMN),     /*UserID*/
+                    c.getInt(PID_COLUMN));       /*PID*/
+            c.close();
+            return s;
     }
 
 //        public Cursor getData(int pid){
@@ -109,7 +120,6 @@ public class SQLData extends SQLiteOpenHelper {
 //            Cursor res =  db.rawQuery( "select * from samples where pid="+pid+"", null );
 //            return res;
 //        }
-
 
     /**
      * Returns the number of sample data points stored within the local database.
@@ -160,108 +170,3 @@ public class SQLData extends SQLiteOpenHelper {
     }
 
 }
-
-//}
-
-
-//public class SQLData {
-//
-//    private SQLData singleton;
-//    private SQLiteDatabase myDatabase;
-//
-//    /**
-//     * Private constructor to prevent instantiation.
-//     */
-//    private SQLData() {
-//        // Stop trying to create me and just use my static methods.
-//    }
-//
-//    private boolean openDatabase() {
-//        // myDatabase = openOrCreateDatabase("GeoReportDB.db", MODE_PRIVATE, null);
-//        return false;
-//    }
-//
-//    /**
-//     * Adds a sample data point to the local database. Returns true upon success or
-//     * false if an error was encountered.
-//     *
-//     * @param s The sample point to be added to local database.
-//     * @return Returns true upon success.
-//     */
-//    public static boolean insert(Sample s) {
-//        boolean outcome = false;
-//
-//        // TODO Feed Sample s into SQL database
-//
-//        return outcome;
-//    }
-//
-//    /**
-//     * Returns a sample data point within the database. This will most likely be the sample data
-//     * point which has been
-//     *
-//     * @return The next sample data point
-//     */
-//    public static Sample getNext() {
-//
-//        // TODO query the database and construct/return a Sample back
-//
-//        return null;
-//    }
-//
-//    /**
-//     * Removes the sample by its ID number. Returns true upon successful deletion. Will return
-//     * false if a sample by that ID number is not found OR it was unable to delete.
-//     *
-//     * @param PID The sample data point's unique ID
-//     * @return Returns true upon successful location and deletion of sample data point by ID.
-//     */
-//    public static boolean removeSample(int PID) {
-//        boolean outcome = false;
-//
-//        // TODO delete the data in the database by using the given PID value
-//
-//        return outcome;
-//    }
-//
-//    /**
-//     * Removes the sample by its ID number. Returns true upon successful deletion. Will return
-//     * false if a sample by that ID number is not found OR it was unable to delete.
-//     *
-//     * @param PID The sample data point's unique ID
-//     * @return Returns true upon successful location and deletion of sample data point by ID.
-//     */
-//    public static boolean removePoint(int PID) {
-//        return removeSample(PID);
-//    }
-//
-//    /**
-//     * Returns true if the local database is empty.
-//     *
-//     * @return Returns true if the local database is empty.
-//     */
-//    public static boolean isEmpty() {
-//        if (getSize() == 0) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-//
-//    /**
-//     * Returns the number of sample data points stored within the local database.
-//     *
-//     * @return The number of sample data points stored within the local database.
-//     */
-//    public static int getSize() {
-//        int size = 0;
-//        // TODO query database to check how many sample data points exist
-//        /**
-//         SQLiteDatabase db = this.getReadableDatabase();
-//         int numRows = (int) DatabaseUtils.queryNumEntries(db, SAMPLE_POINT_DATA);
-//         return numRows;
-//         */
-//        return size;
-//    }
-//
-//    private class DBHelper extends SQLiteOpenHelper {

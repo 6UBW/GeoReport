@@ -43,7 +43,8 @@ public class Sample {
      * @param theTime Timestamp of the sample (Unix Timestamp format)
      * @param theUID User ID
      */
-    public Sample(double theLon, double theLat, double theHeading, double theSpeed, int theTime, String theUID) {
+    public Sample(double theLon, double theLat, double theHeading,
+                  double theSpeed, long theTime, String theUID) {
         this(theLon, theLat, theHeading, theSpeed, theTime, theUID, -1);
     }
 
@@ -57,7 +58,8 @@ public class Sample {
      * @param theUID User ID
      * @param thePID ID of sample from local database
      */
-    public Sample(double theLon, double theLat, double theHeading, double theSpeed, int theTime, String theUID, int thePID) {
+    public Sample(double theLon, double theLat, double theHeading, double theSpeed,
+                  long theTime, String theUID, int thePID) {
         this.myPID = thePID;
         this.myLon = theLon;
         this.myLat = theLat;
