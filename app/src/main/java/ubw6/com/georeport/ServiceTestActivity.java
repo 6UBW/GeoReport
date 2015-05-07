@@ -30,7 +30,9 @@ public class ServiceTestActivity extends ActionBarActivity {
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startService(new Intent(getBaseContext(), LocationService.class));
+                LocationService.setServiceAlarm(v.getContext(), true);
             }
         });
         Button stopBtn = (Button)findViewById(R.id.stopButton);
@@ -38,6 +40,7 @@ public class ServiceTestActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 stopService(new Intent(getBaseContext(), LocationService.class));
+                LocationService.setServiceAlarm(v.getContext(), false);
             }
         });
 

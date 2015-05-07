@@ -19,12 +19,15 @@ import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 
 
 /**
@@ -60,40 +63,42 @@ public class LocationService extends IntentService {
         Criteria criteria = new Criteria();
         final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         String provider = locationManager.getBestProvider(criteria, true);
-        Location location = locationManager.getLastKnownLocation(provider);
 
         //Data needed to be input into the database
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
-        double speed = location.getSpeed();
-        long timeStamp = location.getTime();
-        Toast.makeText(this, "Latitude: " + latitude + ", Longitude: " + longitude,
-                Toast.LENGTH_LONG).show();
+//        double latitude = location.getLatitude();
+//        double longitude = location.getLongitude();
+//        double speed = location.getSpeed();
+//        long timeStamp = location.getTime();
+
         //put here
         //create Sample object from this data
         //send to SQLite Database
 
 //===========Code I had in MapsActivity=============================================================
-//        LocationListener locationListener = new LocationListener() {
-//            @Override
-//            public void onLocationChanged(Location location) {//testing
-//                double latitude = location.getLatitude();
-//                double longitude = location.getLongitude();
-//                double speed = location.getSpeed();
-//                long timeStamp = location.getTime();
+        LocationListener locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {//testing
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+                double speed = location.getSpeed();
+                long timeStamp = location.getTime();
 //                LatLng latLng = new LatLng(latitude, longitude);
-//                //heading
-//                //id
-//                //create sample object from this data and send to sqlite database
-//            }
-//            @Override
-//            public void onStatusChanged(String provider, int status, Bundle extras) {}
-//            @Override
-//            public void onProviderEnabled(String provider) {}
-//            @Override
-//            public void onProviderDisabled(String provider) {}
-//        };
-//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, POLL_INTERVAL, 0, locationListener);
+                //heading
+                //id
+                //create sample object from this data and send to sqlite database
+            }
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {}
+            @Override
+            public void onProviderEnabled(String provider) {}
+            @Override
+            public void onProviderDisabled(String provider) {}
+        };
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+        Location myLocation = locationManager.getLastKnownLocation(provider);
+        LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+        Toast.makeText(this, latLng.toString(),//"Latitude: " + latLng. + ", Longitude: " + longitude,
+                Toast.LENGTH_LONG).show();
 //==================================================================================================
     }
 
