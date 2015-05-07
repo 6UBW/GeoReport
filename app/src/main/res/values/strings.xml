@@ -49,4 +49,5 @@
     <string name="label_findtraj">Find Trajectory</string>
     <string name="label_endate">End Date:</string>
     <string name="label_terms">Terms and Condition</string>
+    <string name="title_activity_service_test">ServiceTestActivity</string>
 </resources>

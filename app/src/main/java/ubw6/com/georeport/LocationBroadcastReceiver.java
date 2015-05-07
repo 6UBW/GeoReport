@@ -10,14 +10,17 @@
 
 package ubw6.com.georeport;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
 /**
  * Created by Crystal on 5/6/2015.
  */
-public class LocationBroadcastReceiver {
+public class LocationBroadcastReceiver extends BroadcastReceiver{
 
+    //Triggered by the Alarm periodically (starts the service to run task)
+    @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
             // Set the alarm here.

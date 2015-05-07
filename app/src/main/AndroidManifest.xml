@@ -50,6 +50,7 @@
             android:name=".ForgotPasswordActivity"
             android:label="@string/forgotpass_app_name" >
         </activity>
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -60,6 +61,20 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" >
+        </activity>
+
+        <receiver
+            android:name=".LocationBroadcastReceiver"
+            android:process=":remote" >
+        </receiver>
+
+        <service
+            android:name=".LocationService"
+            android:exported="false" />
+
+        <activity
+            android:name=".ServiceTestActivity"
+            android:label="@string/title_activity_service_test" >
         </activity>
     </application>
 
