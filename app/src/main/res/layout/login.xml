@@ -7,7 +7,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     tools:context=".KevinLoginActivity"
-    android:background="@drawable/gradient_1">
+    android:background="@drawable/gradient_titan">
 
     <EditText
         android:layout_width="wrap_content"
@@ -47,9 +47,9 @@
         android:layout_height="wrap_content"
         android:text="@string/label_forgot"
         android:id="@+id/lbl_login_forgotPass"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:layout_marginTop="20dp"
-        android:textColor="#ff0003fd"
+        android:textColor="#E7A831"
         android:layout_below="@+id/txt_login_pass"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
@@ -62,7 +62,7 @@
         android:id="@+id/lbl_login_title"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:textColor="#FFFFFF"
+        android:textColor="#E7A831"
         android:gravity="center"
         android:layout_below="@+id/imageView"
         android:layout_alignParentLeft="true"

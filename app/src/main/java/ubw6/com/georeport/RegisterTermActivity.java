@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -44,8 +45,8 @@ public class RegisterTermActivity extends Activity {
         StrictMode.setThreadPolicy(policy);
 
         txtTerms = (TextView) findViewById(R.id.lbl_terms_terms);
-        txtTerms.setText(WebFeed.getTerms().getMessage());
-
+        String message = WebFeed.getTerms().getMessage();
+        txtTerms.setText(Html.fromHtml(message));
         btnSubmit = (Button) findViewById(R.id.btn_terms_submit);
 
         //if checkbox is checked and user clicks submit, registration is complete
