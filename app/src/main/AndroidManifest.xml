@@ -2,6 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ubw6.com.georeport" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <!--
+ The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but are recommended.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -18,15 +29,18 @@
         </activity>
         <activity
             android:name=".AppLoginActivity"
-            android:label="@string/login_app_name" >
+            android:label="@string/login_app_name"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
         </activity>
         <activity
             android:name=".MyAccountActivity"
-            android:label="@string/myacc_app_name" >
+            android:label="@string/myacc_app_name"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
         </activity>
         <activity
             android:name=".RegisterActivity"
-            android:label="@string/register_app_name" >
+            android:label="@string/register_app_name"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
         <activity
             android:name=".RegisterTermActivity"
@@ -36,11 +50,17 @@
             android:name=".ForgotPasswordActivity"
             android:label="@string/forgotpass_app_name" >
         </activity>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/google_maps_key" />
+
         <activity
-            android:name=".MyTrajectory"
-            android:label="@string/mytraj_app_name" >
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps" >
         </activity>
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

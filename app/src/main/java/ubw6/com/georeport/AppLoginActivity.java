@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,6 +49,11 @@ public class AppLoginActivity extends Activity {
         btnLogin = (Button) findViewById(R.id.btn_login_login);
         btnRegister = (Button) findViewById(R.id.btn_login_register);
         lblForgot = (TextView) findViewById(R.id.lbl_login_forgotPass);
+        txtEmail = (EditText) findViewById(R.id.txt_login_email);
+        txtEmail.setHint("Email");
+        txtPass = (EditText) findViewById(R.id.txt_login_pass);
+        txtPass.setHint("Password");
+        txtPass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         //when register button is pressed takes user to register screen
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -74,8 +80,7 @@ public class AppLoginActivity extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                txtEmail = (EditText) findViewById(R.id.txt_login_email);
-                txtPass = (EditText) findViewById(R.id.txt_login_pass);
+
 
                 StringBuilder builder = new StringBuilder();
                 int errorCount = 0;

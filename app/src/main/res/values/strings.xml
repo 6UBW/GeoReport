@@ -43,4 +43,10 @@
     <string name="label_forgotexplain">Type in the email address you use for your account. Then we\'ll email a code to this address.</string>
     <string name="label_enteremail">Enter your email:</string>
     <string name="label_mytrajectory">My Trajectory</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_retrieve_location">RetrieveLocation</string>
+    <string name="label_logout">Logout</string>
+    <string name="label_findtraj">Find Trajectory</string>
+    <string name="label_endate">End Date:</string>
+    <string name="label_terms">Terms and Condition</string>
 </resources>

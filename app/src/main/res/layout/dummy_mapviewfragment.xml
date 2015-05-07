@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) SPRING15.
+  ~ TCSS450A - Mobile App Programming
+  ~ team6 - Unlimited Budget Works
+  ~ Romero, Kevingil kjudoy
+  ~ Miraflor, Crystal mirafcry
+  ~ Grace, Kirsten kngrace
+  ~ Stump, James stumpj
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:id="@+id/imagestretch"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+    android:src="@drawable/fakemap" />
+
+</LinearLayout>
