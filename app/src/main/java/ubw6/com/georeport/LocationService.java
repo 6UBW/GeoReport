@@ -41,10 +41,18 @@ public class LocationService extends IntentService {
     private static final String TAG = "LocationService";
     private static final int POLL_INTERVAL = 60000; //60 seconds
 
+    //constructor
     public LocationService() {
-        super("LocationService");
+        super(TAG);
     }
 
+    /**
+     * Start up service
+     * @param intent intent
+     * @param flags flags
+     * @param startId startId
+     * @return START_STICKY
+     */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -54,6 +62,10 @@ public class LocationService extends IntentService {
         return START_STICKY;
     }
 
+    /**
+     * Service task. Getting Location data is done here
+     * @param intent intent
+     */
     @Override
     protected void onHandleIntent(Intent intent) {
         //Do task here
@@ -86,6 +98,7 @@ public class LocationService extends IntentService {
                 //heading
                 //id
                 //create sample object from this data and send to sqlite database
+//                Toast.makeText(LocationService.this, latLng.toString(), Toast.LENGTH_LONG).show();
             }
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {}
@@ -122,6 +135,9 @@ public class LocationService extends IntentService {
 
     }
 
+    /**
+     * Stop service
+     */
     @Override
     public void onDestroy() {
         Log.i(TAG, "Service Stopped");

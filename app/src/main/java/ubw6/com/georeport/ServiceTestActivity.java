@@ -26,6 +26,7 @@ public class ServiceTestActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_test);
 
+        //start service button
         Button startBtn = (Button)findViewById(R.id.startButton);
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,6 +36,8 @@ public class ServiceTestActivity extends ActionBarActivity {
                 LocationService.setServiceAlarm(v.getContext(), true);
             }
         });
+
+        //stop service button
         Button stopBtn = (Button)findViewById(R.id.stopButton);
         stopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +46,8 @@ public class ServiceTestActivity extends ActionBarActivity {
                 LocationService.setServiceAlarm(v.getContext(), false);
             }
         });
+
+
 
     }
 
