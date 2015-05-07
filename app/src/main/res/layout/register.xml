@@ -52,13 +52,14 @@
                     android:layout_height="wrap_content"
                     android:text="@string/label_email"
                     android:id="@+id/lbl_register_email"
-                    android:inputType="textEmailAddress"
                     android:layout_row="0"
                     android:layout_column="1"
                     android:layout_gravity="center_vertical"
                     android:textSize="16dp"
                     android:textStyle="bold"
                     android:textColor="#ff6900aB" />
+
+                <!-- android:inputType="textEmailAddress" -->
 
                 <TextView
                     android:layout_width="wrap_content"

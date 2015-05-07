@@ -16,6 +16,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,6 +26,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * WebFeed is a static class for accessing resources from the web services.
@@ -32,7 +36,7 @@ import java.net.URLEncoder;
  *
  *
  * @author James Stump
- * @version 4/20/15
+ * @version 5/7/15
  */
 public class WebFeed {
     // TODO method that only returns result string?
@@ -69,6 +73,8 @@ public class WebFeed {
         return new FeedResult(res).isSuccess();
     }
 
+
+
     /**
      * Gets the current terms of agreement from the web service.
      * @return Current terms of agreement
@@ -90,11 +96,89 @@ public class WebFeed {
         return res;
     }
 
+
+    public static List<Sample> getPoints(Timestamp start, Timestamp end, String uID) {
+        return getPoints(start.getTime(), end.getTime(), uID);
+    }
+
+    public static List<Sample> getPoints(long start, long end, String uID) {
+        LinkedList<Sample> res = new LinkedList<>();
+        String eUID;
+
+
+        try {
+            eUID = URLEncoder.encode(uID, "utf-8");
+        } catch (Exception e) {
+            eUID = "";
+        }
+
+        final StringBuilder url = new StringBuilder("http://450.atwebpages.com/view.php");
+        url.append("?uid=" + eUID);
+        url.append("&start=" + start);
+        url.append("&end=" + end);
+
+        final JSONObject jO = readURL(url.toString());
+
+        if (jO != null) {
+            try {
+                if (jO.getString("result").equalsIgnoreCase("success")) {
+                    //build return
+                    JSONArray jA = jO.getJSONArray("points");
+                    for (int i = 0; i < jA.length(); i++) {  // **line 2**
+                        JSONObject jI = jA.getJSONObject(i);
+                        res.add(new Sample(jI.getDouble("lat"), jI.getDouble("lon"), jI.getDouble("heading"), jI.getDouble("speed"), jI.getInt("time")));
+                    }
+                }
+            } catch (JSONException e) {
+                //do nothing, let list return empty
+            }
+        }
+
+        return res;
+    }
+
+    public static FeedResult resetPassword(String email) {
+        FeedResult res;
+        String eEmail;
+
+        try {
+            eEmail = URLEncoder.encode(email, "utf-8");
+        } catch (Exception e) {
+            eEmail = "";
+        }
+
+        final JSONObject jO = readURL("http://450.atwebpages.com/reset.php?email=" + eEmail);
+
+        if (jO == null) {
+            res = new FeedResult(false, "Error connecting to web service.");
+        } else {
+            try {
+                if (jO.getString("result").equalsIgnoreCase("success")) {
+                    res = new FeedResult(true, jO.getString("message"));
+                } else if (jO.has("error")) {
+                    res = new FeedResult(false, jO.getString("error"));
+                } else {
+                    res = new FeedResult(false);
+                }
+            } catch (JSONException e) {
+                res = new FeedResult(false, "Error connecting to web service.");
+            }
+        }
+
+        return res;
+    }
+
     /**
-     * Gets the current terms of agreement from the web service.
-     * @return Current terms of agreement
+     * Attempts to authenticate a user
+     * @param s Sample to insert into web feed.
+     * @return user id in message of FeedResult if successful
      */
-    public static FeedResult logPoint(double lat, double lon, double speed, double heading, double time, String uid) {
+    public static FeedResult logPoint(Sample s) {
+        return logPoint(s.myLat, s.myLon, s.mySpeed, s.myHeading, s.myTime, s.myUID);
+    }
+
+
+    public static FeedResult logPoint(double lat, double lon, double speed, double heading, long time, String uid) {
         FeedResult res;
         String eUID;
         try {

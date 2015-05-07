@@ -23,7 +23,6 @@ import android.os.Bundle;
  */
 public class MainActivity extends Activity{
 
-
     private SharedPreferences mPreferences;
     private String loggedEmail;
 

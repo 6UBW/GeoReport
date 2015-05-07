@@ -18,9 +18,21 @@ public class Sample {
     public final double myLat;
     public final double myHeading;
     public final double mySpeed;
-    public final int myTime;
+    public final long myTime;
     public final String myUID;
     public final int myPID;
+
+    /**
+     * Constructs a Sample object without a point ID or user ID
+     * @param theLon Longitude of the sample
+     * @param theLat Latitude of the sample
+     * @param theHeading Heading of the sample
+     * @param theSpeed Speed at time of the sample
+     * @param theTime Timestamp of the sample (Unix Timestamp format)
+     */
+    public Sample(double theLon, double theLat, double theHeading, double theSpeed, int theTime) {
+        this(theLon, theLat, theHeading, theSpeed, theTime, null, -1);
+    }
 
     /**
      * Constructs a Sample object without a point ID
