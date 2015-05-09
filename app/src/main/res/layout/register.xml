@@ -182,10 +182,10 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="@string/label_next"
+                android:text="@string/label_submit"
                 android:id="@+id/btn_register_submit"
                 android:textColor="#ffffffff"
-                android:background="@drawable/button_2"
+                android:background="@drawable/button_1"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_alignParentBottom="false"

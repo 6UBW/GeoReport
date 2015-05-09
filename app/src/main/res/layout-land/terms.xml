@@ -46,7 +46,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Submit"
+        android:text="@string/label_next"
         android:id="@+id/btn_terms_submit"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
@@ -55,7 +55,7 @@
         android:textStyle="bold"
         android:gravity="center"
         android:textColor="#ffffffff"
-        android:background="@drawable/button_1"
+        android:background="@drawable/button_2"
         android:textSize="20dp" />
 
     <TextView

@@ -93,7 +93,15 @@ public class RegisterActivity extends Activity {
 
                     if (res.isSuccess()) {
                         Toast.makeText(v.getContext(), res.getMessage(), Toast.LENGTH_LONG).show();
-                        onBackPressed();
+
+                        // go to login screen when successful
+                        Intent intent;
+                        intent = new Intent(v.getContext(), AppLoginActivity.class);
+                        // This clears all the previous activities just so the user cannot go back to prev activities
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+
+                        //onBackPressed();
                         //finish();
                     } else {
                         errorCount++;
@@ -116,13 +124,7 @@ public class RegisterActivity extends Activity {
     }
 
     //when back is pressed, user is returned to login screen
-    @Override
-    public void onBackPressed() {
-        Intent intent;
-        intent = new Intent(this, AppLoginActivity.class);
-        // This clears all the previous activities just so the user cannot go back to prev activities
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
+    //@Override
+    //public void onBackPressed() { }
 
 }

@@ -59,31 +59,33 @@ public class RegisterTermActivity extends Activity {
 
                 StringBuilder builder = new StringBuilder();
                 if (boxTerms.isChecked()) {
-                    Toast.makeText(v.getContext(), "Registration Success!", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(v.getContext(), "Registration Success!", Toast.LENGTH_LONG).show();
 
                     // This gets the string on the edit texts from the RegisterActivity
-                    Intent prevIntent = getIntent();
-                    Bundle extras = prevIntent.getExtras();
-                    String email = extras.getString("email");
-                    String pass = extras.getString("pass");
+                    //Intent prevIntent = getIntent();
+                    //Bundle extras = prevIntent.getExtras();
+                   // String email = extras.getString("email");
+                    //String pass = extras.getString("pass");
                     //String secQ = extras.getString("secQ");
                     //String secA = extras.getString("secA");
 
                     // This would save a shared pref of the new account registered just like login
-                    SharedPreferences sharedPref = getSharedPreferences("georeport.account_logged", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("email", email);
-                    editor.putString("pass", pass);
+                    //SharedPreferences sharedPref = getSharedPreferences("georeport.account_logged", Context.MODE_PRIVATE);
+                    //SharedPreferences.Editor editor = sharedPref.edit();
+                    //editor.putString("email", email);
+                    //editor.putString("pass", pass);
                     //editor.putString("secQ", secQ);
                     //editor.putString("secA", secA);
-                    editor.commit();
+                    //editor.commit();
 
                     Intent intent;
-                    intent = new Intent(v.getContext(), MyAccountActivity.class);
+                    intent = new Intent(v.getContext(), RegisterActivity.class);
                     // This clears all the previous activities just so the user cannot go back to prev activities
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
-                    finish();
+
+
+
                 } else {
                     builder.append("The terms is not accepted\n");
                     Toast.makeText(v.getContext(), builder.toString(), Toast.LENGTH_LONG).show();

@@ -59,9 +59,9 @@ public class AppLoginActivity extends Activity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RegisterActivity.class);
+                Intent intent = new Intent(v.getContext(), RegisterTermActivity.class);
                 startActivity(intent);
-                finish();
+                //finish();
             }
         });
 
@@ -115,6 +115,7 @@ public class AppLoginActivity extends Activity {
                         intent = new Intent(v.getContext(), MyAccountActivity.class);
                         startActivity(intent);
                         finish();
+
                     } else {
                         errorCount++;
                         builder.append(res.getMessage());
