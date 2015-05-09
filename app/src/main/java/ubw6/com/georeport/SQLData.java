@@ -100,17 +100,30 @@ public class SQLData extends SQLiteOpenHelper {
     public Sample getNext() {
 
             SQLiteDatabase db = this.getReadableDatabase();
-            Cursor c =  db.rawQuery("select * from samples order by pid limit 1", null );
+            Cursor c =  db.rawQuery("select * from samples order by pid limit 1", null);
+            c.moveToNext();
 
             /* new Sample(double theLon, double theLat, double theHeading,
             double theSpeed, int theTime, String theUID, int thePID); */
-            Sample s = new Sample(c.getDouble(LON_COLUMN),  /*Longitude*/
-                    c.getDouble(LAT_COLUMN),     /*Latitude*/
-                    c.getDouble(HEADING_COLUMN),     /*Heading*/
-                    c.getDouble(SPEED_COLUMN),     /*Speed*/
-                    c.getLong(TIME_COLUMN),       /*Time*/
-                    c.getString(UID_COLUMN),     /*UserID*/
-                    c.getInt(PID_COLUMN));       /*PID*/
+        final double lon = c.getDouble(LON_COLUMN);
+        final double lat = c.getDouble(LAT_COLUMN);
+        final double heading = c.getDouble(HEADING_COLUMN);
+        final double speed = c.getDouble(SPEED_COLUMN);
+        final long time = c.getLong(TIME_COLUMN);
+        final String uid = c.getString(UID_COLUMN);
+        final int pid = c.getInt(PID_COLUMN);
+
+        Sample s = new Sample(lon, lat, heading, speed, time, uid, pid);       /*PID*/
+
+
+
+//        Sample s = new Sample(c.getDouble(LON_COLUMN),  /*Longitude*/
+//                    c.getDouble(LAT_COLUMN),     /*Latitude*/
+//                    c.getDouble(HEADING_COLUMN),     /*Heading*/
+//                    c.getDouble(SPEED_COLUMN),     /*Speed*/
+//                    c.getLong(TIME_COLUMN),       /*Time*/
+//                    c.getString(UID_COLUMN),     /*UserID*/
+//                    c.getInt(PID_COLUMN));       /*PID*/
             c.close();
             return s;
     }

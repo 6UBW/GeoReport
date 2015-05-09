@@ -11,6 +11,7 @@
 package ubw6.com.georeport;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -31,8 +32,10 @@ public class ServiceTestActivity extends ActionBarActivity {
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SharedPreferences mPreferences = getSharedPreferences(
+                        "georeport.account_logged", MODE_PRIVATE);
                 startService(new Intent(getBaseContext(), LocationService.class));
+                LocationService.setUID(mPreferences.getString("uid", ""));
                 LocationService.setServiceAlarm(v.getContext(), true);
             }
         });

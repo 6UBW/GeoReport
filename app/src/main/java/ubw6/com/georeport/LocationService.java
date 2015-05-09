@@ -29,6 +29,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.TimeZone;
+
 
 /**
  * Background service for the GeoTracker to ping
@@ -38,11 +40,16 @@ import com.google.android.gms.maps.model.LatLng;
  */
 public class LocationService extends IntentService {
 
+    private static String myUID;
+
+    private static final int UPLOAD_MIN = 10;
     private static final String TAG = "LocationService";
     private static final int POLL_INTERVAL = 60000; //60 seconds
+//    private static final int POLL_INTERVAL = 5000; // 5 seconds
 
     //constructor
     public LocationService() {
+
         super(TAG);
     }
 
@@ -58,8 +65,12 @@ public class LocationService extends IntentService {
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
         Log.i(TAG, "Service Starting");
-        Toast.makeText(this, "Service Starting", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Service Starting", Toast.LENGTH_LONG).show();
         return START_STICKY;
+    }
+
+    public static void setUID(String uid) {
+        myUID = uid;
     }
 
     /**
@@ -76,24 +87,15 @@ public class LocationService extends IntentService {
         final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         String provider = locationManager.getBestProvider(criteria, true);
 
-        //Data needed to be input into the database
-//        double latitude = location.getLatitude();
-//        double longitude = location.getLongitude();
-//        double speed = location.getSpeed();
-//        long timeStamp = location.getTime();
-
-        //put here
-        //create Sample object from this data
-        //send to SQLite Database
 
 //===========Code I had in MapsActivity=============================================================
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {//testing
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
-                double speed = location.getSpeed();
-                long timeStamp = location.getTime();
+                //double latitude = location.getLatitude();
+                //double longitude = location.getLongitude();
+                //double speed = location.getSpeed();
+                //long timeStamp = location.getTime();
 //                LatLng latLng = new LatLng(latitude, longitude);
                 //heading
                 //id
@@ -107,11 +109,20 @@ public class LocationService extends IntentService {
             @Override
             public void onProviderDisabled(String provider) {}
         };
+
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         Location myLocation = locationManager.getLastKnownLocation(provider);
-        LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-        Toast.makeText(this, latLng.toString(),//"Latitude: " + latLng. + ", Longitude: " + longitude,
-                Toast.LENGTH_LONG).show();
+
+
+        if (myLocation != null) {
+            // if location was successful, upload to service
+            takeSample(myLocation);
+        } else {
+            // else, toast error message
+            Toast.makeText(this, "Error getting location",//"Latitude: " + latLng. + ", Longitude: " + longitude,
+                    Toast.LENGTH_LONG).show();
+        }
+
 //==================================================================================================
     }
 
@@ -141,8 +152,58 @@ public class LocationService extends IntentService {
     @Override
     public void onDestroy() {
         Log.i(TAG, "Service Stopped");
-        Toast.makeText(this, "Service Stopped", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Service Stopped", Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Upload a location to the database
+     * @param l Current location
+     */
+    private void takeSample(Location l) {
+        SQLData db = new SQLData(this.getBaseContext());
+        final long t  = System.currentTimeMillis() / 1000 + (TimeZone.getDefault().getRawOffset() / 1000)
+                + (TimeZone.getDefault().getDSTSavings() / 1000);
+        final Sample s = new Sample(l.getLongitude(), l.getLatitude(),
+                l.getBearing(), l.getSpeed(), t, myUID);
+        LatLng latLng = new LatLng(l.getLatitude(), l.getLongitude());
+        db.insert(s);
+        Log.i("LOC", "Point added to local. DB Size = " + db.getSize());
+        if (db.getSize() > UPLOAD_MIN) {
+            uploadSamples(db);
+        }
+        db.close();
+    }
 
+    /**
+     * Uploads all samples in the local database to the remote database
+     * @param db Local database connection
+     */
+    private void uploadSamples(SQLData db) {
+        Log.i("LOC", "Uploading points. DB Size = " + db.getSize());
+        int lastPID = -1;
+        int retries = 0;
+        while(!db.isEmpty()) {
+            final Sample s = db.getNext();
+            Log.i("LOC", "Got point, now attempting to upload. PID = " + s.myPID);
+            //error checking. If it can't upload a point to the web service after 3 tries, remove from local
+            if (s.myPID == lastPID) {
+                retries++;
+                if (retries >= 4) {
+                    Log.i("LOC", "Couldn't upload point, now attempting to delete local. P = " + s.toString());
+                    FeedResult res = WebFeed.logPoint(s);
+                    Log.i("LOC", "Error: " + res.getMessage());
+                    db.removePoint(s.myPID);
+                }
+            } else {
+                retries = 0;
+                lastPID = s.myPID;
+                FeedResult res = WebFeed.logPoint(s);
+                Log.i("LOC", "Uploaded point, now attempting to delete local. PID = " + s.myPID);
+                if (res.isSuccess()) {
+                    db.removePoint(s.myPID);
+                }
+            }
+        }
+        Log.i("LOC", "Uploaded points. DB Size = " + db.getSize());
+    }
 }

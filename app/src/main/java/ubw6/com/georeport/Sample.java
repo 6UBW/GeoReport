@@ -69,4 +69,16 @@ public class Sample {
         this.myUID = theUID;
     }
 
+    @Override
+    public String toString() {
+        return "Sample{" +
+                "myLon=" + myLon +
+                ", myLat=" + myLat +
+                ", myHeading=" + myHeading +
+                ", mySpeed=" + mySpeed +
+                ", myTime=" + myTime +
+                ", myUID='" + myUID + '\'' +
+                ", myPID=" + myPID +
+                '}';
+    }
 }
