@@ -110,7 +110,14 @@ public class AppLoginActivity extends Activity {
                         //editor.putString("secA", );
                         editor.commit();
 
-                        Toast.makeText(v.getContext(), "Success!", Toast.LENGTH_LONG).show();
+                        // Start Service when login is successful
+                        SharedPreferences mPreferences = getSharedPreferences(
+                                "georeport.account_logged", MODE_PRIVATE);
+                        startService(new Intent(getBaseContext(), LocationService.class));
+                        LocationService.setUID(mPreferences.getString("uid", ""));
+                        LocationService.setServiceAlarm(v.getContext(), true);
+
+                        //Toast.makeText(v.getContext(), "Success!", Toast.LENGTH_LONG).show();
                         Intent intent;
                         intent = new Intent(v.getContext(), MyAccountActivity.class);
                         startActivity(intent);

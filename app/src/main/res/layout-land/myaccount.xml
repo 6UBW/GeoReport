@@ -95,7 +95,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:inputType="date"
+                    android:inputType="none"
                     android:ems="10"
                     android:id="@+id/txt_myacc_startDate"
                     android:background="@android:drawable/editbox_background_normal"
@@ -137,7 +137,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:inputType="date"
+                    android:inputType="none"
                     android:ems="10"
                     android:id="@+id/txt_myacc_endDate"
                     android:background="@android:drawable/editbox_background_normal"

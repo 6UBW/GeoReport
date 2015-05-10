@@ -11,10 +11,13 @@
 package ubw6.com.georeport;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.FragmentActivity;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -30,8 +33,10 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.location.LocationManager;
+import android.widget.Toast;
 //import com.google.maps.android.PolyUtil;
 
+import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 //import com.google.android.gms.maps.model.Polyline;
@@ -49,6 +54,11 @@ public class MapsActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        // to allow reading from URL
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         setUpMapIfNeeded();
     }
 
@@ -102,7 +112,17 @@ public class MapsActivity extends FragmentActivity {
      */
     private void setUpMap() {
         mMap.setMyLocationEnabled(true);
-        final List<LatLng> listPos = new ArrayList<>();
+
+        SharedPreferences mPreferences = getSharedPreferences(
+                "georeport.account_logged", MODE_PRIVATE);
+
+        Bundle extras = getIntent().getExtras();
+        Long startDate = extras.getLong("startDate");
+        Long endDate = extras.getLong("endDate");
+        //Toast.makeText(this, startDate + " - "+ endDate, Toast.LENGTH_LONG).show();
+        List<Sample> listPos = WebFeed.getPoints(startDate, endDate, mPreferences.getString("uid", ""));
+
+        /**
         Criteria criteria = new Criteria();
         final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         String provider = locationManager.getBestProvider(criteria, true);
@@ -142,17 +162,16 @@ public class MapsActivity extends FragmentActivity {
 //        listPos.add(new LatLng(47.2225, -122.4722));
 //        listPos.add(new LatLng(47.2223, -122.4723));
 
-
+*/
         PolylineOptions polylineOptions = new PolylineOptions();
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        builder.include(listPos.get(0));
 
-        for (LatLng pos: listPos) {
-            mMap.addMarker(new MarkerOptions().position(pos).title("Marker"));
-//            polylineOptions.add(pos);
-            builder.include(pos);
+        for (Sample pos: listPos) {
+            mMap.addMarker(new MarkerOptions().position(new LatLng(pos.getMyLat(), pos.getMyLon())).title("Marker"));
+            polylineOptions.add(new LatLng(pos.getMyLat(), pos.getMyLon()));
+            builder.include(new LatLng(pos.getMyLat(), pos.getMyLon()));
         }
-//        mMap.addPolyline(polylineOptions);
+        mMap.addPolyline(polylineOptions);
         LatLngBounds bounds = builder.build();
 
         if (cp == null) {

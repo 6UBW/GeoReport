@@ -26,15 +26,15 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/myacc_innerRelativeLayout">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email Dude Again"
+                android:text="@string/label_testEmailName"
                 android:id="@+id/lbl_myacc_email"
-                android:textSize="25dp"
+                android:textSize="25sp"
                 android:textColor="#FFFFFFFF"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
@@ -43,14 +43,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:text="Password:"
+                android:text="@string/label_passsemi"
                 android:id="@+id/lbl_myacc_pass"
                 android:layout_below="@+id/lbl_myacc_email"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="20dp"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#ffE7A831" />
 
@@ -64,7 +64,7 @@
                 android:layout_toEndOf="@+id/lbl_myacc_pass"
                 android:layout_marginLeft="20dp"
                 android:textColor="#E7A831"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -82,12 +82,9 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
-                    android:text="Start Date:"
+                    android:text="@string/label_startdate"
                     android:id="@+id/lbl_myacc_startdate"
-                    android:textSize="18dp"
-                    android:layout_below="@+id/lbl_myacc_pass"
-                    android:layout_alignLeft="@+id/lbl_myacc_pass"
-                    android:layout_alignStart="@+id/lbl_myacc_pass"
+                    android:textSize="18sp"
                     android:layout_marginTop="0dp"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
@@ -95,19 +92,16 @@
                     android:textColor="#ffE7A831" />
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:inputType="date"
                     android:ems="10"
                     android:id="@+id/txt_myacc_startDate"
                     android:background="@android:drawable/editbox_background_normal"
-                    android:layout_below="@+id/lbl_myacc_startdate"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
                     android:layout_marginTop="0dp"
                     android:gravity="center_vertical"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:inputType="none" />
             </LinearLayout>
 
             <LinearLayout
@@ -126,12 +120,9 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
-                    android:text="End Date:"
+                    android:text="@string/label_enddate"
                     android:id="@+id/lbl_myacc_endDate"
-                    android:textSize="18dp"
-                    android:layout_alignTop="@+id/txt_myacc_startDate"
-                    android:layout_alignLeft="@+id/lbl_myacc_startdate"
-                    android:layout_alignStart="@+id/lbl_myacc_startdate"
+                    android:textSize="18sp"
                     android:gravity="center_vertical"
                     android:textStyle="bold"
                     android:textColor="#ffE7A831" />
@@ -139,28 +130,25 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:inputType="date"
                     android:ems="10"
                     android:id="@+id/txt_myacc_endDate"
                     android:background="@android:drawable/editbox_background_normal"
-                    android:layout_below="@+id/lbl_myacc_reset"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:inputType="none" />
 
             </LinearLayout>
 
             <Button
                 android:layout_width="150dp"
                 android:layout_height="60dp"
-                android:text="Find Trajectory"
+                android:text="@string/label_findTrajectory"
                 android:id="@+id/btn_myacc_trajetory"
                 android:layout_below="@+id/layout_myacc_endDate"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
                 android:textColor="#ffffffff"
                 android:textStyle="bold"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:background="@drawable/button_2" />
 
         </RelativeLayout>
@@ -169,7 +157,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Logout"
+        android:text="@string/label_logout"
         android:id="@+id/btn_myacc_logout"
         android:theme="@style/Widget.AppCompat.Button.Small"
         android:layout_alignParentBottom="true"
@@ -180,7 +168,7 @@
         android:layout_marginLeft="20dp"
         android:textColor="#ffffffff"
         android:textStyle="bold"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:background="@drawable/button_1" />
 
     <TextView
