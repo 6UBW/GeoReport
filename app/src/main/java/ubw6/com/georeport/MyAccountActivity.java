@@ -66,8 +66,6 @@ public class MyAccountActivity extends Activity{
                 "georeport.account_logged", MODE_PRIVATE);
         t.setText(mPreferences.getString("email", "Blank"));
 
-
-
         txtStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,8 +85,6 @@ public class MyAccountActivity extends Activity{
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-
-
 
         //when logout button is clicked, user is logged out
         btnLogout = (Button) findViewById(R.id.btn_myacc_logout);
@@ -121,17 +117,17 @@ public class MyAccountActivity extends Activity{
                     Timestamp timestampEnd = new java.sql.Timestamp(parsedDateEnd.getTime());
                     //Toast.makeText(v.getContext(), timestampStart + " - " + timestampEnd, Toast.LENGTH_LONG).show();
 
-                    Intent intent;
-                    intent = new Intent(v.getContext(), MapsActivity.class); //MapsActivity.class);
-                    intent.putExtra("startDate", (timestampStart.getTime() / 1000));
-                    intent.putExtra("endDate", (timestampEnd.getTime() / 1000));
-
-                    //List<Sample> listPos = WebFeed.getPoints(timestampStart, timestampEnd, mPreferences.getString("uid", ""));
-                    //listPos.get(0).getMyLat();
-                    //final long t  = System.currentTimeMillis() / 1000 + (TimeZone.getDefault().getRawOffset() / 1000)
-                    //        + (TimeZone.getDefault().getDSTSavings() / 1000);
-                     //   Toast.makeText(v.getContext(), "" + (t - (timestampEnd.getTime() / 1000)), Toast.LENGTH_LONG).show();
-                    startActivity(intent);
+                    List<Sample> testSample = WebFeed.getPoints( (timestampStart.getTime() / 1000),
+                            (timestampEnd.getTime() / 1000), mPreferences.getString("uid", ""));
+                    if (!testSample.isEmpty()) {
+                        Intent intent;
+                        intent = new Intent(v.getContext(), MapsActivity.class); //MapsActivity.class);
+                        intent.putExtra("startDate", (timestampStart.getTime() / 1000));
+                        intent.putExtra("endDate", (timestampEnd.getTime() / 1000));
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(v.getContext(), "The dates provide doesn't have points", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });

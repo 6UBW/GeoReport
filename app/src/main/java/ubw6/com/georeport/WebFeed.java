@@ -126,7 +126,7 @@ public class WebFeed {
                     JSONArray jA = jO.getJSONArray("points");
                     for (int i = 0; i < jA.length(); i++) {  // **line 2**
                         JSONObject jI = jA.getJSONObject(i);
-                        res.add(new Sample(jI.getDouble("lat"), jI.getDouble("lon"), jI.getDouble("heading"), jI.getDouble("speed"), jI.getInt("time")));
+                        res.add(new Sample(jI.getDouble("lon"), jI.getDouble("lat"), jI.getDouble("heading"), jI.getDouble("speed"), jI.getInt("time")));
                     }
                 }
             } catch (JSONException e) {

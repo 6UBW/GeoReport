@@ -166,7 +166,7 @@ public class LocationService extends IntentService {
         final Sample s = new Sample(l.getLongitude(), l.getLatitude(),
                 l.getBearing(), l.getSpeed(), t, myUID);
         LatLng latLng = new LatLng(l.getLatitude(), l.getLongitude());
-        //Toast.makeText(this, myUID + " = " + t , Toast.LENGTH_LONG).show();
+
         db.insert(s);
         Log.i("LOC", "Point added to local. DB Size = " + db.getSize());
         if (db.getSize() > UPLOAD_MIN) {

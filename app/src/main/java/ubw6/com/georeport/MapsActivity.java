@@ -122,6 +122,7 @@ public class MapsActivity extends FragmentActivity {
         //Toast.makeText(this, startDate + " - "+ endDate, Toast.LENGTH_LONG).show();
         List<Sample> listPos = WebFeed.getPoints(startDate, endDate, mPreferences.getString("uid", ""));
 
+
         /**
         Criteria criteria = new Criteria();
         final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -163,10 +164,13 @@ public class MapsActivity extends FragmentActivity {
 //        listPos.add(new LatLng(47.2223, -122.4723));
 
 */
+
         PolylineOptions polylineOptions = new PolylineOptions();
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
+        //Sample pos = listPos.get(0);
         for (Sample pos: listPos) {
+            //Toast.makeText(this, "lon: " + pos.getMyLon() + ", lat: " + pos.getMyLat() , Toast.LENGTH_LONG).show();
             mMap.addMarker(new MarkerOptions().position(new LatLng(pos.getMyLat(), pos.getMyLon())).title("Marker"));
             polylineOptions.add(new LatLng(pos.getMyLat(), pos.getMyLon()));
             builder.include(new LatLng(pos.getMyLat(), pos.getMyLon()));
