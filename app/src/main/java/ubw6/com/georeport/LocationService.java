@@ -37,6 +37,8 @@ import java.util.TimeZone;
  * location data.
  *
  * Created by Crystal on 5/6/2015.
+ * @author mirafcry
+ * @author stumpj
  */
 public class LocationService extends IntentService {
 
@@ -65,10 +67,13 @@ public class LocationService extends IntentService {
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
         Log.i(TAG, "Service Starting");
-        //Toast.makeText(this, "Service Starting", Toast.LENGTH_LONG).show();
         return START_STICKY;
     }
 
+    /**
+     * Sets the user id
+     * @param uid user id
+     */
     public static void setUID(String uid) {
         myUID = uid;
     }
@@ -86,9 +91,6 @@ public class LocationService extends IntentService {
         Criteria criteria = new Criteria();
         final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         String provider = locationManager.getBestProvider(criteria, true);
-
-
-//===========Code I had in MapsActivity=============================================================
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {//testing
@@ -109,11 +111,8 @@ public class LocationService extends IntentService {
             @Override
             public void onProviderDisabled(String provider) {}
         };
-
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         Location myLocation = locationManager.getLastKnownLocation(provider);
-
-
         if (myLocation != null) {
             // if location was successful, upload to service
             takeSample(myLocation);
@@ -122,8 +121,6 @@ public class LocationService extends IntentService {
             Toast.makeText(this, "Error getting location",//"Latitude: " + latLng. + ", Longitude: " + longitude,
                     Toast.LENGTH_LONG).show();
         }
-
-//==================================================================================================
     }
 
     /**

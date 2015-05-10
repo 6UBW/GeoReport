@@ -8,7 +8,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
-
+/**
+ * A list view of the location data for
+ * a user of the GeoTracker app. Information
+ * is displayed as points, latitude and longitude.
+ *
+ * @author kjudoy
+ */
 public class MapsListActivity extends Activity {
 
     TextView lblList;

@@ -10,12 +10,8 @@
 
 package ubw6.com.georeport;
 
-import android.content.Context;
-import android.content.Intent;
+
 import android.content.SharedPreferences;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.FragmentActivity;
@@ -32,23 +28,27 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import android.location.LocationManager;
-import android.widget.Toast;
+
 //import com.google.maps.android.PolyUtil;
 
-import java.security.Timestamp;
-import java.util.ArrayList;
+//import java.security.Timestamp;
+//import java.util.ArrayList;
 import java.util.List;
 //import com.google.android.gms.maps.model.Polyline;
 
-
+/**
+ * Google maps for the GeoTracker app.
+ * Displays location data of user as points
+ * on a map.
+ *
+ * @author kjudoy
+ */
 public class MapsActivity extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private static CameraPosition cp;
     private boolean isBackPressed = false;
-    private static final int POLL_INTERVAL = 60000; //60 seconds
-
+//    private static final int POLL_INTERVAL = 60000; //60 seconds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,50 +121,6 @@ public class MapsActivity extends FragmentActivity {
         Long endDate = extras.getLong("endDate");
         //Toast.makeText(this, startDate + " - "+ endDate, Toast.LENGTH_LONG).show();
         List<Sample> listPos = WebFeed.getPoints(startDate, endDate, mPreferences.getString("uid", ""));
-
-
-        /**
-        Criteria criteria = new Criteria();
-        final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        String provider = locationManager.getBestProvider(criteria, true);
-        LocationListener locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {//testing
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
-                double speed = location.getSpeed();
-                long timeStamp = location.getTime();
-                LatLng latLng = new LatLng(latitude, longitude);
-                listPos.add(latLng);
-                mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
-                //heading
-                //id
-                //create sample object from this data and send to sqlite database
-            }
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {}
-            @Override
-            public void onProviderEnabled(String provider) {}
-            @Override
-            public void onProviderDisabled(String provider) {}
-        };
-    //    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, POLL_INTERVAL, 0, locationListener);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, POLL_INTERVAL, 0, locationListener);
-        Location myLocation = locationManager.getLastKnownLocation(provider);
-        LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-        listPos.add(latLng);
-
-        //===============================================================
-//        List<LatLng> listPos = new ArrayList<>();
-//        listPos.add(new LatLng(47.221, -122.47));
-//        listPos.add(new LatLng(47.2215, -122.471));
-//        listPos.add(new LatLng(47.222, -122.4715));
-//        listPos.add(new LatLng(47.222, -122.4718));
-//        listPos.add(new LatLng(47.2225, -122.4722));
-//        listPos.add(new LatLng(47.2223, -122.4723));
-
-*/
-
         PolylineOptions polylineOptions = new PolylineOptions();
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
@@ -195,6 +151,9 @@ public class MapsActivity extends FragmentActivity {
         }
     }
 
+    /**
+     * When back button is pressed
+     */
     @Override
     public void onBackPressed() {
         finish();
