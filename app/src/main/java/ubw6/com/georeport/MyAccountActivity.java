@@ -30,7 +30,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 /**
  * Created by kjudoy on 4/10/2015.
@@ -43,7 +42,7 @@ public class MyAccountActivity extends Activity{
     public static final String MM_DD_YY = "MM/dd/yy"; //In which you need put here
 
     private EditText txtStartDate, txtEndDate;
-    private Button btnLogout, btnFindTrajectory;
+    private Button btnLogout, btnFindTrajectory, btnShowList;
     private SharedPreferences mPreferences;
     private Calendar myCalendar;
 
@@ -122,6 +121,42 @@ public class MyAccountActivity extends Activity{
                     if (!testSample.isEmpty()) {
                         Intent intent;
                         intent = new Intent(v.getContext(), MapsActivity.class); //MapsActivity.class);
+                        intent.putExtra("startDate", (timestampStart.getTime() / 1000));
+                        intent.putExtra("endDate", (timestampEnd.getTime() / 1000));
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(v.getContext(), "The dates provide doesn't have points", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
+
+        btnShowList = (Button) findViewById(R.id.btn_myacc_showlist);
+        btnShowList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy HH:mm", Locale.US);
+                Date parsedDateStart = null;
+                Date parsedDateEnd = null;
+                Boolean goodInput = true;
+                try {
+                    parsedDateStart = dateFormat.parse(txtStartDate.getText().toString() + " 00:00");
+                    parsedDateEnd = dateFormat.parse(txtEndDate.getText().toString() + " 23:59");
+                } catch (ParseException e) {
+                    goodInput = false;
+                    Toast.makeText(v.getContext(), "Bad Input", Toast.LENGTH_LONG).show();
+                }
+                if (goodInput) {
+                    Timestamp timestampStart = new java.sql.Timestamp(parsedDateStart.getTime());
+                    Timestamp timestampEnd = new java.sql.Timestamp(parsedDateEnd.getTime());
+                    //Toast.makeText(v.getContext(), timestampStart + " - " + timestampEnd, Toast.LENGTH_LONG).show();
+
+                    List<Sample> testSample = WebFeed.getPoints( (timestampStart.getTime() / 1000),
+                            (timestampEnd.getTime() / 1000), mPreferences.getString("uid", ""));
+                    if (!testSample.isEmpty()) {
+                        Intent intent;
+                        intent = new Intent(v.getContext(), MapsListActivity.class); //MapsActivity.class);
                         intent.putExtra("startDate", (timestampStart.getTime() / 1000));
                         intent.putExtra("endDate", (timestampEnd.getTime() / 1000));
                         startActivity(intent);

@@ -59,4 +59,6 @@
     <string name="label_passsemi">Password:</string>
     <string name="label_testEmailName">Email Dude Again</string>
     <string name="label_findTrajectory">Find Trajectory</string>
+    <string name="label_Back">Back</string>
+    <string name="label_showlist">Show List</string>
 </resources>

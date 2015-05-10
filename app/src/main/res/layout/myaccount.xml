@@ -151,6 +151,20 @@
                 android:textSize="18sp"
                 android:background="@drawable/button_2" />
 
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:text="@string/label_showlist"
+                android:id="@+id/btn_myacc_showlist"
+                android:textColor="#ffffffff"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:background="@drawable/button_2"
+                android:layout_below="@+id/btn_myacc_trajetory"
+                android:layout_alignLeft="@+id/btn_myacc_trajetory"
+                android:layout_alignStart="@+id/btn_myacc_trajetory"
+                android:layout_marginTop="10dp" />
+
         </RelativeLayout>
     </ScrollView>
 
