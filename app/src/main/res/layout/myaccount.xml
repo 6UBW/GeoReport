@@ -40,56 +40,31 @@
                 android:layout_centerHorizontal="true"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:text="@string/label_passsemi"
-                android:id="@+id/lbl_myacc_pass"
-                android:layout_below="@+id/lbl_myacc_email"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="30dp"
-                android:layout_marginLeft="20dp"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#ffE7A831" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:text="@string/label_reset"
-                android:id="@+id/lbl_myacc_reset"
-                android:layout_alignTop="@+id/lbl_myacc_pass"
-                android:layout_toRightOf="@+id/lbl_myacc_pass"
-                android:layout_toEndOf="@+id/lbl_myacc_pass"
-                android:layout_marginLeft="20dp"
-                android:textColor="#E7A831"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/lbl_myacc_pass"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:id="@+id/layout_myacc_startDate"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:layout_below="@+id/lbl_myacc_email">
 
                 <TextView
-                    android:layout_width="100dp"
+                    android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:text="@string/label_startdate"
                     android:id="@+id/lbl_myacc_startdate"
                     android:textSize="18sp"
                     android:layout_marginTop="0dp"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
                     android:gravity="center_vertical"
                     android:textStyle="bold"
-                    android:textColor="#ffE7A831" />
+                    android:textColor="#ffE7A831"
+                    android:layout_weight="0" />
 
                 <EditText
                     android:layout_width="0dp"
@@ -100,41 +75,62 @@
                     android:layout_marginTop="0dp"
                     android:gravity="center_vertical"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
+                    android:layout_weight="0.4"
                     android:inputType="none" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:inputType="time"
+                    android:ems="10"
+                    android:id="@+id/txt_myacc_startTime"
+                    android:layout_weight="0.25"
+                    android:background="@android:drawable/editbox_background_normal" />
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:id="@+id/layout_myacc_endDate"
                 android:layout_below="@+id/layout_myacc_startDate"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:gravity="center">
 
                 <TextView
-                    android:layout_width="100dp"
+                    android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:text="@string/label_enddate"
                     android:id="@+id/lbl_myacc_endDate"
                     android:textSize="18sp"
                     android:gravity="center_vertical"
                     android:textStyle="bold"
-                    android:textColor="#ffE7A831" />
+                    android:textColor="#ffE7A831"
+                    android:layout_gravity="center"
+                    android:layout_weight="0" />
 
                 <EditText
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:ems="10"
                     android:id="@+id/txt_myacc_endDate"
                     android:background="@android:drawable/editbox_background_normal"
                     android:gravity="center_vertical"
-                    android:inputType="none" />
+                    android:inputType="none"
+                    android:layout_weight="0.40" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:inputType="time"
+                    android:ems="10"
+                    android:id="@+id/txt_myacc_endTime"
+                    android:layout_weight="0.25"
+                    android:background="@android:drawable/editbox_background_normal" />
 
             </LinearLayout>
 

@@ -12,6 +12,7 @@ package ubw6.com.georeport;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,6 +22,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.sql.Timestamp;
@@ -41,10 +43,11 @@ public class MyAccountActivity extends Activity{
 
     public static final String MM_DD_YY = "MM/dd/yy"; //In which you need put here
 
-    private EditText txtStartDate, txtEndDate;
+    private EditText txtStartDate, txtEndDate, txtStartTime, txtEndTime;
     private Button btnLogout, btnFindTrajectory, btnShowList;
     private SharedPreferences mPreferences;
     private Calendar myCalendar;
+    private TimePicker myTimePicker;
 
     //creates my account
     @Override
@@ -56,9 +59,13 @@ public class MyAccountActivity extends Activity{
 
         TextView t = (TextView) findViewById(R.id.lbl_myacc_email);
         txtStartDate = (EditText) findViewById(R.id.txt_myacc_startDate);
-        txtStartDate.setHint(MM_DD_YY);
+        txtStartDate.setHint("MM/DD/YY");
         txtEndDate = (EditText) findViewById(R.id.txt_myacc_endDate);
-        txtEndDate.setHint(MM_DD_YY);
+        txtEndDate.setHint("MM/DD/YY");
+        txtStartTime = (EditText) findViewById(R.id.txt_myacc_startTime);
+        txtStartTime.setHint("HH:mm");
+        txtEndTime = (EditText) findViewById(R.id.txt_myacc_endTime);
+        txtEndTime.setHint("HH:mm");
 
         // get the logged email from the shared pref
         mPreferences = getSharedPreferences(
@@ -69,9 +76,12 @@ public class MyAccountActivity extends Activity{
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                new DatePickerDialog(MyAccountActivity.this, dateStart, myCalendar
+                DatePickerDialog myDatePicker;
+                myDatePicker = new DatePickerDialog(MyAccountActivity.this, dateStart, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                        myCalendar.get(Calendar.DAY_OF_MONTH));
+                myDatePicker.setTitle("Select a Start Date");
+                myDatePicker.show();
             }
         });
 
@@ -79,11 +89,40 @@ public class MyAccountActivity extends Activity{
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                new DatePickerDialog(MyAccountActivity.this, dateEnd, myCalendar
+                DatePickerDialog myDatePicker;
+                myDatePicker = new DatePickerDialog(MyAccountActivity.this, dateEnd, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                        myCalendar.get(Calendar.DAY_OF_MONTH));
+                myDatePicker.setTitle("Select an End Date");
+                myDatePicker.show();
             }
         });
+
+        txtStartTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                TimePickerDialog myTimePicker;
+                myTimePicker = new TimePickerDialog(MyAccountActivity.this, startTime
+                        , myCalendar.get(Calendar.HOUR_OF_DAY),  myCalendar.get(Calendar.MINUTE), true);
+                myTimePicker.setTitle("Select a Start Time");
+                myTimePicker.show();
+            }
+        });
+
+        txtEndTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                TimePickerDialog myTimePicker;
+                myTimePicker = new TimePickerDialog(MyAccountActivity.this, endTime
+                        , myCalendar.get(Calendar.HOUR_OF_DAY),  myCalendar.get(Calendar.MINUTE), true);
+                myTimePicker.setTitle("Select an End Time");
+                myTimePicker.show();
+            }
+        });
+
+
 
         //when logout button is clicked, user is logged out
         btnLogout = (Button) findViewById(R.id.btn_myacc_logout);
@@ -99,7 +138,6 @@ public class MyAccountActivity extends Activity{
         btnFindTrajectory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy HH:mm", Locale.US);
                 Date parsedDateStart = null;
                 Date parsedDateEnd = null;
@@ -140,9 +178,16 @@ public class MyAccountActivity extends Activity{
                 Date parsedDateStart = null;
                 Date parsedDateEnd = null;
                 Boolean goodInput = true;
+                String sTime = txtStartTime.getText().toString();
+                String eTime = txtEndTime.getText().toString();
+                if (sTime.matches(""))
+                    sTime = "00:00";
+                if (eTime.matches(""))
+                    eTime = "23:59";
+
                 try {
-                    parsedDateStart = dateFormat.parse(txtStartDate.getText().toString() + " 00:00");
-                    parsedDateEnd = dateFormat.parse(txtEndDate.getText().toString() + " 23:59");
+                    parsedDateStart = dateFormat.parse(txtStartDate.getText().toString() + " " + sTime);
+                    parsedDateEnd = dateFormat.parse(txtEndDate.getText().toString() + " " + eTime);
                 } catch (ParseException e) {
                     goodInput = false;
                     Toast.makeText(v.getContext(), "Bad Input", Toast.LENGTH_LONG).show();
@@ -217,8 +262,25 @@ public class MyAccountActivity extends Activity{
             txtEndDate.setText(sdf.format(myCalendar.getTime()));
         }
 
+
+
+
     };
 //================================== DATEPICKER POPUP END ======================================
+
+    TimePickerDialog.OnTimeSetListener startTime =  new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+            txtStartTime.setText( selectedHour + ":" + selectedMinute);
+        }
+    };
+
+    TimePickerDialog.OnTimeSetListener endTime =  new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+            txtEndTime.setText( selectedHour + ":" + selectedMinute);
+        }
+    };
 }
 
 
