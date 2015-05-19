@@ -11,15 +11,16 @@
 package ubw6.com.georeport;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by kjudoy on 4/10/2015.
@@ -28,6 +29,9 @@ import android.widget.Toast;
  * Class for Register Activity
  */
 public class RegisterActivity extends Activity {
+
+    final String REGEX_EMAIL_PAT = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
     private EditText txtEmail, txtPass, txtPassConf, txtSecretQ, txtSecretA;
     private Button btnSubmit;
@@ -65,6 +69,10 @@ public class RegisterActivity extends Activity {
                     errorCount++;
                     builder.append("Email is Empty\n");
                 }
+                if (!isValidEmail(txtEmail.getText().toString())) {
+                    errorCount++;
+                    builder.append("Invalid Email Input\n");
+                }
                 if (txtPass.getText().toString().matches("")) {
                     errorCount++;
                     builder.append("Password is Empty\n");
@@ -81,9 +89,9 @@ public class RegisterActivity extends Activity {
                     errorCount++;
                     builder.append("Passwords didn't match\n");
                 }
-                if (txtPass.getText().toString().length() < 6) {
+                if (txtPass.getText().toString().length() < 5) {
                     errorCount++;
-                    builder.append("Passwords needs to be at least 6 in length\n");
+                    builder.append("Passwords needs to be at least 5 in length\n");
                 }
                 //errorCount = 0;
                 if (errorCount == 0) {
@@ -93,7 +101,15 @@ public class RegisterActivity extends Activity {
 
                     if (res.isSuccess()) {
                         Toast.makeText(v.getContext(), res.getMessage(), Toast.LENGTH_LONG).show();
-                        onBackPressed();
+
+                        // go to login screen when successful
+                        Intent intent;
+                        intent = new Intent(v.getContext(), AppLoginActivity.class);
+                        // This clears all the previous activities just so the user cannot go back to prev activities
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+
+                        //onBackPressed();
                         //finish();
                     } else {
                         errorCount++;
@@ -115,14 +131,17 @@ public class RegisterActivity extends Activity {
         });
     }
 
-    //when back is pressed, user is returned to login screen
-    @Override
-    public void onBackPressed() {
-        Intent intent;
-        intent = new Intent(this, AppLoginActivity.class);
-        // This clears all the previous activities just so the user cannot go back to prev activities
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+    // Check is email is valid
+    // Email Pattern Resource: http://www.mkyong.com/regular-expressions/how-to-validate-email-address-with-regular-expression/
+    private boolean isValidEmail(String email) {
+        Pattern pattern = Pattern.compile(REGEX_EMAIL_PAT);
+        Matcher matcher;
+        matcher = pattern.matcher(email);
+        return matcher.matches();
     }
+
+    //when back is pressed, user is returned to login screen
+    //@Override
+    //public void onBackPressed() { }
 
 }

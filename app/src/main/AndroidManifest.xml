@@ -76,6 +76,10 @@
             android:name=".ServiceTestActivity"
             android:label="@string/title_activity_service_test" >
         </activity>
+        <activity
+            android:name=".MapsListActivity"
+            android:label="@string/title_activity_maps_list_activitty" >
+        </activity>
     </application>
 
 </manifest>

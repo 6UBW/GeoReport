@@ -69,6 +69,30 @@ public class Sample {
         this.myUID = theUID;
     }
 
+    public String getMyUID() {
+        return myUID;
+    }
+
+    public double getMyLon() {
+        return myLon;
+    }
+
+    public double getMyLat() {
+        return myLat;
+    }
+
+    public double getMySpeed() {
+        return mySpeed;
+    }
+
+    public long getMyTime() {
+        return myTime;
+    }
+
+    public double getMyHeading() {
+        return myHeading;
+    }
+
     @Override
     public String toString() {
         return "Sample{" +
