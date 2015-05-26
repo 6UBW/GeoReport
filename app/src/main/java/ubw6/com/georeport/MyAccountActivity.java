@@ -35,19 +35,21 @@ import java.util.Locale;
 
 /**
  * Created by kjudoy on 4/10/2015.
- * @author kjudoy
  *
- * Creates "My Account" activity
+ * @author kjudoy
+ *         <p/>
+ *         Creates "My Account" activity
  */
-public class MyAccountActivity extends Activity{
+public class MyAccountActivity extends Activity {
 
     public static final String MM_DD_YY = "MM/dd/yy"; //In which you need put here
 
     private EditText txtStartDate, txtEndDate, txtStartTime, txtEndTime;
-    private Button btnLogout, btnFindTrajectory, btnShowList;
+    private Button btnLogout, btnFindTrajectory;
     private SharedPreferences mPreferences;
     private Calendar myCalendar;
     private TimePicker myTimePicker;
+    private Button btnSettings;
 
     //creates my account
     @Override
@@ -66,6 +68,16 @@ public class MyAccountActivity extends Activity{
         txtStartTime.setHint("HH:mm");
         txtEndTime = (EditText) findViewById(R.id.txt_myacc_endTime);
         txtEndTime.setHint("HH:mm");
+        btnSettings = (Button) findViewById(R.id.btn_myacc_settings);
+
+        btnSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(v.getContext(), UserPrefActivity.class); //MapsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // get the logged email from the shared pref
         mPreferences = getSharedPreferences(
@@ -104,7 +116,7 @@ public class MyAccountActivity extends Activity{
                 // TODO Auto-generated method stub
                 TimePickerDialog myTimePicker;
                 myTimePicker = new TimePickerDialog(MyAccountActivity.this, startTime
-                        , myCalendar.get(Calendar.HOUR_OF_DAY),  myCalendar.get(Calendar.MINUTE), true);
+                        , myCalendar.get(Calendar.HOUR_OF_DAY), myCalendar.get(Calendar.MINUTE), true);
                 myTimePicker.setTitle("Select a Start Time");
                 myTimePicker.show();
             }
@@ -116,12 +128,11 @@ public class MyAccountActivity extends Activity{
                 // TODO Auto-generated method stub
                 TimePickerDialog myTimePicker;
                 myTimePicker = new TimePickerDialog(MyAccountActivity.this, endTime
-                        , myCalendar.get(Calendar.HOUR_OF_DAY),  myCalendar.get(Calendar.MINUTE), true);
+                        , myCalendar.get(Calendar.HOUR_OF_DAY), myCalendar.get(Calendar.MINUTE), true);
                 myTimePicker.setTitle("Select an End Time");
                 myTimePicker.show();
             }
         });
-
 
 
         //when logout button is clicked, user is logged out
@@ -154,7 +165,7 @@ public class MyAccountActivity extends Activity{
                     Timestamp timestampEnd = new java.sql.Timestamp(parsedDateEnd.getTime());
                     //Toast.makeText(v.getContext(), timestampStart + " - " + timestampEnd, Toast.LENGTH_LONG).show();
 
-                    List<Sample> testSample = WebFeed.getPoints( (timestampStart.getTime() / 1000),
+                    List<Sample> testSample = WebFeed.getPoints((timestampStart.getTime() / 1000),
                             (timestampEnd.getTime() / 1000), mPreferences.getString("uid", ""));
                     if (!testSample.isEmpty()) {
                         Intent intent;
@@ -169,48 +180,51 @@ public class MyAccountActivity extends Activity{
             }
         });
 
-        btnShowList = (Button) findViewById(R.id.btn_myacc_showlist);
-        btnShowList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        /**
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy HH:mm", Locale.US);
-                Date parsedDateStart = null;
-                Date parsedDateEnd = null;
-                Boolean goodInput = true;
-                String sTime = txtStartTime.getText().toString();
-                String eTime = txtEndTime.getText().toString();
-                if (sTime.matches(""))
-                    sTime = "00:00";
-                if (eTime.matches(""))
-                    eTime = "23:59";
 
-                try {
-                    parsedDateStart = dateFormat.parse(txtStartDate.getText().toString() + " " + sTime);
-                    parsedDateEnd = dateFormat.parse(txtEndDate.getText().toString() + " " + eTime);
-                } catch (ParseException e) {
-                    goodInput = false;
-                    Toast.makeText(v.getContext(), "Bad Input", Toast.LENGTH_LONG).show();
-                }
-                if (goodInput) {
-                    Timestamp timestampStart = new java.sql.Timestamp(parsedDateStart.getTime());
-                    Timestamp timestampEnd = new java.sql.Timestamp(parsedDateEnd.getTime());
-                    //Toast.makeText(v.getContext(), timestampStart + " - " + timestampEnd, Toast.LENGTH_LONG).show();
+         btnShowList = (Button) findViewById(R.id.btn_myacc_showlist);
+         btnShowList.setOnClickListener(new View.OnClickListener() {
+        @Override public void onClick(View v) {
 
-                    List<Sample> testSample = WebFeed.getPoints( (timestampStart.getTime() / 1000),
-                            (timestampEnd.getTime() / 1000), mPreferences.getString("uid", ""));
-                    if (!testSample.isEmpty()) {
-                        Intent intent;
-                        intent = new Intent(v.getContext(), MapsListActivity.class); //MapsActivity.class);
-                        intent.putExtra("startDate", (timestampStart.getTime() / 1000));
-                        intent.putExtra("endDate", (timestampEnd.getTime() / 1000));
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(v.getContext(), "The dates provide doesn't have points", Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy HH:mm", Locale.US);
+        Date parsedDateStart = null;
+        Date parsedDateEnd = null;
+        Boolean goodInput = true;
+        String sTime = txtStartTime.getText().toString();
+        String eTime = txtEndTime.getText().toString();
+        if (sTime.matches(""))
+        sTime = "00:00";
+        if (eTime.matches(""))
+        eTime = "23:59";
+
+        try {
+        parsedDateStart = dateFormat.parse(txtStartDate.getText().toString() + " " + sTime);
+        parsedDateEnd = dateFormat.parse(txtEndDate.getText().toString() + " " + eTime);
+        } catch (ParseException e) {
+        goodInput = false;
+        Toast.makeText(v.getContext(), "Bad Input", Toast.LENGTH_LONG).show();
+        }
+        if (goodInput) {
+        Timestamp timestampStart = new java.sql.Timestamp(parsedDateStart.getTime());
+        Timestamp timestampEnd = new java.sql.Timestamp(parsedDateEnd.getTime());
+        //Toast.makeText(v.getContext(), timestampStart + " - " + timestampEnd, Toast.LENGTH_LONG).show();
+
+        List<Sample> testSample = WebFeed.getPoints( (timestampStart.getTime() / 1000),
+        (timestampEnd.getTime() / 1000), mPreferences.getString("uid", ""));
+        if (!testSample.isEmpty()) {
+        Intent intent;
+        intent = new Intent(v.getContext(), MapsListActivity.class); //MapsActivity.class);
+        intent.putExtra("startDate", (timestampStart.getTime() / 1000));
+        intent.putExtra("endDate", (timestampEnd.getTime() / 1000));
+        startActivity(intent);
+        } else {
+        Toast.makeText(v.getContext(), "The dates provide doesn't have points", Toast.LENGTH_LONG).show();
+        }
+        }
+        }
         });
+         */
     }
 
     //logout method
@@ -233,7 +247,7 @@ public class MyAccountActivity extends Activity{
         finish();
     }
 
-// DATEPICKER POPUP RESOURCE:
+    // DATEPICKER POPUP RESOURCE:
 // http://stackoverflow.com/questions/14933330/datepicker-how-to-popup-datepicker-when-click-on-edittext
 //================================== DATEPICKER POPUP START ======================================
     DatePickerDialog.OnDateSetListener dateStart = new DatePickerDialog.OnDateSetListener() {
@@ -263,22 +277,20 @@ public class MyAccountActivity extends Activity{
         }
 
 
-
-
     };
 //================================== DATEPICKER POPUP END ======================================
 
-    TimePickerDialog.OnTimeSetListener startTime =  new TimePickerDialog.OnTimeSetListener() {
+    TimePickerDialog.OnTimeSetListener startTime = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-            txtStartTime.setText( selectedHour + ":" + selectedMinute);
+            txtStartTime.setText(selectedHour + ":" + selectedMinute);
         }
     };
 
-    TimePickerDialog.OnTimeSetListener endTime =  new TimePickerDialog.OnTimeSetListener() {
+    TimePickerDialog.OnTimeSetListener endTime = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-            txtEndTime.setText( selectedHour + ":" + selectedMinute);
+            txtEndTime.setText(selectedHour + ":" + selectedMinute);
         }
     };
 }

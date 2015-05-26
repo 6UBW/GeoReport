@@ -11,10 +11,17 @@
 package ubw6.com.georeport;
 
 
+import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.GoogleMap;
 //import com.google.android.gms.location.R;
@@ -48,12 +55,31 @@ public class MapsActivity extends FragmentActivity {
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private static CameraPosition cp;
     private boolean isBackPressed = false;
+    private TextView lblList;
+    private ToggleButton btnToggleMapList;
+    private ViewGroup.LayoutParams layoutParamsMap, layoutParamsList;
+    private RelativeLayout relmap, rellist;
 //    private static final int POLL_INTERVAL = 60000; //60 seconds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        lblList = (TextView) findViewById(R.id.lbl_maps_list);
+        btnToggleMapList = (ToggleButton) findViewById(R.id.btn_maps_toggleMapList);
+        relmap = (RelativeLayout) findViewById(R.id.relative_maps_gmap);
+        rellist = (RelativeLayout) findViewById(R.id.relative_maps_list);
+        layoutParamsMap = relmap.getLayoutParams();
+        layoutParamsList = rellist.getLayoutParams();
+
+        toggleRelativeMapList();
+        btnToggleMapList.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                toggleRelativeMapList();
+            }
+        });
 
         // to allow reading from URL
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -95,11 +121,11 @@ public class MapsActivity extends FragmentActivity {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_maps_gmap))
                     .getMap();
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
-               setUpMap();
+                setUpMap();
             }
         }
     }
@@ -124,22 +150,31 @@ public class MapsActivity extends FragmentActivity {
         PolylineOptions polylineOptions = new PolylineOptions();
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
+        StringBuilder strbuilder = new StringBuilder();
+        int i = 1;
+
         //Sample pos = listPos.get(0);
-        for (Sample pos: listPos) {
+        for (Sample pos : listPos) {
             //Toast.makeText(this, "lon: " + pos.getMyLon() + ", lat: " + pos.getMyLat() , Toast.LENGTH_LONG).show();
             mMap.addMarker(new MarkerOptions().position(new LatLng(pos.getMyLat(), pos.getMyLon())).title("Marker"));
             polylineOptions.add(new LatLng(pos.getMyLat(), pos.getMyLon()));
             builder.include(new LatLng(pos.getMyLat(), pos.getMyLon()));
+
+            strbuilder.append("  Point " + i +
+                    "\n    Longitude: " + pos.getMyLon() +
+                    "\n    Latitude: " + pos.getMyLat() + "\n\n");
+            i++;
         }
         mMap.addPolyline(polylineOptions);
         LatLngBounds bounds = builder.build();
+        lblList.setText(strbuilder);
 
         if (cp == null) {
             int padding = 0; // offset from edges of the map in pixels
             CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 200, 200, padding);
             // check if its far out zoom on the first point
             mMap.moveCamera(cu);
-            Float zoom = (mMap.getCameraPosition().zoom+2);
+            Float zoom = (mMap.getCameraPosition().zoom + 2);
             mMap.animateCamera(CameraUpdateFactory.zoomTo(zoom), 2000, null);
             //Toast.makeText(this.getApplicationContext(), "" + zoom , Toast.LENGTH_LONG).show();
 
@@ -149,6 +184,18 @@ public class MapsActivity extends FragmentActivity {
             mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cp));
             //Toast.makeText(this.getApplicationContext(), "" + mMap.getCameraPosition().zoom , Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void toggleRelativeMapList() {
+        if (btnToggleMapList.isChecked()) {
+            layoutParamsMap.width = 0;
+            layoutParamsList.width = -1;
+        } else {
+            layoutParamsList.width = 0;
+            layoutParamsMap.width = -1;
+        }
+        rellist.setLayoutParams(layoutParamsList);
+        relmap.setLayoutParams(layoutParamsMap);
     }
 
     /**

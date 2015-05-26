@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ubw6.com.georeport" >
+    package="ubw6.com.georeport">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,10 +17,10 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/main_app_name" >
+            android:label="@string/main_app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,26 +30,21 @@
         <activity
             android:name=".AppLoginActivity"
             android:label="@string/login_app_name"
-            android:windowSoftInputMode="adjustPan|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
         <activity
             android:name=".MyAccountActivity"
             android:label="@string/myacc_app_name"
-            android:windowSoftInputMode="adjustPan|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
         <activity
             android:name=".RegisterActivity"
             android:label="@string/register_app_name"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
         <activity
             android:name=".RegisterTermActivity"
-            android:label="@string/registerterm_app_name" >
-        </activity>
+            android:label="@string/registerterm_app_name"></activity>
         <activity
             android:name=".ForgotPasswordActivity"
-            android:label="@string/forgotpass_app_name" >
-        </activity>
+            android:label="@string/forgotpass_app_name"></activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -60,13 +55,11 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" >
-        </activity>
+            android:label="@string/title_activity_maps"></activity>
 
         <receiver
             android:name=".LocationBroadcastReceiver"
-            android:process=":remote" >
-        </receiver>
+            android:process=":remote"></receiver>
 
         <service
             android:name=".LocationService"
@@ -74,11 +67,14 @@
 
         <activity
             android:name=".ServiceTestActivity"
-            android:label="@string/title_activity_service_test" >
-        </activity>
+            android:label="@string/title_activity_service_test"></activity>
         <activity
             android:name=".MapsListActivity"
-            android:label="@string/title_activity_maps_list_activitty" >
+            android:label="@string/title_activity_maps_list_activitty"></activity>
+        <activity
+            android:name=".UserPrefActivity"
+            android:label="@string/title_activity_user_pref">
+
         </activity>
     </application>
 

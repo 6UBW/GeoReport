@@ -25,10 +25,10 @@ import android.widget.Toast;
 
 /**
  * Created by kjudoy on 4/10/2015.
+ *
  * @author kjudoy
- *
- * Creates Login Activity
- *
+ *         <p/>
+ *         Creates Login Activity
  */
 public class AppLoginActivity extends Activity {
 
@@ -54,6 +54,9 @@ public class AppLoginActivity extends Activity {
         txtPass = (EditText) findViewById(R.id.txt_login_pass);
         txtPass.setHint("Password");
         txtPass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+        txtEmail.setText("kjudoy@uw.edu");
+        txtPass.setText("123456");
 
         //when register button is pressed takes user to register screen
         btnRegister.setOnClickListener(new View.OnClickListener() {

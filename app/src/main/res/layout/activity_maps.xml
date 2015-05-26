@@ -8,27 +8,92 @@
   ~ Stump, James stumpj
   -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:paddingTop="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@drawable/gradient_titan">
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ToggleButton
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/map"
-        tools:context="ubw6.com.georeport.MapsActivity"
-        tools:layout="@layout/dummy_mapviewfragment"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_maps_toggleMapList"
+        android:textOff="Show List"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:checked="false"
+        android:textOn="Show Maps" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignLeft="@+id/fragment_maps_gmap"
+        android:layout_alignStart="@+id/fragment_maps_gmap"
+        android:layout_above="@+id/btn_maps_toggleMapList"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/relative_maps_gmap">
+
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/fragment_maps_gmap"
+                tools:context="ubw6.com.georeport.MapsActivity"
+                tools:layout="@layout/dummy_mapviewfragment"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/relative_maps_list">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/scrollView3"
+                android:fillViewport="true">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/lbl_maps_list"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#fff0f0f0" />
+                </RelativeLayout>
+            </ScrollView>
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>
 

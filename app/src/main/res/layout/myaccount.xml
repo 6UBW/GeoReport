@@ -21,7 +21,7 @@
         android:id="@+id/scrollView"
         android:fillViewport="true"
         android:layout_above="@+id/btn_myacc_logout"
-        android:layout_below="@+id/lbl_myacc_title"
+        android:layout_below="@+id/lbl_pref_title"
         android:layout_marginTop="20dp">
 
         <RelativeLayout
@@ -46,120 +46,178 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:id="@+id/layout_myacc_startDate"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_below="@+id/lbl_myacc_email"
                 android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:layout_below="@+id/lbl_myacc_email">
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/myacc_layout_h"
+                android:baselineAligned="false">
 
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/label_startdate"
-                    android:id="@+id/lbl_myacc_startdate"
-                    android:textSize="18sp"
-                    android:layout_marginTop="0dp"
-                    android:layout_gravity="center"
-                    android:gravity="center_vertical"
-                    android:textStyle="bold"
-                    android:textColor="#ffE7A831"
-                    android:layout_weight="0" />
-
-                <EditText
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:ems="10"
-                    android:id="@+id/txt_myacc_startDate"
-                    android:background="@android:drawable/editbox_background_normal"
-                    android:layout_marginTop="0dp"
-                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="0.4"
-                    android:inputType="none" />
+                    android:layout_weight="0.5"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/myacc_layout_v1">
 
-                <EditText
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_startdate"
+                        android:id="@+id/lbl_myacc_startdate"
+                        android:textSize="18sp"
+                        android:layout_marginTop="0dp"
+                        android:layout_gravity="center"
+                        android:gravity="center_vertical"
+                        android:textStyle="bold"
+                        android:textColor="#ffE7A831"
+                        android:layout_weight="0" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:id="@+id/txt_myacc_startDate"
+                        android:background="@android:drawable/editbox_background_normal"
+                        android:layout_marginTop="0dp"
+                        android:gravity="center_vertical"
+                        android:layout_weight="0"
+                        android:inputType="none"
+                        android:focusableInTouchMode="false" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_starttime"
+                        android:id="@+id/textView"
+                        android:textSize="18sp"
+                        android:layout_marginTop="0dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:textStyle="bold"
+                        android:textColor="#ffE7A831"
+                        android:layout_weight="0" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="time"
+                        android:ems="10"
+                        android:id="@+id/txt_myacc_startTime"
+                        android:layout_weight="0"
+                        android:background="@android:drawable/editbox_background_normal"
+                        android:focusableInTouchMode="false"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:inputType="time"
-                    android:ems="10"
-                    android:id="@+id/txt_myacc_startTime"
-                    android:layout_weight="0.25"
-                    android:background="@android:drawable/editbox_background_normal" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.5"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/myacc_layout_v2">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_enddate"
+                        android:id="@+id/lbl_myacc_endDate"
+                        android:textSize="18sp"
+                        android:gravity="center_vertical"
+                        android:textStyle="bold"
+                        android:textColor="#ffE7A831"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="0" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:id="@+id/txt_myacc_endDate"
+                        android:background="@android:drawable/editbox_background_normal"
+                        android:gravity="center_vertical"
+                        android:inputType="none"
+                        android:layout_weight="0"
+                        android:focusableInTouchMode="false" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_endtime"
+                        android:id="@+id/textView2"
+                        android:textSize="18sp"
+                        android:layout_marginTop="0dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:textStyle="bold"
+                        android:textColor="#ffE7A831"
+                        android:layout_weight="0" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="time"
+                        android:ems="10"
+                        android:id="@+id/txt_myacc_endTime"
+                        android:layout_weight="0"
+                        android:background="@android:drawable/editbox_background_normal"
+                        android:focusableInTouchMode="false" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/layout_myacc_endDate"
-                android:layout_below="@+id/layout_myacc_startDate"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center">
+                android:layout_below="@+id/myacc_layout_h"
+                android:layout_alignRight="@+id/myacc_layout_h"
+                android:layout_alignEnd="@+id/myacc_layout_h"
+                android:layout_alignLeft="@+id/myacc_layout_h"
+                android:layout_alignStart="@+id/myacc_layout_h"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="20dp">
 
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/label_enddate"
-                    android:id="@+id/lbl_myacc_endDate"
-                    android:textSize="18sp"
-                    android:gravity="center_vertical"
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="fill_parent"
+                    android:text="@string/label_findTrajectory"
+                    android:id="@+id/btn_myacc_trajetory"
+                    android:textColor="#ffffffff"
                     android:textStyle="bold"
-                    android:textColor="#ffE7A831"
-                    android:layout_gravity="center"
-                    android:layout_weight="0" />
+                    android:textSize="14sp"
+                    android:background="@drawable/button_2"
+                    android:layout_margin="0dp" />
 
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:ems="10"
-                    android:id="@+id/txt_myacc_endDate"
-                    android:background="@android:drawable/editbox_background_normal"
-                    android:gravity="center_vertical"
-                    android:inputType="none"
-                    android:layout_weight="0.40" />
-
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:inputType="time"
-                    android:ems="10"
-                    android:id="@+id/txt_myacc_endTime"
-                    android:layout_weight="0.25"
-                    android:background="@android:drawable/editbox_background_normal" />
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="fill_parent"
+                    android:text="@string/label_updatewebservice"
+                    android:id="@+id/btn_myacc_manualUpdate"
+                    android:textColor="#ffffffff"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:background="@drawable/button_2"
+                    android:layout_margin="0dp" />
 
             </LinearLayout>
 
             <Button
-                android:layout_width="150dp"
-                android:layout_height="60dp"
-                android:text="@string/label_findTrajectory"
-                android:id="@+id/btn_myacc_trajetory"
-                android:layout_below="@+id/layout_myacc_endDate"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/label_settings"
+                android:id="@+id/btn_myacc_settings"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
-                android:textColor="#ffffffff"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:background="@drawable/button_2" />
-
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="60dp"
-                android:text="@string/label_showlist"
-                android:id="@+id/btn_myacc_showlist"
-                android:textColor="#ffffffff"
-                android:textStyle="bold"
-                android:textSize="18sp"
                 android:background="@drawable/button_2"
-                android:layout_below="@+id/btn_myacc_trajetory"
-                android:layout_alignLeft="@+id/btn_myacc_trajetory"
-                android:layout_alignStart="@+id/btn_myacc_trajetory"
-                android:layout_marginTop="10dp" />
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="#ffffffff" />
 
         </RelativeLayout>
     </ScrollView>
@@ -186,7 +244,7 @@
         android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/label_myacc"
-        android:id="@+id/lbl_myacc_title"
+        android:id="@+id/lbl_pref_title"
         android:textSize="30sp"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
