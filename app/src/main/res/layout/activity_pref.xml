@@ -33,17 +33,18 @@
         android:textStyle="bold"
         android:textColor="#ffffffff"
         android:textSize="18dp"
-        android:layout_above="@+id/btn_pref_save"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
 
     <RadioGroup
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lbl_pref_title"
         android:layout_centerHorizontal="true"
-        android:id="@+id/radiogrp_pref_settings">
+        android:id="@+id/radiogrp_pref_settings"
+        android:layout_marginTop="20dp">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -71,11 +72,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:background="#ffffad58"
             android:id="@+id/linear_pref_user"
             android:orientation="vertical"
             android:gravity="center_horizontal"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp">
 
             <EditText
                 android:layout_width="match_parent"
@@ -93,23 +96,24 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp" />
 
+            <Button
+                android:layout_width="75dp"
+                android:layout_height="40dp"
+                android:text="Save"
+                android:id="@+id/btn_pref_save"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"
+                android:textColor="#ffffffff"
+                android:background="@drawable/button_2"
+                android:textSize="14dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_weight=".50"
+                android:layout_marginTop="10dp" />
+
         </LinearLayout>
 
     </RadioGroup>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:id="@+id/btn_pref_save"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold"
-        android:textColor="#ffffffff"
-        android:background="@drawable/button_2"
-        android:textSize="18sp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" />
 
 </RelativeLayout>

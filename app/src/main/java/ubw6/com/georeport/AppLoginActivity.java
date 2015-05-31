@@ -111,6 +111,7 @@ public class AppLoginActivity extends Activity {
                         editor.putString("uid", res.getMessage());
                         //editor.putString("secQ", );
                         //editor.putString("secA", );
+                        editor.putBoolean("isTracking", true);
                         editor.commit();
 
                         // Start Service when login is successful

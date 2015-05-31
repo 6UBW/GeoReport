@@ -74,7 +74,7 @@ public class MyAccountActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent;
-                intent = new Intent(v.getContext(), UserPrefActivity.class); //MapsActivity.class);
+                intent = new Intent(v.getContext(), PrefActivity.class); //MapsActivity.class);
                 startActivity(intent);
             }
         });
@@ -233,6 +233,7 @@ public class MyAccountActivity extends Activity {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("email", "");
         editor.putString("uid", "");
+        editor.putBoolean("isTracking", false);
         editor.commit();
 
         // Stop Service at logout

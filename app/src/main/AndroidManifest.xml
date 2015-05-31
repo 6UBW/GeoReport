@@ -72,7 +72,7 @@
             android:name=".MapsListActivity"
             android:label="@string/title_activity_maps_list_activitty"></activity>
         <activity
-            android:name=".UserPrefActivity"
+            android:name=".PrefActivity"
             android:label="@string/title_activity_user_pref">
 
         </activity>

@@ -188,11 +188,13 @@ public class MapsActivity extends FragmentActivity {
 
     private void toggleRelativeMapList() {
         if (btnToggleMapList.isChecked()) {
-            layoutParamsMap.width = 0;
-            layoutParamsList.width = -1;
+            relmap.setVisibility(View.INVISIBLE);
+            rellist.setVisibility(View.VISIBLE);
+            //mMap = null;
         } else {
-            layoutParamsList.width = 0;
-            layoutParamsMap.width = -1;
+            relmap.setVisibility(View.VISIBLE);
+            rellist.setVisibility(View.INVISIBLE);
+            //setUpMapIfNeeded();
         }
         rellist.setLayoutParams(layoutParamsList);
         relmap.setLayoutParams(layoutParamsMap);
