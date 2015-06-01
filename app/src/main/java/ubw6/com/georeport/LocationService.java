@@ -44,9 +44,9 @@ public class LocationService extends IntentService {
 
     private static String myUID;
 
-    private static final int UPLOAD_MIN = 10;
+    public static int UPLOAD_MIN = 60;
     private static final String TAG = "LocationService";
-    private static final int POLL_INTERVAL = 60000; //60 seconds
+    private static int POLL_INTERVAL = 60000; //60 seconds
 //    private static final int POLL_INTERVAL = 5000; // 5 seconds
 
     //constructor
@@ -143,6 +143,27 @@ public class LocationService extends IntentService {
 
     }
 
+    public static void setSampleUploadInt(int txtST, int txtUT, int spST, int spUT) {
+        int sampleSEC = 0;
+        int uploadMIN = 0;
+        if (spST == 0) { // Sec
+            sampleSEC = 1000 * txtST;
+        } else if (spST == 1) { // Min
+            sampleSEC = 1000 * txtST * 60;
+        } else { // Hour
+            sampleSEC = 1000 * txtST * 60 * 60;
+        }
+
+        if (spUT == 0) { // Hour
+            uploadMIN = txtST * 60;
+        } else { // Day
+            uploadMIN = txtST * 60 * 24;
+        }
+
+        POLL_INTERVAL = sampleSEC;
+        UPLOAD_MIN = uploadMIN;
+    }
+
     /**
      * Stop service
      */
@@ -204,4 +225,6 @@ public class LocationService extends IntentService {
         }
         Log.i("LOC", "Uploaded points. DB Size = " + db.getSize());
     }
+
+
 }

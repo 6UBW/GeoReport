@@ -38,82 +38,104 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp" />
 
-    <RadioGroup
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/linear_pref_user"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
         android:layout_below="@+id/lbl_pref_title"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/radiogrp_pref_settings"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="20dp">
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Default"
-            android:id="@+id/radio_pref_default"
-            android:layout_gravity="center_horizontal"
-            android:textColor="#ffE7A831"
-            android:checked="true"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="User Mode"
-            android:id="@+id/radio_pref_user"
-            android:layout_gravity="center_horizontal"
-            android:textColor="#ffE7A831"
-            android:checked="false"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
         <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/linear_pref_user"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:padding="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp">
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:text="@string/label_sampleInt"
+                android:id="@+id/lbl_pref_sampleInt"
+                android:gravity="center"
+                android:textColor="#E7A831"
+                android:textStyle="bold"
+                android:textSize="16sp" />
 
             <EditText
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_pref_sampleintUser"
                 android:background="@android:drawable/editbox_background_normal"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="0dp"
+                android:inputType="number"
+                android:layout_weight="0.5" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/txt_pref_uploadintUser"
-                android:background="@android:drawable/editbox_background_normal"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp" />
-
-            <Button
-                android:layout_width="75dp"
-                android:layout_height="40dp"
-                android:text="Save"
-                android:id="@+id/btn_pref_save"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:textStyle="bold"
-                android:textColor="#ffffffff"
-                android:background="@drawable/button_2"
-                android:textSize="14dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight=".50"
-                android:layout_marginTop="10dp" />
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/spinner_sampleInt"
+                android:background="@android:drawable/spinner_background"
+                android:layout_weight="0.5"
+                android:spinnerMode="dropdown" />
 
         </LinearLayout>
 
-    </RadioGroup>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:text="@string/label_uploadInt"
+                android:id="@+id/lbl_pref_uploadInt"
+                android:gravity="center"
+                android:textColor="#E7A831"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_pref_uploadintUser"
+                android:background="@android:drawable/editbox_background_normal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="0dp"
+                android:inputType="number"
+                android:layout_weight="0.5" />
+
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/spinner_uploadInt"
+                android:background="@android:drawable/spinner_background"
+                android:layout_weight="0.5"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="75dp"
+            android:layout_height="0dp"
+            android:text="@string/label_save"
+            android:id="@+id/btn_pref_save"
+            android:textStyle="bold"
+            android:textColor="#ffffffff"
+            android:background="@drawable/button_2"
+            android:textSize="14sp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight=".50"
+            android:layout_marginTop="10dp" />
+
+    </LinearLayout>
 
 </RelativeLayout>

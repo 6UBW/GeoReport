@@ -234,7 +234,14 @@ public class MyAccountActivity extends Activity {
         editor.putString("email", "");
         editor.putString("uid", "");
         editor.putBoolean("isTracking", false);
+
+        // Set all Preferences to default
+        editor.putInt("sampleInt", 60);
+        editor.putInt("uploadInt", 1);
+        editor.putInt("sampleIntDrop", 0);
+        editor.putInt("uploadIntDrop", 0);
         editor.commit();
+
 
         // Stop Service at logout
         stopService(new Intent(getBaseContext(), LocationService.class));
