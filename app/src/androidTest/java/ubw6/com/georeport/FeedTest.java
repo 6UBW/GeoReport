@@ -21,6 +21,9 @@ import java.util.List;
  */
 public class FeedTest extends TestCase {
 
+    //UID used for testing purposes
+    private static final String UID = "ead846cdc73c1a305a61cfb963ed1684d188e8ba";
+
     public void setUp() throws Exception {
         super.setUp();
 
@@ -52,9 +55,41 @@ public class FeedTest extends TestCase {
         assertTrue("Terms pulled from feed", WebFeed.getTerms().isSuccess());
     }
 
+    // Ensures the length of terms is expected (greater than 50)
+    public void testTermsLength() {
+        FeedResult res = WebFeed.getTerms();
+        assertTrue(res.getMessage().length() > 50);
+    }
+
+    //attempts to upload the same point twice with the same ID
+    public void testSamePoint() {
+        Sample s = new Sample(50, 50, 50, 50, 1234567, UID);
+        WebFeed.logPoint(s);
+        FeedResult res = WebFeed.logPoint(s);
+        assertFalse(res.isSuccess());
+    }
+
+    //attempts to log a valid point
+    public void testValidPoint() {
+        Sample s = new Sample(50, 50, 50, 50, System.currentTimeMillis() / 1000, UID);
+        FeedResult res = WebFeed.logPoint(s);
+        assertTrue(res.isSuccess());
+    }
+
+    //attempts to get a range of points (expected to get 4 points)
     public void testGetPoints() throws Exception {
         List<Sample> res = WebFeed.getPoints(new Timestamp(1423046056), new Timestamp(1423046175), "ead846cdc73c1a305a61cfb963ed1684d188e8ba");
         assertEquals(4, res.size());
 
+    }
+
+    //attempts to reset an invalid email password
+    public void testResetInvalid() {
+        assertFalse(WebFeed.resetPassword("invalidpass@nothing.nope").isSuccess());
+    }
+
+    //attempts to reset a valid email password
+    public void testResetValid() {
+        assertTrue(WebFeed.resetPassword("usaname@gmail.com").isSuccess());
     }
 }
