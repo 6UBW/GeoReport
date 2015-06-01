@@ -44,7 +44,7 @@ public class LocationService extends IntentService {
 
     private static String myUID;
 
-    private static final int UPLOAD_MIN = 10;
+    private static final int UPLOAD_MIN = 1;
     private static final String TAG = "LocationService";
     private static final int POLL_INTERVAL = 60000; //60 seconds
 //    private static final int POLL_INTERVAL = 5000; // 5 seconds
@@ -118,7 +118,7 @@ public class LocationService extends IntentService {
             takeSample(myLocation);
         } else {
             // else, toast error message
-            Toast.makeText(this, "Error getting location",//"Latitude: " + latLng. + ", Longitude: " + longitude,
+            Toast.makeText(this, "Starting Service",//"Error getting location",//"Latitude: " + latLng. + ", Longitude: " + longitude,
                     Toast.LENGTH_LONG).show();
         }
     }

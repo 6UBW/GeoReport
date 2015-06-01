@@ -116,4 +116,53 @@
 
     </RadioGroup>
 
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sample_seekBar"
+        android:layout_below="@+id/radiogrp_pref_settings"
+        android:layout_alignRight="@+id/btn_pref_trackingToggle"
+        android:layout_alignEnd="@+id/btn_pref_trackingToggle"
+        android:layout_alignLeft="@+id/btn_pref_trackingToggle"
+        android:layout_alignStart="@+id/btn_pref_trackingToggle"
+        android:progress="5"
+        android:background="@android:color/transparent"
+        android:focusableInTouchMode="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Sample Interval(min): 1/60"
+        android:textStyle="bold"
+        android:textColor="#ffE7A831"
+        android:id="@+id/sample_interval"
+        android:layout_below="@+id/sample_seekBar"
+        android:layout_centerHorizontal="true" />
+
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/upload_seekBar"
+        android:progress="5"
+        android:background="@android:color/transparent"
+        android:focusableInTouchMode="false"
+        android:layout_below="@+id/sample_interval"
+        android:layout_alignLeft="@+id/sample_seekBar"
+        android:layout_alignStart="@+id/sample_seekBar"
+        android:layout_alignRight="@+id/sample_seekBar"
+        android:layout_alignEnd="@+id/sample_seekBar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Upload Interval(hour): 1/24"
+        android:textStyle="bold"
+        android:textColor="#ffE7A831"
+        android:id="@+id/upload_interval"
+        android:layout_below="@+id/upload_seekBar"
+        android:layout_alignLeft="@+id/sample_interval"
+        android:layout_alignStart="@+id/sample_interval" />
+
 </RelativeLayout>
