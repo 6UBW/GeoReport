@@ -19,7 +19,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-
+/**
+ * Test Activity to try out background services and
+ * see if it does obtain location data. Press start to
+ * begin service and then stop to end it. While active,
+ * background service will obtain location data based
+ * on the alarm settings.
+ *
+ * @author mirafcry
+ */
 public class ServiceTestActivity extends ActionBarActivity {
 
     @Override

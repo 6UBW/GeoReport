@@ -25,10 +25,10 @@ import android.widget.Toast;
 
 /**
  * Created by kjudoy on 4/10/2015.
+ *
  * @author kjudoy
- *
- * Creates Login Activity
- *
+ *         <p/>
+ *         Creates Login Activity
  */
 public class AppLoginActivity extends Activity {
 
@@ -55,13 +55,16 @@ public class AppLoginActivity extends Activity {
         txtPass.setHint("Password");
         txtPass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
+        txtEmail.setText("kjudoy@uw.edu");
+        txtPass.setText("123456");
+
         //when register button is pressed takes user to register screen
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RegisterActivity.class);
+                Intent intent = new Intent(v.getContext(), RegisterTermActivity.class);
                 startActivity(intent);
-                finish();
+                //finish();
             }
         });
 
@@ -108,13 +111,22 @@ public class AppLoginActivity extends Activity {
                         editor.putString("uid", res.getMessage());
                         //editor.putString("secQ", );
                         //editor.putString("secA", );
+                        editor.putBoolean("isTracking", true);
                         editor.commit();
 
-                        Toast.makeText(v.getContext(), "Success!", Toast.LENGTH_LONG).show();
+                        // Start Service when login is successful
+                        SharedPreferences mPreferences = getSharedPreferences(
+                                "georeport.account_logged", MODE_PRIVATE);
+                        startService(new Intent(getBaseContext(), LocationService.class));
+                        LocationService.setUID(mPreferences.getString("uid", ""));
+                        LocationService.setServiceAlarm(v.getContext(), true);
+
+                        //Toast.makeText(v.getContext(), "Success!", Toast.LENGTH_LONG).show();
                         Intent intent;
                         intent = new Intent(v.getContext(), MyAccountActivity.class);
                         startActivity(intent);
                         finish();
+
                     } else {
                         errorCount++;
                         builder.append(res.getMessage());

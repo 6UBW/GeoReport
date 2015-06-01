@@ -67,7 +67,7 @@
                     android:layout_row="0"
                     android:layout_column="1"
                     android:layout_gravity="center_vertical"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="#ffE7A831" />
 
@@ -197,7 +197,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="@string/label_next"
+        android:text="@string/label_submit"
         android:id="@+id/btn_register_submit"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/register_scrollView"
@@ -210,6 +210,6 @@
         android:textColor="#ffffffff"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:background="@drawable/button_2" />
+        android:background="@drawable/button_1" />
 
 </RelativeLayout>

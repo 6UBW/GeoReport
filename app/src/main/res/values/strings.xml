@@ -50,4 +50,21 @@
     <string name="label_endate">End Date:</string>
     <string name="label_terms">Terms and Condition</string>
     <string name="title_activity_service_test">ServiceTestActivity</string>
+    <string name="title_activity_maps_list_activitty">MapsListActivitty</string>
+    <string name="label_conpass">Confirm Password</string>
+    <string name="label_secQ">Secret Question</string>
+    <string name="label_secA">Secret Answer</string>
+    <string name="label_enddate">End Date:</string>
+    <string name="label_startdate">Start Date:</string>
+    <string name="label_endtime">End Time:</string>
+    <string name="label_starttime">Start Time:</string>
+    <string name="label_passsemi">Password:</string>
+    <string name="label_testEmailName">Email Dude Again</string>
+    <string name="label_findTrajectory">Find Trajectory</string>
+    <string name="label_Back">Back</string>
+    <string name="label_showlist">Show List</string>
+    <string name="label_timesemicolon">  Time:  </string>
+    <string name="label_updatewebservice">Update Web Service</string>
+    <string name="title_activity_user_pref">UserPrefActivity</string>
+    <string name="label_settings">Settings</string>
 </resources>

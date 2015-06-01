@@ -15,7 +15,10 @@ import android.content.Context;
 import android.content.Intent;
 
 /**
+ * Broadcast Receiver class for the apps location service.
+ *
  * Created by Crystal on 5/6/2015.
+ * @author mirafcry
  */
 public class LocationBroadcastReceiver extends BroadcastReceiver{
 
