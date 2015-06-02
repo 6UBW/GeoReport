@@ -119,7 +119,7 @@ public class LocationService extends IntentService {
             takeSample(myLocation);
         } else {
             // else, toast error message
-            Toast.makeText(this, "Error getting location",//"Latitude: " + latLng. + ", Longitude: " + longitude,
+            Toast.makeText(this, "Starting Service",//"Error getting location",//"Latitude: " + latLng. + ", Longitude: " + longitude,
                     Toast.LENGTH_LONG).show();
         }
     }

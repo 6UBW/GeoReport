@@ -15,6 +15,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -32,6 +35,7 @@ public class PrefActivity extends Activity {
     private Spinner spinnerSampleInt;
     private Spinner spinnerUploadInt;
     private Button btnSave;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

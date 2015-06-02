@@ -182,7 +182,7 @@ public class MyAccountActivity extends Activity {
                         intent.putExtra("endDate", (timestampEnd.getTime() / 1000));
                         startActivity(intent);
                     } else {
-                        Toast.makeText(v.getContext(), "The dates provide doesn't have points", Toast.LENGTH_LONG).show();
+                        Toast.makeText(v.getContext(), "The dates provided doesn't have points", Toast.LENGTH_LONG).show();
                     }
                 }
             }
