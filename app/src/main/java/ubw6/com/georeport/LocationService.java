@@ -16,6 +16,7 @@ import android.app.IntentService;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
 
@@ -43,8 +44,10 @@ import java.util.TimeZone;
 public class LocationService extends IntentService {
 
     private static String myUID;
+    private SharedPreferences mPreferences;
 
     public static int UPLOAD_MIN = 60;
+    public static int UPLOAD_INTERVAL = 60;
     private static final String TAG = "LocationService";
     private static int POLL_INTERVAL = 60000; //60 seconds
 //    private static final int POLL_INTERVAL = 5000; // 5 seconds
@@ -116,11 +119,35 @@ public class LocationService extends IntentService {
         if (myLocation != null) {
             // if location was successful, upload to service
             takeSample(myLocation);
+
+            // if user preferences are NOT set, check if current POLL_INTERVAL matches power status
+            mPreferences = getSharedPreferences("georeport.account_logged", MODE_PRIVATE);
+            if (!mPreferences.getBoolean("isPrefSaved", false)) {
+
+                boolean isCharging = false; // TODO Kirsten update to correct value
+                // when charging, poll interval is once per minute (60000 ms)
+                if (isCharging && POLL_INTERVAL != 60000) {
+                    POLL_INTERVAL = 60000;
+                    // alarm interval has changed, restart with new interval
+                    LocationService.setServiceAlarm(this.getBaseContext(), false);
+                    LocationService.setServiceAlarm(this.getBaseContext(), true);
+                } // when not charging, poll interval is once per 5 minutes (300000 ms)
+                  else if (!isCharging && POLL_INTERVAL != 300000) {
+                    POLL_INTERVAL = 300000;
+                    // alarm interval has changed, restart with new interval
+                    LocationService.setServiceAlarm(this.getBaseContext(), false);
+                    LocationService.setServiceAlarm(this.getBaseContext(), true);
+                } else {
+                    // no change. POLL_INTERVAL is already set the correct value.
+                }
+            }
+
         } else {
             // else, toast error message
             Toast.makeText(this, "Error getting location",//"Latitude: " + latLng. + ", Longitude: " + longitude,
                     Toast.LENGTH_LONG).show();
         }
+
     }
 
     /**
@@ -134,7 +161,7 @@ public class LocationService extends IntentService {
         PendingIntent pendingIntent = PendingIntent.getService(context, 0, i, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (isOn) {
-            alarmManager.setRepeating(AlarmManager.RTC, System.currentTimeMillis()
+            alarmManager.setRepeating(AlarmManager.RTC, System.currentTimeMillis() + POLL_INTERVAL
                     , POLL_INTERVAL, pendingIntent);
         } else {
             alarmManager.cancel(pendingIntent);
@@ -143,6 +170,7 @@ public class LocationService extends IntentService {
 
     }
 
+    //value  / period samping 1==min
     public static void setSampleUploadInt(int txtST, int txtUT, int spST, int spUT) {
 
         // set all things on min/min
@@ -168,7 +196,8 @@ public class LocationService extends IntentService {
 
         uploadMINperMIN = uploadMIN / sampleSECinMIN;
         POLL_INTERVAL = sampleSEC;
-        UPLOAD_MIN = ((int) uploadMINperMIN);
+        UPLOAD_INTERVAL = ((int) uploadMINperMIN);
+
     }
 
     /**
@@ -194,8 +223,21 @@ public class LocationService extends IntentService {
 
         db.insert(s);
         Log.i("LOC", "Point added to local. DB Size = " + db.getSize());
-        if (db.getSize() > UPLOAD_MIN) {
-            uploadSamples(db);
+
+        // only upload if network connection exists
+        if (WebFeed.webStatus()) {
+            // attempt upload if UPLOAD_MIN is satisfied OR the required interval has passed
+            mPreferences = getSharedPreferences(
+                    "georeport.account_logged", MODE_PRIVATE);
+            long currentTime = System.currentTimeMillis();
+            if ((currentTime - mPreferences.getLong("lastupload", currentTime)) >= UPLOAD_INTERVAL
+                    || db.getSize() > UPLOAD_MIN) {
+                // update the timestamp of the last upload to the current time
+                SharedPreferences.Editor editor = mPreferences.edit();
+                editor.putLong("lastupload", System.currentTimeMillis());
+                editor.commit();
+                uploadSamples(db); // handles the upload
+            }
         }
         db.close();
     }
