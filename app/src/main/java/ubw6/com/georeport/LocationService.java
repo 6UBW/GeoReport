@@ -46,9 +46,12 @@ public class LocationService extends IntentService {
     private static String myUID;
     private SharedPreferences mPreferences;
 
-    public static int UPLOAD_MIN = 60;
-    public static int UPLOAD_INTERVAL = 60;
+    /** minimum # of database entries to force upload at. */
+    public static int UPLOAD_MIN_ENTRIES = 60;
+    /** minimum upload interval expressed in milliseconds. */
+    public static int UPLOAD_INTERVAL = 60000;
     private static final String TAG = "LocationService";
+    /** minimum poll interval expressed in milliseconds. */
     private static int POLL_INTERVAL = 60000; //60 seconds
 //    private static final int POLL_INTERVAL = 5000; // 5 seconds
 
@@ -222,12 +225,12 @@ public class LocationService extends IntentService {
 
         // only upload if network connection exists
         if (WebFeed.webStatus()) {
-            // attempt upload if UPLOAD_MIN is satisfied OR the required interval has passed
+            // attempt upload if UPLOAD_MIN_ENTRIES is satisfied OR the required interval has passed
             mPreferences = getSharedPreferences(
                     "georeport.account_logged", MODE_PRIVATE);
             long currentTime = System.currentTimeMillis();
             if ((currentTime - mPreferences.getLong("lastupload", currentTime)) >= UPLOAD_INTERVAL
-                    || db.getSize() > UPLOAD_MIN) {
+                    || db.getSize() > UPLOAD_MIN_ENTRIES) {
                 // update the timestamp of the last upload to the current time
                 SharedPreferences.Editor editor = mPreferences.edit();
                 editor.putLong("lastupload", System.currentTimeMillis());
