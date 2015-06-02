@@ -43,7 +43,8 @@ public class MapsListActivity extends Activity {
         for (Sample pos : listPos) {
             //Toast.makeText(this, "lon: " + pos.getMyLon() + ", lat: " + pos.getMyLat() , Toast.LENGTH_LONG).show();
             builder.append("  Point " + i +
-                    "\n    Longitude: " + pos.getMyLon() +
+                    "\n    Time: " + pos.getMyTime() +
+                  //  "\n    Longitude: " + pos.getMyLon() +
                     "\n    Latitude: " + pos.getMyLat() + "\n\n");
             i++;
         }

@@ -27,23 +27,11 @@ public class PrefActivity extends Activity {
     private EditText txtSampleIntUser, txtUploadIntUser;
     private ToggleButton btnTrackingToggle;
 
-    private SeekBar sampleSlider;
-    private TextView sampleInterval;
-    private SeekBar uploadSlider;
-    private TextView uploadInterval;
-
-    private int sample_progress = 1;
-    private int upload_progress = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pref);
-
-        sampleSlider = (SeekBar) findViewById(R.id.sample_seekBar);
-        sampleInterval = (TextView) findViewById(R.id.sample_interval);
-        uploadSlider = (SeekBar) findViewById(R.id.upload_seekBar);
-        uploadInterval = (TextView) findViewById(R.id.upload_interval);
 
         linearLayoutUser = (LinearLayout) findViewById(R.id.linear_pref_user);
         radioUser = (RadioButton) findViewById((R.id.radio_pref_user));
@@ -72,57 +60,6 @@ public class PrefActivity extends Activity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 toggleUserRelative();
-            }
-        });
-
-
-        sampleSlider.setMax(60);
-        sampleSlider.setProgress(sample_progress);
-        sampleSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                sample_progress = progress;
-                if(sample_progress == 0) {
-                    sample_progress = 1;
-                }
-                sampleInterval.setText("Sample Interval(sec): "+ sample_progress + "/" + sampleSlider.getMax());
-               // Toast.makeText(getApplicationContext(), "changing seekbar progress", Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                //Toast.makeText(getApplicationContext(), "started tracking seekbar", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                sampleInterval.setText("Sample Interval(sec): "+ sample_progress + "/" + sampleSlider.getMax());
-               // Toast.makeText(getApplicationContext(), "stopped tracking seekbar", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        uploadSlider.setMax(24);
-        uploadSlider.setProgress(upload_progress);
-        uploadSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                upload_progress = progress;
-                if(upload_progress == 0){
-                    upload_progress = 1;
-                }
-                uploadInterval.setText("Upload Interval(hour): "+ upload_progress + "/" + uploadSlider.getMax());
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                uploadInterval.setText("Upload Interval(hour): "+ upload_progress + "/" + uploadSlider.getMax());
             }
         });
 
