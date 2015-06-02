@@ -16,6 +16,7 @@ import android.app.IntentService;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
 
@@ -43,10 +44,15 @@ import java.util.TimeZone;
 public class LocationService extends IntentService {
 
     private static String myUID;
+    private SharedPreferences mPreferences;
 
-    private static final int UPLOAD_MIN = 10;
+    /** minimum # of database entries to force upload at. */
+    public static int UPLOAD_MIN_ENTRIES = 60;
+    /** minimum upload interval expressed in milliseconds. */
+    public static int UPLOAD_INTERVAL = 60000;
     private static final String TAG = "LocationService";
-    private static final int POLL_INTERVAL = 60000; //60 seconds
+    /** minimum poll interval expressed in milliseconds. */
+    private static int POLL_INTERVAL = 60000; //60 seconds
 //    private static final int POLL_INTERVAL = 5000; // 5 seconds
 
     //constructor
@@ -116,9 +122,32 @@ public class LocationService extends IntentService {
         if (myLocation != null) {
             // if location was successful, upload to service
             takeSample(myLocation);
+
+            // if user preferences are NOT set, check if current POLL_INTERVAL matches power status
+            mPreferences = getSharedPreferences("georeport.account_logged", MODE_PRIVATE);
+            if (!mPreferences.getBoolean("isPrefSaved", false)) {
+
+                boolean isCharging = false; // TODO Kirsten update to correct value
+                // when charging, poll interval is once per minute (60000 ms)
+                if (isCharging && POLL_INTERVAL != 60000) {
+                    POLL_INTERVAL = 60000;
+                    // alarm interval has changed, restart with new interval
+                    LocationService.setServiceAlarm(this.getBaseContext(), false);
+                    LocationService.setServiceAlarm(this.getBaseContext(), true);
+                } // when not charging, poll interval is once per 5 minutes (300000 ms)
+                  else if (!isCharging && POLL_INTERVAL != 300000) {
+                    POLL_INTERVAL = 300000;
+                    // alarm interval has changed, restart with new interval
+                    LocationService.setServiceAlarm(this.getBaseContext(), false);
+                    LocationService.setServiceAlarm(this.getBaseContext(), true);
+                } else {
+                    // no change. POLL_INTERVAL is already set the correct value.
+                }
+            }
+
         } else {
             // else, toast error message
-            Toast.makeText(this, "Error getting location",//"Latitude: " + latLng. + ", Longitude: " + longitude,
+            Toast.makeText(this, "Starting Service",//"Error getting location",//"Latitude: " + latLng. + ", Longitude: " + longitude,
                     Toast.LENGTH_LONG).show();
         }
     }
@@ -134,13 +163,40 @@ public class LocationService extends IntentService {
         PendingIntent pendingIntent = PendingIntent.getService(context, 0, i, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (isOn) {
-            alarmManager.setRepeating(AlarmManager.RTC, System.currentTimeMillis()
+            alarmManager.setRepeating(AlarmManager.RTC, System.currentTimeMillis() + POLL_INTERVAL
                     , POLL_INTERVAL, pendingIntent);
         } else {
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
         }
 
+    }
+
+    public static void setSampleUploadInt(int txtST, int txtUT, int spST, int spUT) {
+        // set all things on min/min
+        int sampleSEC = 0;
+        double sampleSECinMIN = 0;
+        double uploadMINperMIN = 0;
+        int uploadMIN = 0;
+        if (spST == 0) { // Sec
+            sampleSEC = 1000 * txtST;
+        } else if (spST == 1) { // Min
+            sampleSEC = 1000 * txtST * 60;
+        } else { // Hour
+            sampleSEC = 1000 * txtST * 60 * 60;
+        }
+
+        sampleSECinMIN = ((sampleSEC / 1000) / 60);
+
+        if (spUT == 0) { // Hour
+            uploadMIN = txtST * 60;
+        } else { // Day
+            uploadMIN = txtST * 60 * 24;
+        }
+
+        uploadMINperMIN = uploadMIN / sampleSECinMIN;
+        POLL_INTERVAL = sampleSEC;
+        UPLOAD_INTERVAL = ((int) uploadMINperMIN);
     }
 
     /**
@@ -166,8 +222,21 @@ public class LocationService extends IntentService {
 
         db.insert(s);
         Log.i("LOC", "Point added to local. DB Size = " + db.getSize());
-        if (db.getSize() > UPLOAD_MIN) {
-            uploadSamples(db);
+
+        // only upload if network connection exists
+        if (WebFeed.webStatus()) {
+            // attempt upload if UPLOAD_MIN_ENTRIES is satisfied OR the required interval has passed
+            mPreferences = getSharedPreferences(
+                    "georeport.account_logged", MODE_PRIVATE);
+            long currentTime = System.currentTimeMillis();
+            if ((currentTime - mPreferences.getLong("lastupload", currentTime)) >= UPLOAD_INTERVAL
+                    || db.getSize() > UPLOAD_MIN_ENTRIES) {
+                // update the timestamp of the last upload to the current time
+                SharedPreferences.Editor editor = mPreferences.edit();
+                editor.putLong("lastupload", System.currentTimeMillis());
+                editor.commit();
+                uploadSamples(db); // handles the upload
+            }
         }
         db.close();
     }
@@ -204,4 +273,53 @@ public class LocationService extends IntentService {
         }
         Log.i("LOC", "Uploaded points. DB Size = " + db.getSize());
     }
+
+    public static void manualUploadSample(Context context) {
+        Criteria criteria = new Criteria();
+        final LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        String provider = locationManager.getBestProvider(criteria, true);
+        LocationListener locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+            }
+        };
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+        Location myLocation = locationManager.getLastKnownLocation(provider);
+        if (myLocation != null) {
+            Location l = myLocation;
+            // if location was successful, upload to service
+            final long t = System.currentTimeMillis() / 1000 + (TimeZone.getDefault().getRawOffset() / 1000)
+                    + (TimeZone.getDefault().getDSTSavings() / 1000);
+            final Sample s = new Sample(l.getLongitude(), l.getLatitude(),
+                    l.getBearing(), l.getSpeed(), t, myUID);
+            Log.i("LOC", "Manual upload sample to Web");
+            FeedResult res = WebFeed.logPoint(s);
+            String strStatus;
+            if (res.isSuccess()) {
+                Log.i("LOC", "Manual upload Successful");
+                strStatus = " Successful";
+            } else {
+                Log.i("LOC", "Manual upload Failed");
+                strStatus = " Failed";
+            }
+            Toast.makeText(context, "Manual upload" + strStatus, Toast.LENGTH_LONG).show();
+        } else {
+            // else, toast error message
+            Toast.makeText(context, "Error getting location",//"Latitude: " + latLng. + ", Longitude: " + longitude,
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
 }

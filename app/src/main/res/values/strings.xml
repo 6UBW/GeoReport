@@ -61,10 +61,16 @@
     <string name="label_passsemi">Password:</string>
     <string name="label_testEmailName">Email Dude Again</string>
     <string name="label_findTrajectory">Find Trajectory</string>
+    <string name="label_findTrajectoryp">Find\nTrajectory</string>
     <string name="label_Back">Back</string>
     <string name="label_showlist">Show List</string>
     <string name="label_timesemicolon">  Time:  </string>
     <string name="label_updatewebservice">Update Web Service</string>
+    <string name="label_updatewebservicep">Update\nWeb Service</string>
     <string name="title_activity_user_pref">UserPrefActivity</string>
     <string name="label_settings">Settings</string>
+    <string name="label_uploadInt">Upload Interval</string>
+    <string name="label_sampleInt">Sample Interval</string>
+    <string name="label_save">Save</string>
+    <string name="label_pref">Preferences</string>
 </resources>
