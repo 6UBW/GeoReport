@@ -93,9 +93,12 @@ public class PrefActivity extends Activity {
                 editor.putInt("uploadInt", txtUT);
                 editor.putInt("sampleIntDrop", spST);
                 editor.putInt("uploadIntDrop", spUT);
+                editor.putBoolean("isPrefSaved", true);
                 editor.commit();
 
                 LocationService.setSampleUploadInt(txtST, txtUT, spST, spUT);
+                LocationService.setServiceAlarm(getBaseContext(), false);
+                LocationService.setServiceAlarm(getBaseContext(), true);
                 Toast.makeText(v.getContext(), "Preference has been Saved", Toast.LENGTH_LONG).show();
             }
         });

@@ -218,7 +218,7 @@
         android:layout_alignTop="@+id/lbl_myacc_email">
 
         <Button
-            android:layout_width="100dp"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:text="@string/label_findTrajectory"
             android:id="@+id/btn_myacc_trajetory"
@@ -227,16 +227,16 @@
             android:textSize="14sp"
             android:background="@drawable/button_2"
             android:layout_alignTop="@+id/myacc_scrollView"
-            android:layout_alignRight="@+id/btn_myacc_manualUpdate"
-            android:layout_alignEnd="@+id/btn_myacc_manualUpdate"
+            android:layout_alignRight="@+id/btn_myacc_manualUpload"
+            android:layout_alignEnd="@+id/btn_myacc_manualUpload"
             android:layout_marginRight="0dp"
             android:layout_gravity="center" />
 
         <Button
-            android:layout_width="100dp"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:text="@string/label_updatewebservice"
-            android:id="@+id/btn_myacc_manualUpdate"
+            android:id="@+id/btn_myacc_manualUpload"
             android:textColor="#ffffffff"
             android:textStyle="bold"
             android:textSize="14sp"
@@ -249,9 +249,9 @@
             android:layout_gravity="center" />
 
         <Button
-            android:layout_width="100dp"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:text="@string/label_settings"
+            android:text="@string/label_pref"
             android:id="@+id/btn_myacc_settings"
             android:layout_alignBaseline="@+id/btn_myacc_logout"
             android:layout_alignBottom="@+id/btn_myacc_logout"

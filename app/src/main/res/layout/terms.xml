@@ -50,7 +50,6 @@
         android:id="@+id/btn_terms_submit"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
         android:textColor="#ffffffff"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
