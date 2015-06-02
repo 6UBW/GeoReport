@@ -144,10 +144,9 @@ public class LocationService extends IntentService {
 
         } else {
             // else, toast error message
-            Toast.makeText(this, "Error getting location",//"Latitude: " + latLng. + ", Longitude: " + longitude,
+            Toast.makeText(this, "Starting Service",//"Error getting location",//"Latitude: " + latLng. + ", Longitude: " + longitude,
                     Toast.LENGTH_LONG).show();
         }
-
     }
 
     /**
@@ -170,9 +169,7 @@ public class LocationService extends IntentService {
 
     }
 
-    //value  / period samping 1==min
     public static void setSampleUploadInt(int txtST, int txtUT, int spST, int spUT) {
-
         // set all things on min/min
         int sampleSEC = 0;
         double sampleSECinMIN = 0;
@@ -197,7 +194,6 @@ public class LocationService extends IntentService {
         uploadMINperMIN = uploadMIN / sampleSECinMIN;
         POLL_INTERVAL = sampleSEC;
         UPLOAD_INTERVAL = ((int) uploadMINperMIN);
-
     }
 
     /**
@@ -275,5 +271,52 @@ public class LocationService extends IntentService {
         Log.i("LOC", "Uploaded points. DB Size = " + db.getSize());
     }
 
+    public static void manualUploadSample(Context context) {
+        Criteria criteria = new Criteria();
+        final LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        String provider = locationManager.getBestProvider(criteria, true);
+        LocationListener locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+            }
+        };
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+        Location myLocation = locationManager.getLastKnownLocation(provider);
+        if (myLocation != null) {
+            Location l = myLocation;
+            // if location was successful, upload to service
+            final long t = System.currentTimeMillis() / 1000 + (TimeZone.getDefault().getRawOffset() / 1000)
+                    + (TimeZone.getDefault().getDSTSavings() / 1000);
+            final Sample s = new Sample(l.getLongitude(), l.getLatitude(),
+                    l.getBearing(), l.getSpeed(), t, myUID);
+            Log.i("LOC", "Manual upload sample to Web");
+            FeedResult res = WebFeed.logPoint(s);
+            String strStatus;
+            if (res.isSuccess()) {
+                Log.i("LOC", "Manual upload Successful");
+                strStatus = " Successful";
+            } else {
+                Log.i("LOC", "Manual upload Failed");
+                strStatus = " Failed";
+            }
+            Toast.makeText(context, "Manual upload" + strStatus, Toast.LENGTH_LONG).show();
+        } else {
+            // else, toast error message
+            Toast.makeText(context, "Error getting location",//"Latitude: " + latLng. + ", Longitude: " + longitude,
+                    Toast.LENGTH_LONG).show();
+        }
+    }
 
 }

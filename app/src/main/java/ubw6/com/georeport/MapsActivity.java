@@ -16,6 +16,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.FragmentActivity;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -40,7 +41,11 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 //import java.security.Timestamp;
 //import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 //import com.google.android.gms.maps.model.Polyline;
 
 /**
@@ -160,7 +165,10 @@ public class MapsActivity extends FragmentActivity {
             polylineOptions.add(new LatLng(pos.getMyLat(), pos.getMyLon()));
             builder.include(new LatLng(pos.getMyLat(), pos.getMyLon()));
 
+            String time = getDate(pos.getMyTime());//getDate(pos.getMyTime());
+
             strbuilder.append("  Point " + i +
+                    "\n    Time: " + time +
                     "\n    Longitude: " + pos.getMyLon() +
                     "\n    Latitude: " + pos.getMyLat() + "\n\n");
             i++;
@@ -186,6 +194,23 @@ public class MapsActivity extends FragmentActivity {
         }
     }
 
+
+    /**
+     * Convert timestamp to date and hour format
+     * @param time
+     * @return
+     */
+    private String getDate(long time) {
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTimeInMillis(time*1000);
+        String date = DateFormat.format("MM/dd/yyyy hh:mm:ss", cal).toString();
+        return date;
+    }
+
+
+    /**
+     * Toggle between viewing Map or List
+     */
     private void toggleRelativeMapList() {
         if (btnToggleMapList.isChecked()) {
             relmap.setVisibility(View.INVISIBLE);

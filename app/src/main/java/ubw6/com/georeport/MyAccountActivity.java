@@ -49,7 +49,7 @@ public class MyAccountActivity extends Activity {
     private SharedPreferences mPreferences;
     private Calendar myCalendar;
     private TimePicker myTimePicker;
-    private Button btnSettings;
+    private Button btnPreference, btnManualUpload;
 
     //creates my account
     @Override
@@ -68,9 +68,17 @@ public class MyAccountActivity extends Activity {
         txtStartTime.setHint("HH:mm");
         txtEndTime = (EditText) findViewById(R.id.txt_myacc_endTime);
         txtEndTime.setHint("HH:mm");
-        btnSettings = (Button) findViewById(R.id.btn_myacc_settings);
+        btnPreference = (Button) findViewById(R.id.btn_myacc_settings);
+        btnManualUpload = (Button) findViewById(R.id.btn_myacc_manualUpload);
 
-        btnSettings.setOnClickListener(new View.OnClickListener() {
+        btnManualUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LocationService.manualUploadSample(getBaseContext());
+            }
+        });
+
+        btnPreference.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent;
@@ -174,7 +182,7 @@ public class MyAccountActivity extends Activity {
                         intent.putExtra("endDate", (timestampEnd.getTime() / 1000));
                         startActivity(intent);
                     } else {
-                        Toast.makeText(v.getContext(), "The dates provide doesn't have points", Toast.LENGTH_LONG).show();
+                        Toast.makeText(v.getContext(), "The dates provided doesn't have points", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -240,7 +248,9 @@ public class MyAccountActivity extends Activity {
         editor.putInt("uploadInt", 1);
         editor.putInt("sampleIntDrop", 0);
         editor.putInt("uploadIntDrop", 0);
+        editor.putBoolean("isPrefSaved", false);
         editor.commit();
+        LocationService.setSampleUploadInt(60, 1, 0, 0);
 
 
         // Stop Service at logout
@@ -255,8 +265,6 @@ public class MyAccountActivity extends Activity {
         finish();
     }
 
-    // DATEPICKER POPUP RESOURCE:
-// http://stackoverflow.com/questions/14933330/datepicker-how-to-popup-datepicker-when-click-on-edittext
 //================================== DATEPICKER POPUP START ======================================
     DatePickerDialog.OnDateSetListener dateStart = new DatePickerDialog.OnDateSetListener() {
         @Override
