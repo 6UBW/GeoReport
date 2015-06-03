@@ -23,8 +23,8 @@
 
     <ToggleButton
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Track ON"
+        android:layout_height="50dp"
+        android:text="@string/label_trackon"
         android:id="@+id/btn_pref_trackingToggle"
         android:checked="false"
         android:textOff="Track OFF"

@@ -15,12 +15,12 @@
 
     <ToggleButton
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:id="@+id/btn_maps_toggleMapList"
         android:background="@drawable/listmaptoggle"
         android:textOff="Show List"
         android:textColor="#ffffffff"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"

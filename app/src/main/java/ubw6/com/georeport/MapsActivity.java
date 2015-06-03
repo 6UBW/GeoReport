@@ -11,7 +11,6 @@
 package ubw6.com.georeport;
 
 
-import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -42,8 +41,6 @@ import com.google.android.gms.maps.model.PolylineOptions;
 //import java.security.Timestamp;
 //import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 //import com.google.android.gms.maps.model.Polyline;
@@ -197,8 +194,8 @@ public class MapsActivity extends FragmentActivity {
 
     /**
      * Convert timestamp to date and hour format
-     * @param time
-     * @return
+     * @param time the timestamp long value
+     * @return a date in a string format
      */
     private String getDate(long time) {
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
