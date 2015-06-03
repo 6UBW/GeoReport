@@ -36,7 +36,7 @@ public class PrefActivity extends Activity {
         mPreferences = getSharedPreferences(
                 "georeport.account_logged", MODE_PRIVATE);
 
-        linearLayoutUser = (LinearLayout) findViewById(R.id.linear_pref_user);
+        //linearLayoutUser = (LinearLayout) findViewById(R.id.linear_pref_user);
         //radioUser = (RadioButton) findViewById((R.id.radio_pref_user));
         //radiogrpSettings = (RadioGroup) findViewById((R.id.radiogrp_pref_settings));
         //layoutParamsUser = linearLayoutUser.getLayoutParams();
