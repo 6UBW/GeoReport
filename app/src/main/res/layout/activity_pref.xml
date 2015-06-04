@@ -123,8 +123,8 @@
         </LinearLayout>
 
         <Button
-            android:layout_width="75dp"
-            android:layout_height="0dp"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
             android:text="@string/label_save"
             android:id="@+id/btn_pref_save"
             android:textStyle="bold"
@@ -133,7 +133,6 @@
             android:textSize="14sp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_weight=".50"
             android:layout_marginTop="10dp" />
 
     </LinearLayout>

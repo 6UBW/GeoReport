@@ -158,7 +158,7 @@ public class MapsActivity extends FragmentActivity {
         //Sample pos = listPos.get(0);
         for (Sample pos : listPos) {
             //Toast.makeText(this, "lon: " + pos.getMyLon() + ", lat: " + pos.getMyLat() , Toast.LENGTH_LONG).show();
-            mMap.addMarker(new MarkerOptions().position(new LatLng(pos.getMyLat(), pos.getMyLon())).title("Marker"));
+            mMap.addMarker(new MarkerOptions().position(new LatLng(pos.getMyLat(), pos.getMyLon())).title("Point " + i));
             polylineOptions.add(new LatLng(pos.getMyLat(), pos.getMyLon()));
             builder.include(new LatLng(pos.getMyLat(), pos.getMyLon()));
 
