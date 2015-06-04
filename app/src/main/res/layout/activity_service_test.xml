@@ -19,7 +19,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Service"
+        android:text="@string/label_startservice"
         android:id="@+id/startButton"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -28,7 +28,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Stop Service"
+        android:text="@string/label_stopservice"
         android:id="@+id/stopButton"
         android:layout_below="@+id/startButton"
         android:layout_centerHorizontal="true"

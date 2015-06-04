@@ -1,32 +1,24 @@
 package ubw6.com.georeport;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Spinner;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 
 public class PrefActivity extends Activity {
 
     SharedPreferences mPreferences;
-    private LinearLayout linearLayoutUser;
+    //private LinearLayout linearLayoutUser;
     //private RadioButton radioUser;
     //private RadioGroup radiogrpSettings;
     //private ViewGroup.LayoutParams layoutParamsUser;
@@ -44,7 +36,7 @@ public class PrefActivity extends Activity {
         mPreferences = getSharedPreferences(
                 "georeport.account_logged", MODE_PRIVATE);
 
-        linearLayoutUser = (LinearLayout) findViewById(R.id.linear_pref_user);
+        //linearLayoutUser = (LinearLayout) findViewById(R.id.linear_pref_user);
         //radioUser = (RadioButton) findViewById((R.id.radio_pref_user));
         //radiogrpSettings = (RadioGroup) findViewById((R.id.radiogrp_pref_settings));
         //layoutParamsUser = linearLayoutUser.getLayoutParams();
@@ -59,13 +51,13 @@ public class PrefActivity extends Activity {
 
         spinnerSampleInt = (Spinner) findViewById(R.id.spinner_sampleInt);
         String[] itemsSt = new String[]{"second", "min", "hour"};
-        ArrayAdapter<String> adapterSt = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, itemsSt);
+        ArrayAdapter<String> adapterSt = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, itemsSt);
         adapterSt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSampleInt.setAdapter(adapterSt);
 
         spinnerUploadInt = (Spinner) findViewById(R.id.spinner_uploadInt);
         String[] itemsUt = new String[]{"hour", "day"};
-        ArrayAdapter<String> adapterUt = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, itemsUt);
+        ArrayAdapter<String> adapterUt = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, itemsUt);
         adapterUt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerUploadInt.setAdapter(adapterUt);
 
@@ -151,11 +143,14 @@ public class PrefActivity extends Activity {
 
     private void toggleServiceStartStop() {
         SharedPreferences.Editor editor = mPreferences.edit();
+        Boolean isTracking = mPreferences.getBoolean("isTracking", true);
         if (btnTrackingToggle.isChecked()) {
-            editor.putBoolean("isTracking", true);
-            startService(new Intent(getBaseContext(), LocationService.class));
-            LocationService.setUID(mPreferences.getString("uid", ""));
-            LocationService.setServiceAlarm(this, true);
+            if (!isTracking) {
+                editor.putBoolean("isTracking", true);
+                startService(new Intent(getBaseContext(), LocationService.class));
+                LocationService.setUID(mPreferences.getString("uid", ""));
+                LocationService.setServiceAlarm(this, true);
+            }
         } else {
             editor.putBoolean("isTracking", false);
             stopService(new Intent(getBaseContext(), LocationService.class));

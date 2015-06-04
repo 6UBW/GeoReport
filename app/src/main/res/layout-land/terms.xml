@@ -62,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Terms and Condition"
+        android:text="@string/label_termscond"
         android:id="@+id/lbl_terms_title"
         android:textSize="30sp"
         android:textStyle="bold"

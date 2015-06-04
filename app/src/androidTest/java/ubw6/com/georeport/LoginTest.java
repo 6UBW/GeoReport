@@ -11,7 +11,6 @@
 package ubw6.com.georeport;
 
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.EditText;
 
 import com.robotium.solo.Solo;
 

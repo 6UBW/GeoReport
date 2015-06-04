@@ -54,7 +54,7 @@ public class WebFeed {
 
     /**
      * Check the current status of the web services
-     * @return
+     * @return the status of the web
      */
     public static boolean webStatus() {
         String res;

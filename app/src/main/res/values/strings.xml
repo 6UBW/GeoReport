@@ -73,4 +73,9 @@
     <string name="label_sampleInt">Sample Interval</string>
     <string name="label_save">Save</string>
     <string name="label_pref">Preferences</string>
+    <string name="label_startservice">Start Service</string>
+    <string name="label_stopservice">Stop Service</string>
+    <string name="label_confirmpass">Confirm Password</string>
+    <string name="label_trackon">Track ON</string>
+    <string name="label_termscond">Terms and Condition</string>
 </resources>
