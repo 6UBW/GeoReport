@@ -16,12 +16,14 @@ import android.app.IntentService;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
 
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.BatteryManager;
 import android.os.Build;
 
 import android.os.Bundle;
@@ -127,7 +129,15 @@ public class LocationService extends IntentService {
             mPreferences = getSharedPreferences("georeport.account_logged", MODE_PRIVATE);
             if (!mPreferences.getBoolean("isPrefSaved", false)) {
 
-                boolean isCharging = false; // TODO Kirsten update to correct value
+                IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+                Intent batteryStatus = this.getBaseContext().registerReceiver(null, ifilter);
+                // Are we charging / charged?
+                int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+                boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                        status == BatteryManager.BATTERY_STATUS_FULL;
+
+                Log.i(TAG, "Battery isCharging: " + isCharging);
+
                 // when charging, poll interval is once per minute (60000 ms)
                 if (isCharging && POLL_INTERVAL != 60000) {
                     POLL_INTERVAL = 60000;
