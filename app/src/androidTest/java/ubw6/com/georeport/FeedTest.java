@@ -71,14 +71,14 @@ public class FeedTest extends TestCase {
 
     //attempts to log a valid point
     public void testValidPoint() {
-        Sample s = new Sample(50, 50, 50, 50, System.currentTimeMillis() / 1000, UID);
+        Sample s = new Sample(50, 50, 50, 50, System.currentTimeMillis() / 1000 - 10000, UID);
         FeedResult res = WebFeed.logPoint(s);
         assertTrue(res.isSuccess());
     }
 
     //attempts to get a range of points (expected to get 4 points)
     public void testGetPoints() throws Exception {
-        List<Sample> res = WebFeed.getPoints(new Timestamp(1423046056), new Timestamp(1423046175), "ead846cdc73c1a305a61cfb963ed1684d188e8ba");
+        List<Sample> res = WebFeed.getPoints(new Timestamp(1423006056), new Timestamp(1423096175), "ead846cdc73c1a305a61cfb963ed1684d188e8ba");
         assertEquals(4, res.size());
 
     }

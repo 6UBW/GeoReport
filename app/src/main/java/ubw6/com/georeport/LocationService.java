@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.Date;
 import java.util.TimeZone;
 
 
@@ -38,6 +39,7 @@ import java.util.TimeZone;
  * location data.
  *
  * Created by Crystal on 5/6/2015.
+ * @version 6/4/15
  * @author mirafcry
  * @author stumpj
  */
@@ -214,12 +216,10 @@ public class LocationService extends IntentService {
      */
     private void takeSample(Location l) {
         SQLData db = new SQLData(this.getBaseContext());
-        final long t  = System.currentTimeMillis() / 1000 + (TimeZone.getDefault().getRawOffset() / 1000)
-                + (TimeZone.getDefault().getDSTSavings() / 1000);
+        final long t = curTime();
         final Sample s = new Sample(l.getLongitude(), l.getLatitude(),
                 l.getBearing(), l.getSpeed(), t, myUID);
         LatLng latLng = new LatLng(l.getLatitude(), l.getLongitude());
-
         db.insert(s);
         Log.i("LOC", "Point added to local. DB Size = " + db.getSize());
 
@@ -299,9 +299,8 @@ public class LocationService extends IntentService {
         Location myLocation = locationManager.getLastKnownLocation(provider);
         if (myLocation != null) {
             Location l = myLocation;
-            // if location was successful, upload to service
-            final long t = System.currentTimeMillis() / 1000 + (TimeZone.getDefault().getRawOffset() / 1000)
-                    + (TimeZone.getDefault().getDSTSavings() / 1000);
+            final long t = curTime();
+
             final Sample s = new Sample(l.getLongitude(), l.getLatitude(),
                     l.getBearing(), l.getSpeed(), t, myUID);
             Log.i("LOC", "Manual upload sample to Web");
@@ -320,6 +319,14 @@ public class LocationService extends IntentService {
             Toast.makeText(context, "Error getting location",//"Latitude: " + latLng. + ", Longitude: " + longitude,
                     Toast.LENGTH_LONG).show();
         }
+    }
+
+    private static long curTime() {
+        final long t = (System.currentTimeMillis() + TimeZone.getDefault().getRawOffset() + TimeZone.getDefault().getDSTSavings());
+        Log.i("LOC", "Time is: " + new Date(t));
+
+
+        return t / 1000;
     }
 
 }

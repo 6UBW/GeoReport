@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) SPRING15.
+ * TCSS450A - Mobile App Programming
+ * team6 - Unlimited Budget Works
+ * Romero, Kevingil kjudoy
+ * Miraflor, Crystal mirafcry
+ * Grace, Kirsten kngrace
+ * Stump, James stumpj
+ */
+
 package ubw6.com.georeport;
 
 import android.test.ActivityInstrumentationTestCase2;
@@ -8,7 +18,7 @@ import com.robotium.solo.Solo;
 
 /**
  * @author James Stump
- * @version 5/28/15
+ * @version 6/4/15
  */
 public class LoginTest extends ActivityInstrumentationTestCase2<MainActivity> {
     private Solo solo;
@@ -34,6 +44,9 @@ public class LoginTest extends ActivityInstrumentationTestCase2<MainActivity> {
         if (solo.searchText("Confirm Password")) {
             solo.goBack();
         }
+
+        solo.clearEditText(ETXT_EMAIL);
+        solo.clearEditText(ETXT_PASSWORD);
     }
 
     @Override
@@ -106,30 +119,5 @@ public class LoginTest extends ActivityInstrumentationTestCase2<MainActivity> {
         boolean textFound = solo.searchText("My Account");
         assertTrue("Should be logged in", textFound);
     }
-
-    /*public void testOrientation() {
-        solo.enterText(0, "TCSS305");
-        solo.enterText(1, "I am a short description");
-        solo.enterText(2, "I am a long description");
-        solo.enterText(3, "I am a prereq");
-
-        solo.setActivityOrientation(Solo.LANDSCAPE);
-        boolean textFound = solo.searchText("TCSS305");
-        assertTrue("Orientation change failed", textFound);
-
-        solo.setActivityOrientation(Solo.PORTRAIT);
-        textFound = solo.searchText("TCSS305");
-        assertTrue("Orientation change failed", textFound);
-    }*/
-
-    /*public void testCourseAddButton() {
-        solo.enterText(0, "TCSS360");
-        solo.enterText(1, "I am a short description");
-        solo.enterText(2, "I am a long description");
-        solo.enterText(3, "I am a prereq");
-        solo.clickOnButton("Add Course");
-        boolean textFound = solo.searchText("Course added successfully!");
-        assertTrue("Course add failed", textFound);
-    }*/
 
 }
