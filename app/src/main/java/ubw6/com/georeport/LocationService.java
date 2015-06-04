@@ -184,31 +184,25 @@ public class LocationService extends IntentService {
 
     }
 
-    public static void setSampleUploadInt(int txtST, int txtUT, int spST, int spUT) {
-        // set all things on min/min
-        int sampleSEC = 0;
-        double sampleSECinMIN = 0;
-        double uploadMINperMIN = 0;
-        int uploadMIN = 0;
-        if (spST == 0) { // Sec
-            sampleSEC = 1000 * txtST;
-        } else if (spST == 1) { // Min
-            sampleSEC = 1000 * txtST * 60;
+    public static void setSampleUploadInt(int sampleInt, int uploadInt, int sampleSpinner, int uploadSpinner) {
+        int sampleMSEC;
+        int uploadMSEC;
+
+        if (sampleSpinner == 0) { // Sec
+            sampleMSEC = 1000 * sampleInt;
+        } else if (sampleSpinner == 1) { // Min
+            sampleMSEC = 1000 * sampleInt * 60;
         } else { // Hour
-            sampleSEC = 1000 * txtST * 60 * 60;
+            sampleMSEC = 1000 * sampleInt * 60 * 60;
         }
+        POLL_INTERVAL = sampleMSEC; // sample interval in milliseconds
 
-        sampleSECinMIN = ((sampleSEC / 1000) / 60);
-
-        if (spUT == 0) { // Hour
-            uploadMIN = txtST * 60;
+        if (uploadSpinner == 0) { // Hour
+            uploadMSEC = 1000 * uploadInt * 60 * 60;
         } else { // Day
-            uploadMIN = txtST * 60 * 24;
+            uploadMSEC = 1000 * uploadInt * 60 * 60 * 24;
         }
-
-        uploadMINperMIN = uploadMIN / sampleSECinMIN;
-        POLL_INTERVAL = sampleSEC;
-        UPLOAD_INTERVAL = ((int) uploadMINperMIN);
+        UPLOAD_INTERVAL = uploadMSEC; // upload interval in milliseconds
     }
 
     /**
@@ -317,13 +311,13 @@ public class LocationService extends IntentService {
             FeedResult res = WebFeed.logPoint(s);
             String strStatus;
             if (res.isSuccess()) {
-                Log.i("LOC", "Manual upload Successful");
+                Log.i("LOC", "Manual Upload Successful");
                 strStatus = " Successful";
             } else {
-                Log.i("LOC", "Manual upload Failed");
+                Log.i("LOC", "Manual Upload Failed");
                 strStatus = " Failed";
             }
-            Toast.makeText(context, "Manual upload" + strStatus, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Manual Upload" + strStatus, Toast.LENGTH_LONG).show();
         } else {
             // else, toast error message
             Toast.makeText(context, "Error getting location",//"Latitude: " + latLng. + ", Longitude: " + longitude,
