@@ -12,6 +12,7 @@ package ubw6.com.georeport;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -48,8 +49,8 @@ public class MyAccountActivity extends Activity {
     private Button btnLogout, btnFindTrajectory;
     private SharedPreferences mPreferences;
     private Calendar myCalendar;
-    private TimePicker myTimePicker;
     private Button btnPreference, btnManualUpload;
+    private ProgressDialog pd;
 
     //creates my account
     @Override
@@ -169,10 +170,10 @@ public class MyAccountActivity extends Activity {
                     Toast.makeText(v.getContext(), "Bad Input", Toast.LENGTH_LONG).show();
                 }
                 if (goodInput) {
+                    pd = ProgressDialog.show(MyAccountActivity.this, "Loading Points From Web", "Please Wait");
                     Timestamp timestampStart = new java.sql.Timestamp(parsedDateStart.getTime());
                     Timestamp timestampEnd = new java.sql.Timestamp(parsedDateEnd.getTime());
                     //Toast.makeText(v.getContext(), timestampStart + " - " + timestampEnd, Toast.LENGTH_LONG).show();
-
                     List<Sample> testSample = WebFeed.getPoints((timestampStart.getTime() / 1000),
                             (timestampEnd.getTime() / 1000), mPreferences.getString("uid", ""));
                     if (!testSample.isEmpty()) {
@@ -181,12 +182,14 @@ public class MyAccountActivity extends Activity {
                         intent.putExtra("startDate", (timestampStart.getTime() / 1000));
                         intent.putExtra("endDate", (timestampEnd.getTime() / 1000));
                         startActivity(intent);
-                    } else {
+                        } else {
+                        pd.dismiss();
                         Toast.makeText(v.getContext(), "The dates provided doesn't have points", Toast.LENGTH_LONG).show();
                     }
                 }
             }
         });
+
 
         /**
 
@@ -233,6 +236,14 @@ public class MyAccountActivity extends Activity {
         }
         });
          */
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if(pd!=null && pd.isShowing())
+            pd.dismiss();
     }
 
     //logout method
