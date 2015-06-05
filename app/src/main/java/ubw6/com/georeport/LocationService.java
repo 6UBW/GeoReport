@@ -51,7 +51,7 @@ public class LocationService extends IntentService {
     private SharedPreferences mPreferences;
 
     /** minimum # of database entries to force upload at. */
-    public static int UPLOAD_MIN_ENTRIES = 60;
+    public static int UPLOAD_MIN_ENTRIES = 10;
     /** minimum upload interval expressed in milliseconds. */
     public static int UPLOAD_INTERVAL = 60000;
     private static final String TAG = "LocationService";
@@ -233,7 +233,7 @@ public class LocationService extends IntentService {
             mPreferences = getSharedPreferences(
                     "georeport.account_logged", MODE_PRIVATE);
             long currentTime = System.currentTimeMillis();
-            if ((currentTime - mPreferences.getLong("lastupload", currentTime)) >= UPLOAD_INTERVAL
+            if ((currentTime - mPreferences.getLong("lastupload", currentTime - UPLOAD_INTERVAL)) >= UPLOAD_INTERVAL
                     || db.getSize() > UPLOAD_MIN_ENTRIES) {
                 // update the timestamp of the last upload to the current time
                 SharedPreferences.Editor editor = mPreferences.edit();
