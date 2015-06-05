@@ -185,8 +185,8 @@ public class LocationService extends IntentService {
     }
 
     public static void setSampleUploadInt(int sampleInt, int uploadInt, int sampleSpinner, int uploadSpinner) {
-        int sampleMSEC;
-        int uploadMSEC;
+        int sampleMSEC = 0;
+        int uploadMSEC = 0;
 
         if (sampleSpinner == 0) { // Sec
             sampleMSEC = 1000 * sampleInt;
