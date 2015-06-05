@@ -55,9 +55,6 @@ public class AppLoginActivity extends Activity {
         txtPass.setHint("Password");
         txtPass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
-        txtEmail.setText("kjudoy@uw.edu");
-        txtPass.setText("123456");
-
         //when register button is pressed takes user to register screen
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
